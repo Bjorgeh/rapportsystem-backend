@@ -9,7 +9,7 @@ mySqlConnector:
 pip install mysql-connector-python
 
 Flask:
-pip install Flask
+pip install Flask<br>
 <br>
 Secret file:<br>
 Make secret.py, with content:<br>
