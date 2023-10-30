@@ -12,4 +12,11 @@ Flask:
 pip install Flask
 
 Secret file:
-Download secret.py
+Make secret.py, with content:
+host_IP = 'YOUR MYSQL SERVER IP'
+host_user = 'YOUR USERNAME'
+host_password = 'YOUR PASSWORD'
+host_database = 'TARGET DATABASE'
+simple_query = 'YOUR SQL QUERY' 
+
+or, if collab: download secret.py from teams chat.
