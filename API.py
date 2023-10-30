@@ -5,14 +5,14 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 #Get /test - data
-@app.route('/test', methods=['GET'])
-def hello():
+@app.route('/get', methods=['GET'])
+def testGet():
     #Returns set value
-    return jsonify({"Key": "Value"})
+    return jsonify({"Dette er en": "get request"})
 
 #POST /date - data
-@app.route('/data', methods=['POST'])
-def post_data():
+@app.route('/post', methods=['POST'])
+def testPost():
 
     #Get data from POST request
     data = request.get_json()
