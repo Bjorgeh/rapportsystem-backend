@@ -1,11 +1,15 @@
 import mysql.connector
-from secret import * 
+from SQLConnections import secret
+
+'''from secret import (
+    host_IP,host_database,host_password,host_user,host_userdatabase,simple_query
+)'''
 
 #Function connects and sends query to SQL database, adds new SQL user, database and grants privileges
-def createNewUser():
+def createNewUser(email, password, databaseName):
 
     #Adds new user to SQL, creates database and grants privileges
-    createSQLUser("testPerson@gmail.com", "superSecretPassword", "Jotul")
+    createSQLUser(email, password, databaseName)
 
     #createNewUser("testuser", "testpassword", "testDB")
 
@@ -24,10 +28,10 @@ def createSQLUser(newUsername, newUserpassword, databaseName):
     try:
         # setting up the connection to HOPRO database
         cnx = mysql.connector.connect(
-            host=host_IP,           # mySQL server IP
-            user=host_user,         # username
-            password=host_password,    # Password
-            database=host_database  # Database
+            host=secret.host_IP,           # mySQL server IP
+            user=secret.host_user,         # username
+            password=secret.host_password,    # Password
+            database=secret.host_database  # Database
         )
 
         # Creates cursor for making SQL-queries
@@ -78,10 +82,10 @@ def addUserToDatabase(newUsername, newUserpassword, databaseName):
     try:
         # setting up the connection to HOPRO database
         cnx = mysql.connector.connect(
-            host=host_IP,           # mySQL server IP
-            user=host_user,         # username
-            password=host_password,    # Password
-            database=host_userdatabase  # Database
+            host=secret.host_IP,           # mySQL server IP
+            user=secret.host_user,         # username
+            password=secret.host_password,    # Password
+            database=secret.host_userdatabase  # Database
         )
 
         # Creates cursor for making SQL-queries
