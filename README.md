@@ -10,9 +10,9 @@ pip install mysql-connector-python
 
 Flask:
 pip install Flask<br>
-<br>
+
 Secret file:<br>
-Make secret.py, with content:<br>
+Make ./SQLConnector/secret.py, with content:<br>
 host_IP = 'YOUR MYSQL SERVER IP'<br>
 host_user = 'YOUR USERNAME'<br>
 host_password = 'YOUR PASSWORD'<br>
