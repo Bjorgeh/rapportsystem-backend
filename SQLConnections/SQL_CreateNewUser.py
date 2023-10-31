@@ -1,5 +1,8 @@
 import mysql.connector
-from SQLConnections import secret
+#from SQLConnections import secret as S #if this wont work, try the next import instead
+import sys
+sys.path.append('C:/rapportsystem-backend/SQLConnections') #path dir containing secret.py
+import secret as S #if this wont work, try the above import instead
 
 '''from secret import (
     host_IP,host_database,host_password,host_user,host_userdatabase,simple_query
@@ -28,10 +31,10 @@ def createSQLUser(newUsername, newUserpassword, databaseName):
     try:
         # setting up the connection to HOPRO database
         cnx = mysql.connector.connect(
-            host=secret.host_IP,           # mySQL server IP
-            user=secret.host_user,         # username
-            password=secret.host_password,    # Password
-            database=secret.host_database  # Database
+            host=S.host_IP,           # mySQL server IP
+            user=S.host_user,         # username
+            password=S.host_password,    # Password
+            database=S.host_database  # Database
         )
 
         # Creates cursor for making SQL-queries
@@ -82,10 +85,10 @@ def addUserToDatabase(newUsername, newUserpassword, databaseName):
     try:
         # setting up the connection to HOPRO database
         cnx = mysql.connector.connect(
-            host=secret.host_IP,           # mySQL server IP
-            user=secret.host_user,         # username
-            password=secret.host_password,    # Password
-            database=secret.host_userdatabase  # Database
+            host=S.host_IP,           # mySQL server IP
+            user=S.host_user,         # username
+            password=S.host_password,    # Password
+            database=S.host_userdatabase  # Database
         )
 
         # Creates cursor for making SQL-queries
