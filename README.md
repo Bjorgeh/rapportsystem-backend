@@ -10,6 +10,7 @@ pip install mysql-connector-python
 
 Flask:
 pip install Flask<br>
+pip install flask-restx<br>
 
 Secret file:<br>
 Make ./SQLConnector/secret.py, with content:<br>
