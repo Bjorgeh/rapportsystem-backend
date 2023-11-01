@@ -1,6 +1,6 @@
 from SQLAdminConnections import SQL_AdminConnector, SQL_AdminQuerys
 
-def createNewUser(email, password, databaseName):
+def createNewLeaderUser(email, password, databaseName):
     #makes object of SQLConAdmin class
     adminConnection = SQL_AdminConnector.SQLConAdmin()
     #query object

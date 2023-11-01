@@ -9,7 +9,8 @@ from flask import jsonify
 #imports authorization file
 from authorization import apiKeyAuth as auth
 #imports fnction for creating new user and database
-from SQLAdminConnections import SQL_CreateNewUser
+from SQLAdminConnections import SQL_CreateNewLeaderUser
+from SQLAdminConnections import SQL_CreateNewOperatorUser
 #imports function for requiring API key
 from authorization import api_key as key
 #imports user models
@@ -61,10 +62,10 @@ class Test(Resource):
         '''Fetch a test data'''
         return {"Test": "OK"}
 
-#Post request for creating a new user & belonging database
-@ns.route('/createUser')
-class CreateUser(Resource):
-    @api.doc('create_user')
+#Post request for creating a new leader user & belonging database
+@ns.route('/createLeaderUser')
+class CreateLeaderUser(Resource):
+    @api.doc('create_leader_user')
 
     #requires API key to be used
     @api.doc(security='apiKey')
@@ -78,7 +79,31 @@ class CreateUser(Resource):
         #Gets data from post request
         data = request.get_json()
         #Creates new user and database from data
-        SQL_CreateNewUser.createNewUser(data["email"], data["userPass"], data["databaseName"])
+        SQL_CreateNewLeaderUser.createNewLeaderUser(data["email"], data["userPass"], data["databaseName"])
+
+        #returns error if no data is found or faulty
+        if not data:
+            return {"Error": "No data"}, 400
+        return data
+    
+#Post request for creating a new operator user
+@ns.route('/createOperatorUser')
+class CreateUser(Resource):
+    @api.doc('create_leader_user')
+
+    #requires API key to be used
+    @api.doc(security='apiKey')
+    #requires API key
+    @require_api_key
+
+    #expects user model from post request
+    @api.expect(new_user_model, validate=True)
+    def post(self):
+
+        #Gets data from post request
+        data = request.get_json()
+        #Creates new user and database from data
+        SQL_CreateNewOperatorUser.createNewOperatorUser(data["email"], data["userPass"], data["databaseName"])
 
         #returns error if no data is found or faulty
         if not data:
