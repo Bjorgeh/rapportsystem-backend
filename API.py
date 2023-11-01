@@ -1,39 +1,34 @@
+#imports flask & flask_restx for creating API
 from flask import Flask, request
 from flask_restx import Api, Resource, fields
+#imports os for getting current working directory
 import os
-
+#Imports function for requiring API key
 from functools import wraps
 from flask import jsonify
+#imports authorization file
+from authorization import apiKeyAuth as auth
+#imports fnction for creating new user and database
+from SQLAdminConnections import SQL_CreateNewUser
+#imports function for requiring API key
+from authorization import api_key as key
+#imports user models
+from Models.user_model import user_model
 
-
-from SQLConnections import SQL_CreateNewUser
-
-print(os.getcwd())
-
-'''
-This will be automatically generated for each user and stored in a file
-Only a variable for testing purposes
-'''
-API_KEY = 'TESTKEY' 
+#print(os.getcwd()) #uncomment for troubleshooting to see current working directory
 
 #Checks if API key is correct, if not returns error message
 def require_api_key(func):
     @wraps(func)
     def decorated(*args, **kwargs):
-        if request.headers.get('x-api-key') == API_KEY:
+        if request.headers.get('x-api-key') == key.getAPIKey():
             return func(*args, **kwargs)
         else:
             return {"error": "API key missing or invalid"}, 401  # 401 = Unauthorized
     return decorated
 
-#Api key authorization layout
-authorizations = {
-    'apiKey': {
-        'type': 'apiKey',
-        'in': 'header',
-        'name': 'x-api-key'
-    }
-}
+#Gets api key settings from authorization file
+ApiKey_settings = auth.API_KEY_SETTINGS
 
 #defines app and api
 app = Flask(__name__)
@@ -44,17 +39,13 @@ api = Api(app,
           title='RapportSystem API Doc',
           description='Overview of the API endpoints',
           doc='/api/',
-          authorizations=authorizations)
+          authorizations=ApiKey_settings)
 
 #defines namespace
 ns = api.namespace('endpoints', description='API Endpoints')
 
-#defines user model
-user_model = api.model('User', {
-    'email': fields.String(required=True, description='User email'),
-    'userPass': fields.String(required=True, description='User password'),
-    'databaseName': fields.String(required=True, description='Database name for the user')
-})
+#gets user models
+new_user_model = user_model(api)
 
 #Get request for testing API connection
 @ns.route('/test')
@@ -81,7 +72,7 @@ class CreateUser(Resource):
     @require_api_key
 
     #expects user model from post request
-    @api.expect(user_model, validate=True)
+    @api.expect(new_user_model, validate=True)
     def post(self):
 
         #Gets data from post request
@@ -94,6 +85,6 @@ class CreateUser(Resource):
             return {"Error": "No data"}, 400
         return data
 
-#Runs the API
+#Runs the APP/API
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
