@@ -12,6 +12,9 @@ Flask:
 pip install Flask<br>
 pip install flask-restx<br>
 
+Bcrypt:
+pip install bcrypt<br>
+
 Secret file:<br>
 Make ./SQLConnector/secret.py, with content:<br>
 host_IP = 'YOUR MYSQL SERVER IP'<br>
