@@ -14,7 +14,7 @@ from SQLAdminConnections import SQL_CreateNewOperatorUser
 #imports function for requiring API key
 from authorization import api_key as key
 #imports user models
-from Models.user_model import user_model
+from Models.user_model import *
 from PW_hashHandler import pw_manager as hash
 
 #print(os.getcwd()) #uncomment for troubleshooting to see current working directory
@@ -43,11 +43,12 @@ api = Api(app,
           doc='/api/',
           authorizations=ApiKey_settings)
 
+#gets user models
+new_leader_user_model = leader_user_model(api)
+new_operator_user_model = operator_user_model(api)
+
 #defines namespace
 ns = api.namespace('endpoints', description='API Endpoints')
-
-#gets user models
-new_user_model = user_model(api)
 
 #Get request for testing API connection
 @ns.route('/test')
@@ -74,7 +75,7 @@ class CreateLeaderUser(Resource):
     @require_api_key
 
     #expects user model from post request
-    @api.expect(new_user_model, validate=True)
+    @api.expect(new_leader_user_model, validate=True)
     def post(self):
 
         #Gets data from post request
@@ -99,13 +100,13 @@ class CreateUser(Resource):
     @require_api_key
 
     #expects user model from post request
-    @api.expect(new_user_model, validate=True)
+    @api.expect(new_operator_user_model, validate=True)
     def post(self):
 
         #Gets data from post request
         data = request.get_json()
         #Creates new user from data
-        SQL_CreateNewOperatorUser.createNewOperatorUser(data["email"], hash.hash(data['userPass']), data["databaseName"])
+        SQL_CreateNewOperatorUser.createNewOperatorUser(data["email"], hash.hash(data['userPass']))
 
         #returns error if no data is found or faulty
         if not data:
