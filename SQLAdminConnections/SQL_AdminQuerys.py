@@ -8,8 +8,8 @@ class SQLQueries:
     #Belongs to the class, not the object of the class
     @staticmethod
     #Creates new user with given name and password
-    def create_user(usr,pw):
-        return f"CREATE USER '{usr}'@'%' IDENTIFIED BY '{pw}';"
+    def create_user(usr, pw):
+        return ("CREATE USER %s@'%' IDENTIFIED BY %s;", (usr, pw))
 
     #Belongs to the class, not the object of the class
     @staticmethod
@@ -33,4 +33,4 @@ class SQLQueries:
     @staticmethod
     #saves user credentials to users database
     def save_user_credentials(email, password, databaseName):
-        return f"INSERT INTO users_info(email, userPass, databaseName) VALUES ('{email}','{password}','{databaseName}');"
+        return ("INSERT INTO users_info(email, userPass, databaseName) VALUES (%s, %s, %s);", (email, password, databaseName))
