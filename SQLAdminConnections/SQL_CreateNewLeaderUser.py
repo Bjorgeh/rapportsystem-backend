@@ -12,8 +12,8 @@ def createNewLeaderUser(email, password, databaseName):
     
     try:
         #Create the new user
-        query = SQLQueries.create_user(email, password)
-        connector.execute_query(query)
+        query, params = SQLQueries.create_user(email, password)
+        connector.execute_query(query, params)
         
         #Create the new database
         query = SQLQueries.create_database(databaseName)
@@ -31,8 +31,8 @@ def createNewLeaderUser(email, password, databaseName):
         query = SQLQueries.use_users_database()
         connector.execute_query(query)
 
-        query = SQLQueries.save_user_credentials(email, password, databaseName)
-        connector.execute_query(query)
+        query, params = SQLQueries.save_user_credentials(email, password, databaseName)
+        connector.execute_query(query, params)
 
         connector.cnx.commit()
 

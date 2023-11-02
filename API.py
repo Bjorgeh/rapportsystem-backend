@@ -15,6 +15,7 @@ from SQLAdminConnections import SQL_CreateNewOperatorUser
 from authorization import api_key as key
 #imports user models
 from Models.user_model import user_model
+from PW_hashHandler import pw_manager as hash
 
 #print(os.getcwd()) #uncomment for troubleshooting to see current working directory
 
@@ -78,8 +79,9 @@ class CreateLeaderUser(Resource):
 
         #Gets data from post request
         data = request.get_json()
+
         #Creates new user and database from data
-        SQL_CreateNewLeaderUser.createNewLeaderUser(data["email"], data["userPass"], data["databaseName"])
+        SQL_CreateNewLeaderUser.createNewLeaderUser(data["email"], hash.hash(data['userPass']), data["databaseName"])
 
         #returns error if no data is found or faulty
         if not data:
@@ -102,8 +104,8 @@ class CreateUser(Resource):
 
         #Gets data from post request
         data = request.get_json()
-        #Creates new user and database from data
-        SQL_CreateNewOperatorUser.createNewOperatorUser(data["email"], data["userPass"], data["databaseName"])
+        #Creates new user from data
+        SQL_CreateNewOperatorUser.createNewOperatorUser(data["email"], hash.hash(data['userPass']), data["databaseName"])
 
         #returns error if no data is found or faulty
         if not data:

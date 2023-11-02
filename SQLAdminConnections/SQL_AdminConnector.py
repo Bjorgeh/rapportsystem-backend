@@ -31,20 +31,30 @@ class SQLConAdmin:
             self.close()
 
     #execute query and return result
-    def execute_query(self, query):
+    def execute_query(self, query, params=None):
         try:
-            #Checks if connection is established
-            if not self.cnx or not self.cursor:
+            # Checks if connection is established
+            if not self.cnx:
                 print("Not connected to the database!")
                 return
 
-            #Execute query
-            self.cursor.execute(query)
-            return self.cursor.fetchall()
+            cursor = self.cnx.cursor()
 
-        # If connection fails, print error
+            # Execute query with parameters if they exist
+            cursor.execute(query, params)
+
+            if cursor.with_rows:
+                result = cursor.fetchall()
+            else:
+                result = None
+
+            cursor.close()
+            return result
+
+        # If execution fails, print error
         except mysql.connector.Error as err:
             print(f"Error: {err}")
+
 
     #closes connection and cursor
     def close(self):
