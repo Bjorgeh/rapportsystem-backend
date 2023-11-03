@@ -16,16 +16,16 @@ def createNewLeaderUser(email, password, databaseName):
         connector.execute_query(query, params)
         
         #Create the new database
-        query = SQLQueries.create_database(databaseName)
-        connector.execute_query(query)
+        #query = SQLQueries.create_database(databaseName)
+        #connector.execute_query(query)
         
         #Grant the new user privileges on the new database
-        query = SQLQueries.grant_access(databaseName, email)
-        connector.execute_query(query)
+        #query = SQLQueries.grant_access(databaseName, email)
+        #connector.execute_query(query)
         
         #Flush privileges
-        query = SQLQueries.flush_privileges()
-        connector.execute_query(query)
+        #query = SQLQueries.flush_privileges()
+        #connector.execute_query(query)
         
         #Add user details to the users database
         query = SQLQueries.use_users_database()

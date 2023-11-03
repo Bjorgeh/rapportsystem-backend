@@ -1,7 +1,10 @@
 import mysql.connector
 import sys
-sys.path.append('C:/rapportsystem-backend/SQLAdminConnections') #path dir containing secret.py
-import secret as S
+import os
+current_directory = os.getcwd()
+
+sys.path.append(os.path.join(current_directory)) #path dir containing secret.py
+from SQLConnections import secret as S
 
 #Class for connecting to SQL database as Admin
 class SQLConAdmin:
@@ -13,6 +16,17 @@ class SQLConAdmin:
         self.cnx = None
         self.cursor = None
 
+    '''
+    def ip(self):
+        return self.IP
+    def usr(self):
+        return self.USR
+    def pw(self):
+        return self.PW
+    def db(self):
+        return self.DB
+    '''
+    
     #connects to SQL database
     def connect(self):
         try:

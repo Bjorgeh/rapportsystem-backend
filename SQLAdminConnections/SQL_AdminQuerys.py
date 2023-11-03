@@ -32,5 +32,12 @@ class SQLQueries:
     #Belongs to the class, not the object of the class
     @staticmethod
     #saves user credentials to users database
-    def save_user_credentials(email, password, databaseName):
-        return ("INSERT INTO users_info(email, userPass, databaseName) VALUES (%s, %s, %s);", (email, password, databaseName))
+    def save_user_credentials(email, password, accountType):
+        return ("INSERT INTO user_info(email, userPass, accountType) VALUES (%s, %s, %s);", (email, password, accountType))
+    
+    #Belongs to the class, not the object of the class
+    @staticmethod
+    #Checks for invalid session timestamp
+    def check_session_expired(session_id):
+        return ("SELECT COUNT(*) FROM user_session "
+                "WHERE CURRENT_TIMESTAMP > expiration AND session_id = %s",(session_id))
