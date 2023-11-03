@@ -1,16 +1,17 @@
-# rapportsystem-backend
+<h1>rapportsystem-backend<h/>
 
-Before clone:
+Before clone:<br>
 
-Install pip:
-python3 get-pip.py
+Install pip:<br>
+python3 get-pip.py<br>
 
-mySqlConnector:
-pip install mysql-connector-python
+mySqlConnector:<br>
+pip install mysql-connector-python<br>
 
-Flask:
+Flask:<br>
 pip install Flask<br>
 pip install flask-restx<br>
+pip install flask-session<br>
 
 Bcrypt:
 pip install bcrypt<br>

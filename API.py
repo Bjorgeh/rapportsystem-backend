@@ -9,13 +9,11 @@ import os
 #Imports function for requiring API key
 from functools import wraps
 #imports authorization file
-from authorization import apiKeyAuth as auth
-from authorization import session_config as SessionCFG
+#from authorization import apiKeyAuth as auth
 
 #imports fnction for creating new user and database
 #from SQLAdminConnections import SQL_CreateNewLeaderUser
 #from SQLAdminConnections import SQL_CreateNewOperatorUser
-''' HUSK : !!!!! legg til pip istall flask-session og pip install bcrypt i readme!'''
 
 #imports function for requiring API key
 from authorization import api_key as key
@@ -32,7 +30,6 @@ from USER_obj import new_user as makeUSR
 #defines app and api
 app = Flask(__name__)
 
-app.config.from_object(SessionCFG)
 
 #defines api
 api = Api(app,
@@ -65,6 +62,7 @@ class login(Resource):
         username = data["username"]
         password = data["password"]
 
+
         '''
         Her skal sjekkes om bruker eksisterer i databasen og om passord er riktig.
         Hvis bruker eksisterer og passord er korrekt, skal det opprettes et user objekt - Her kan man også sjekke session osv.
@@ -77,6 +75,16 @@ class login(Resource):
         if not data:
             return {"Error": "No data"}, 400
         return data
+
+#Get request for testing API connection
+@ns.route('/logout')
+class Test(Resource):
+    @api.doc('logout')
+
+    def get(self):
+        #returns test data
+        return {"Logout": "OK"}
+
 
 #Get request for testing API connection
 @ns.route('/test')
