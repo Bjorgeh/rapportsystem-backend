@@ -1,22 +1,23 @@
-# rapportsystem-backend
+<h1>rapportsystem-backend</h1>
 
-Before clone:
+Before clone:<br>
 
-Install pip:
-python3 get-pip.py
+Install pip:<br>
+python3 get-pip.py<br>
 
-mySqlConnector:
-pip install mysql-connector-python
+mySqlConnector:<br>
+pip install mysql-connector-python<br>
 
-Flask:
+Flask:<br>
 pip install Flask<br>
 pip install flask-restx<br>
+pip install flask-session<br>
 
-Bcrypt:
+Bcrypt:<br>
 pip install bcrypt<br>
 
 Secret file:<br>
-Make ./SQLConnector/secret.py, with content:<br>
+Make ./SQLConnections/secret.py, with content:<br>
 host_IP = 'YOUR MYSQL SERVER IP'<br>
 host_user = 'YOUR USERNAME'<br>
 host_password = 'YOUR PASSWORD'<br>
