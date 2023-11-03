@@ -1,6 +1,3 @@
-<h1>rapportsystem-backend<h/>
-
-Before clone:<br>
 
 Install pip:<br>
 python3 get-pip.py<br>
