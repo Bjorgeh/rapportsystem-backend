@@ -11,10 +11,6 @@ from functools import wraps
 #imports authorization file
 #from authorization import apiKeyAuth as auth
 
-#imports fnction for creating new user and database
-#from SQLAdminConnections import SQL_CreateNewLeaderUser
-#from SQLAdminConnections import SQL_CreateNewOperatorUser
-
 #imports function for requiring API key
 from authorization import api_key as key
 #imports user models
