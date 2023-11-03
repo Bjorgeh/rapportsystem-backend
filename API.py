@@ -15,6 +15,7 @@ from authorization import session_config as SessionCFG
 #imports fnction for creating new user and database
 #from SQLAdminConnections import SQL_CreateNewLeaderUser
 #from SQLAdminConnections import SQL_CreateNewOperatorUser
+''' HUSK : !!!!! legg til pip istall flask-session og pip install bcrypt i readme!'''
 
 #imports function for requiring API key
 from authorization import api_key as key

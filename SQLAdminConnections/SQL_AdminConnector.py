@@ -4,7 +4,7 @@ import os
 current_directory = os.getcwd()
 
 sys.path.append(os.path.join(current_directory)) #path dir containing secret.py
-from SQLAdminConnections import secret as S
+from SQLConnections import secret as S
 
 #Class for connecting to SQL database as Admin
 class SQLConAdmin:
