@@ -1,19 +1,17 @@
-from SQLAdminConnections import SQL_AdminConnector, SQL_AdminQuerys
+from SQLAdminConnections import SQL_AdminConnector as SQLC
+from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 
-def createNewLeaderUser(email, password, databaseName):
+def createNewLeaderUser(email, password, accountType):
     #makes object of SQLConAdmin class
-    adminConnection = SQL_AdminConnector.SQLConAdmin()
-    #query object
-    SQLQueries = SQL_AdminQuerys.SQLQueries()
+    adminConnection = SQLC.SQLConAdmin()
 
     #sets up connector with admin credentials
-    connector = adminConnection
-    connector.connect()
+    connection = adminConnection
+    connection.connect()
     
     try:
         #Create the new user
-        query, params = SQLQueries.create_user(email, password)
-        connector.execute_query(query, params)
+        connection.execute_query(SQLQ.SQLQueries.create_user(email, password))
         
         #Create the new database
         #query = SQLQueries.create_database(databaseName)
@@ -28,16 +26,18 @@ def createNewLeaderUser(email, password, databaseName):
         #connector.execute_query(query)
         
         #Add user details to the users database
-        query = SQLQueries.use_users_database()
-        connector.execute_query(query)
+        #Add user details to the users database
 
-        query, params = SQLQueries.save_user_credentials(email, password, databaseName)
-        connector.execute_query(query, params)
+        connection.execute_query(SQLQ.SQLQueries.use_users_database())
 
-        connector.cnx.commit()
+        connection.execute_query(SQLQ.SQLQueries.save_user_credentials(email, password, accountType))
+        
+        connection.cnx.commit()
+        
+        connection.close()
 
     except Exception as e:
         print(f"Error: {e}")
 
     finally:
-        connector.close()
+        connection.close()

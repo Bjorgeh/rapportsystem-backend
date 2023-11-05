@@ -92,7 +92,7 @@ class users:
     def isSessionExpired(self):
         return self.internalSC(self.sessionID)    
 
-    #retuns true if session expired, else false
+    #retuns true if session expired, else false SC = sessioncheck
     def internalSC(session_id):
 
         #connect to database

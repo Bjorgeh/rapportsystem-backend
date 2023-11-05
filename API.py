@@ -1,5 +1,5 @@
 #imports flask & flask_restx for creating API
-from flask import Flask, request, url_for, jsonify
+from flask import Flask, request, url_for, jsonify,session
 from flask_restx import Api, Resource, fields
 from flask_session import Session
 #import datetime
@@ -21,11 +21,15 @@ from PW_hashHandler import pw_manager as hash
 from USER_obj import users as USR
 from USER_obj import new_user as makeUSR
 
+from USER_session import sessionhandler as SH
+
 #print(os.getcwd()) #uncomment for troubleshooting to see current working directory
 
 #defines app and api
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'TESTKEY'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 #defines api
 api = Api(app,
@@ -42,45 +46,9 @@ new_login_model = login_model(api)
 #defines namespace
 ns = api.namespace('api', description='API Endpoints')
 
-#Post request for creating a new leader user & belonging database
-@ns.route('/login')
-class login(Resource):
-    @api.doc('login')
-
-    #expects user model from post request
-    @api.expect(new_login_model, validate=True)
-    def post(self):
-
-        #Gets data from post request
-        data = request.get_json()
-
-        #Gets username and password from data
-        username = data["username"]
-        password = data["password"]
-
-
-        '''
-        Her skal sjekkes om bruker eksisterer i databasen og om passord er riktig.
-        Hvis bruker eksisterer og passord er korrekt, skal det opprettes et user objekt - Her kan man også sjekke session osv.
-        '''
-
-        #Change print with password check
-        print(username, password)
-
-        #returns error if no data is found or faulty
-        if not data:
-            return {"Error": "No data"}, 400
-        return data
-
-#Get request for testing API connection
-@ns.route('/logout')
-class Test(Resource):
-    @api.doc('logout')
-
-    def get(self):
-        #returns test data
-        return {"Logout": "OK"}
-
+#Sets up sessions
+Session(app)
+user_session = SH.UserSession(session, None)
 
 #Get request for testing API connection
 @ns.route('/test')
@@ -90,6 +58,48 @@ class Test(Resource):
     def get(self):
         #returns test data
         return {"Test": "OK"}
+
+#Post request for login
+@ns.route('/login')
+class login(Resource):
+    @api.doc('login')
+
+    @api.expect(new_login_model, validate=True)
+    def post(self):
+        data = request.get_json()
+
+        ####################################
+        username = data["username"]
+        password = data["password"]
+
+        #Skal endres til å sjekke mot database
+        user_exists = True 
+        user_id = "2"  
+        ####################################
+
+        #creates new session for logged in user.
+        if user_exists:
+            user_session.user_id = user_id
+            user_session.login()
+
+            print("User" + user_id + " logged in")
+
+            #Her skal session lagres i database -- lage objekt av bruker som logger inn?
+
+            return {"message": "Logged in successfully"}, 200
+
+        return {"Error": "Invalid username or password"}, 401
+
+#Get request for logout
+@ns.route('/logout')
+class logout(Resource):
+    @api.doc('logout')
+
+    def get(self):
+        user_session = SH.UserSession(session, None)
+        user_session.logout()
+        
+        return {"Logout": "OK"}, 200
 
 #Post request for creating a new leader user & belonging database
 @ns.route('/createUser')
@@ -103,8 +113,15 @@ class CreateLeaderUser(Resource):
         #Gets data from post request
         data = request.get_json()
 
+        #accountType = data["accountType"].lower()
+
+        #returns error if no account data is found
+        #if accountType != "leader" or accountType != "operator":
+        #    return {"Error": "Invalid account type"}, 400
+
         #Makes new User Objekt
         new_user = USR.users(data["email"], hash.hash(data['password']), data["accountType"])
+
         #Creates new user in database
         makeUSR.createUser(new_user).saveToDB()
 
