@@ -2,9 +2,11 @@ import mysql.connector
 import sys
 import os
 current_directory = os.getcwd()
+print(current_directory)
 
 sys.path.append(os.path.join(current_directory)) #path dir containing secret.py
 from SQLConnections import secret as S
+
 
 #Class for connecting to SQL database as Admin
 class SQLConAdmin:
@@ -45,7 +47,7 @@ class SQLConAdmin:
             self.close()
 
     #execute query and return result
-    def execute_query(self, query, params=None):
+    def execute_query(self, query_with_params, params=None):
         try:
             # Checks if connection is established
             if not self.cnx:
@@ -53,22 +55,28 @@ class SQLConAdmin:
                 return
 
             cursor = self.cnx.cursor()
+            
+            # Handle cases where only a query is provided
+            if len(query_with_params) == 1:
+                query = query_with_params[0]
+                params = None
+            else:
+                query, params = query_with_params
 
-            # Execute query with parameters if they exist
+            # Execute query with parameters
             cursor.execute(query, params)
 
             if cursor.with_rows:
                 result = cursor.fetchall()
             else:
                 result = None
-
             cursor.close()
-            return result
 
+            return result
+    
         # If execution fails, print error
         except mysql.connector.Error as err:
             print(f"Error: {err}")
-
 
     #closes connection and cursor
     def close(self):

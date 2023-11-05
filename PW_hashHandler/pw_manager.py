@@ -25,8 +25,6 @@ class PwManager:
         return bcrypt.checkpw(password_bytes, stored_hashed_password)
 
 
-
-
 #defines hash, takes password and returns hashed password
 def hash(password):
     password_manager = PwManager()

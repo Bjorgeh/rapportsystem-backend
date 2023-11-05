@@ -1,31 +1,29 @@
-from SQLAdminConnections import SQL_AdminConnector, SQL_AdminQuerys
+from SQLAdminConnections import SQL_AdminConnector as SQLC
+from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 
-def createNewOperatorUser(email, password):
+def createNewOperatorUser(email, password,accountType):
     #makes object of SQLConAdmin class
-    adminConnection = SQL_AdminConnector.SQLConAdmin()
-    #query object
-    SQLQueries = SQL_AdminQuerys.SQLQueries()
+    adminConnection = SQLC.SQLConAdmin()
 
     #sets up connector with admin credentials
-    connector = adminConnection
-    connector.connect()
+    connection = adminConnection
+    connection.connect()
     
     try:
         #Create the new user
-        query, params = SQLQueries.create_user(email, password)
-        connector.execute_query(query, params)
+        connection.execute_query(SQLQ.SQLQueries.create_user(email, password))
         
         #Add user details to the users database
-        query = SQLQueries.use_users_database()
-        connector.execute_query(query)
+        connection.execute_query(SQLQ.SQLQueries.use_users_database())
 
-        query, params = SQLQueries.save_user_credentials(email, password, "NULL")
-        connector.execute_query(query, params)
+        connection.execute_query(SQLQ.SQLQueries.save_user_credentials(email, password, accountType))
 
-        connector.cnx.commit()
+        connection.cnx.commit()
+
+        connection.close()
 
     except Exception as e:
         print(f"Error: {e}")
 
     finally:
-        connector.close()
+        connection.close()
