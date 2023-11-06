@@ -16,13 +16,14 @@ class PwManager:
         return hashed_password
 
     #checks if password is correct
-    def check_pw(self, plaintext_pw: str, stored_hashed_password: bytes) -> bool:
-        #Check if a password matches the hashed password
+    def check_pw(self, plaintext_pw: str, stored_hashed_password: str) -> bool:
+        # Check if a password matches the hashed password
         # Convert the plaintext password string to bytes
         password_bytes = plaintext_pw.encode('utf-8')
-        
+        stored_hashed_password_bytes = stored_hashed_password.encode('utf-8')
+
         # Verify the password
-        return bcrypt.checkpw(password_bytes, stored_hashed_password)
+        return bcrypt.checkpw(password_bytes, stored_hashed_password_bytes)
 
 
 #defines hash, takes password and returns hashed password
@@ -35,4 +36,5 @@ def hash(password):
 def check(password, hashed_pw):
     password_manager = PwManager()
     is_password_correct = password_manager.check_pw(password, hashed_pw)
+    print("Password correct: ", is_password_correct)
     return is_password_correct

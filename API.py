@@ -10,7 +10,6 @@ import os
 from functools import wraps
 #imports authorization file
 #from authorization import apiKeyAuth as auth
-
 #imports function for requiring API key
 from authorization import api_key as key
 #imports user models
@@ -20,8 +19,8 @@ from PW_hashHandler import pw_manager as hash
 #imports user object
 from USER_obj import users as USR
 from USER_obj import new_user as makeUSR
-
 from USER_session import sessionhandler as SH
+from authorization import login_validation as login_auth
 
 #print(os.getcwd()) #uncomment for troubleshooting to see current working directory
 
@@ -50,10 +49,19 @@ ns = api.namespace('api', description='API Endpoints')
 Session(app)
 user_session = SH.UserSession(session, None)
 
+def require_session(func):
+    @wraps(func)
+    def wrapped(*args, **kwargs):
+        if not user_session.is_authenticated():
+            return {"Error": "No access or Session expired"}, 401
+        return func(*args, **kwargs)
+    return wrapped
+
 #Get request for testing API connection
 @ns.route('/test')
 class Test(Resource):
     @api.doc('get_test')
+    @require_session
 
     def get(self):
         #returns test data
@@ -63,30 +71,35 @@ class Test(Resource):
 @ns.route('/login')
 class login(Resource):
     @api.doc('login')
-
+    
     @api.expect(new_login_model, validate=True)
     def post(self):
+
+        #user_session = SH.UserSession(session, None)
         data = request.get_json()
 
-        ####################################
+        #Sets username and password from post request
         username = data["username"]
         password = data["password"]
 
-        #Skal endres til å sjekke mot database
-        user_exists = True 
-        user_id = "2"  
-        ####################################
+        #Checks if username and password is ok
+        login_validation = login_auth.loginValidation(username, password).validate_credentials()
+
+        print(login_validation)
+
+        #Variabler fra login_validation
+        user_exists = login_validation[0]
+        user_id = login_validation[1]
 
         #creates new session for logged in user.
         if user_exists:
             user_session.user_id = user_id
             user_session.login()
 
-            print("User" + user_id + " logged in")
-
+            print(username, "created new session")
             #Her skal session lagres i database -- lage objekt av bruker som logger inn?
 
-            return {"message": "Logged in successfully"}, 200
+            return {"message": "Log-in successfull"}, 200
 
         return {"Error": "Invalid username or password"}, 401
 
