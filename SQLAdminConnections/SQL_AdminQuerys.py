@@ -77,7 +77,7 @@ class SQLQueries:
     #Gets id and hashed password
     @staticmethod
     def get_hashed_password_and_id_by_username(username):
-        query = "SELECT id, userPass FROM user_info WHERE email = %s"
+        query = "SELECT id, userPass, accountType FROM user_info WHERE email = %s"
         params = (username,)
         return query, params
     

@@ -21,17 +21,17 @@ class createUser:
 
     #saves user to database
     def saveToDB(self):
-        if self.accountType.lower() == 'admin':
+        if self.accountType == "admin":
             save_admin.createNewAdminUser(self.email, self.password, self.accountType)
             print("Admin account created successfully")
             return True
 
-        if self.accountType.lower() == 'leader':
+        if self.accountType == 'leader':
             save_leader.createNewLeaderUser(self.email, self.password, self.accountType)
             print("Leader account created successfully")
             return True
         
-        if self.accountType.lower() == 'operator':
+        if self.accountType == 'operator':
             save_operator.createNewOperatorUser(self.email, self.password,self.accountType)
             print("Operator account created successfully")
             return True

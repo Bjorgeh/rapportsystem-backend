@@ -93,3 +93,10 @@ class UserSession:
         connection.close()
 
         return True
+    
+    #Returns session_id
+    def get_session_id(self):
+        if 'session_id' not in self.sesh_id:
+            return False
+
+        return self.sesh_id['session_id']

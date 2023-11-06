@@ -2,8 +2,6 @@
 from flask import Flask, request, url_for, jsonify,session
 from flask_restx import Api, Resource, fields
 from flask_session import Session
-#import datetime
-import datetime
 #imports os for getting current working directory
 import os
 #Imports function for requiring API key
@@ -27,6 +25,7 @@ from authorization import login_validation as login_auth
 #defines app and api
 app = Flask(__name__)
 
+#This will be saved in secret.py -------------------------------------------------------------------
 app.config['SECRET_KEY'] = 'TESTKEY'
 app.config['SESSION_TYPE'] = 'filesystem'
 
@@ -49,7 +48,11 @@ ns = api.namespace('api', description='API Endpoints')
 Session(app)
 user_session = SH.UserSession(session, None)
 
-#Requires valid session for requests
+#Sets up user object 
+global logged_in_user
+logged_in_user = USR.users(None, None, None, None, None, None)
+
+#function for valid session requirement
 def require_session(func):
     @wraps(func)
     def wrapped(*args, **kwargs):
@@ -94,11 +97,10 @@ class login(Resource):
         #Checks if username and password is ok
         login_validation = login_auth.loginValidation(username, password).validate_credentials()
 
-        print(login_validation)
-
         #Variabler fra login_validation
         user_exists = login_validation[0]
         user_id = login_validation[1]
+        user_accountType = login_validation[2]
 
         #creates new session for logged in user.
         if user_exists:
@@ -106,13 +108,29 @@ class login(Resource):
 
             #Lager ny session
             user_session.login()
-
             print(username, "created new session")
 
-            #lage objekt av bruker som logger inn?
+            #Updates userobject with new data
+            logged_in_user.updateID(user_id)
+            logged_in_user.updateEmail(username)
+            logged_in_user.updateAccountType(user_accountType)
+            logged_in_user.updatesessionId(user_session.get_session_id())
+            logged_in_user.updateDatabaseName(None)
+            logged_in_user.updatePassword(None)
 
-            return {"message": "Log-in successfull"}, 200
+            #Creates current user dict for returning data
+            current_user = {
+                "user_id": logged_in_user.getID(),
+                "email": logged_in_user.getEmail(),
+                "password": logged_in_user.getPassword(),
+                "accountType": logged_in_user.getAccountType(),
+                "databaseName": logged_in_user.getDatabaseName(),
+                "session_id": logged_in_user.getSessionID()
+            }
 
+            #Returns success if username and password is ok
+            return {"message": "Log-in successfull", "Logged in as": current_user}, 200
+        #Returns error if username or password is wrong
         return {"Error": "Invalid username or password"}, 401
 
 #Get request for logout
@@ -124,7 +142,8 @@ class logout(Resource):
         user_session = SH.UserSession(session, None)
         user_session.logout()
         
-        return {"Logout": "OK"}, 200
+        #Returns success if logout is successfull
+        return {"Logout": "OK", "Goodbye":logged_in_user.getEmail()}, 200
 
 #Post request for creating a new leader user & belonging database
 @ns.route('/createUser')
@@ -139,16 +158,13 @@ class CreateLeaderUser(Resource):
         data = request.get_json()
         
         #Sets email and accountType from post request to loweer case
-        if isinstance(data['email'], str):
-            email = data['email'].lower()
-        if isinstance(data['accountType'], str):
-            accountType = data['accountType'].lower()
+        email = str(data['email']).lower()
+        accountType = str(data['accountType']).lower()
+        print("New Account: ", email, "Type: ", accountType)
 
         #Makes new User Objekt
-        #new_user = USR.users(data["email"], hash.hash(data['password']), data["accountType"])
-        new_user = USR.users(email, hash.hash(data['password']), accountType)
-        
-        #Creates new user in database
+        new_user = USR.users(None,email, hash.hash(data['password']), accountType,None,None)
+        #uses the new objekt to create new user in database
         makeUSR.createUser(new_user).saveToDB()
 
         #returns error if no data is found or faulty

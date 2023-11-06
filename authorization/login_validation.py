@@ -31,7 +31,7 @@ class loginValidation:
         connection.close()
 
         # Initialize default values for the response list: [is_valid, user_id]
-        response_list = [False, None]
+        response_list = [False, None, None]
         print(result)
 
         # If there's no result, the username is not in the database.
@@ -39,12 +39,13 @@ class loginValidation:
             return response_list
 
         # Extract user ID and hashed password from result
-        user_id, hashed_pw = result[0]
+        user_id, hashed_pw,accountType = result[0]
 
         # Validate password
         if PW.check(self.clean_pw, hashed_pw):
             response_list[0] = True  # Set is_valid to True
             response_list[1] = user_id  # Set user_id
+            response_list[2] = accountType
             
         print(response_list)
         return response_list
