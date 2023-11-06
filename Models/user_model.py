@@ -18,17 +18,15 @@ def operator_user_model(api):
 
 #defines login model
 def login_model(api):
-    return api.model('OperatorUser', { 
+    return api.model('Login', { 
         'username': fields.String(required=True, description='User email'),
         'password': fields.String(required=True, description='User password')
     })
 
-
 #defines login model
 def user_model(api):
-    return api.model('newUser', { 
+    return api.model('New user', { 
         'email': fields.String(required=True, description='User email'),
         'password': fields.String(required=True, description='User password'),
-        'accountType': fields.String(required=True, description='Account type')
+        'accountType': fields.String(required=True, description='Account type | leader or operator')
     })
-

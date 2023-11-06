@@ -15,6 +15,7 @@ class UserSession:
         self.user_id = user_id
 
     def login(self):
+        print("Login session function started:")
         # If there isn't a session_id, create one.
         if 'session_id' not in self.sesh_id:
             session_id = str(uuid.uuid4())
@@ -26,12 +27,15 @@ class UserSession:
             print("Connected to SQL")
             connection.execute_query(SQLQ.SQLQueries.use_users_database())
             connection.execute_query(SQLQ.SQLQueries.insert_session_id(self.sesh_id['session_id'], self.user_id))
-            print("Query sendt to database")
+            print(SQLQ.SQLQueries.insert_session_id(self.sesh_id['session_id'], self.user_id))
             connection.cnx.commit()
             connection.close()
             print("Connection closed")
-            
 
+            return True
+        print("ERROR making new session")
+        return False
+            
     def logout(self):
         # Remove the session from the database if exists
         if 'session_id' in self.sesh_id:
@@ -44,8 +48,9 @@ class UserSession:
             connection.cnx.commit()
             connection.close()
             
-            print(self.sesh_id +"Disconnected")
-            # Remove the session_id from Flask's session
+            print(self.sesh_id,"Disconnected")
+            
+            #Remove the session_id from Flask's session
             del self.sesh_id['session_id']
 
     def is_authenticated(self):
@@ -55,8 +60,15 @@ class UserSession:
         session_id = self.sesh_id['session_id']
         connection = SQLC.SQLConAdmin()
         connection.connect()
-        connection.execute_query(SQLQ.SQLQueries.get_active_session(session_id))
-        status = connection.cursor.fetchone() 
+        connection.execute_query(SQLQ.SQLQueries.use_users_database())
+        connection.execute_query(SQLQ.SQLQueries.check_session_expired(session_id))
+        
+        result = connection.cursor.fetchone()
         connection.close()
-
-        return bool(status)
+        
+        # If the session has expired, return False
+        if result is not None and result[0] > 0:
+            return False
+        
+        # If the session hasn't expired, return True
+        return True

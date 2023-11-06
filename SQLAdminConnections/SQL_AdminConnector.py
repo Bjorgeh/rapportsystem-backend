@@ -40,22 +40,23 @@ class SQLConAdmin:
                 database=self.DB
             )
             self.cursor = self.cnx.cursor()
-
+            print("Connected to the database!")
+            
         # If connection fails, print error
         except mysql.connector.Error as err:
             print(f"Error: {err}")
             self.close()
+            
+            return self  # <- Return the instance of the class after connection is made
 
-    #execute query and return result
     def execute_query(self, query_with_params, params=None):
+        print(query_with_params)
         try:
             # Checks if connection is established
             if not self.cnx:
                 print("Not connected to the database!")
                 return
 
-            cursor = self.cnx.cursor()
-            
             # Handle cases where only a query is provided
             if len(query_with_params) == 1:
                 query = query_with_params[0]
@@ -64,16 +65,15 @@ class SQLConAdmin:
                 query, params = query_with_params
 
             # Execute query with parameters
-            cursor.execute(query, params)
+            self.cursor.execute(query, params)  # <- Use self.cursor here
 
-            if cursor.with_rows:
-                result = cursor.fetchall()
+            if self.cursor.with_rows:   # <- And here as well
+                result = self.cursor.fetchall()  # <- And here
             else:
                 result = None
-            cursor.close()
 
             return result
-    
+
         # If execution fails, print error
         except mysql.connector.Error as err:
             print(f"Error: {err}")
@@ -83,11 +83,13 @@ class SQLConAdmin:
         if self.cursor:
             try:
                 self.cursor.close()
+                print("Cursor closed")
             except Exception as e:
                 print(f"Error closing cursor: {e}")
 
         if self.cnx:
             try:
                 self.cnx.close()
+                print("Connection closed")
             except Exception as e:
                 print(f"Error closing connection: {e}")

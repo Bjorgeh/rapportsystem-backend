@@ -38,7 +38,7 @@ class SQLQueries:
     # Checks if a given session has expired based on the timestamp in the user_session table
     def check_session_expired(session_id):
         query = ("SELECT COUNT(*) FROM user_session "
-                 "WHERE CURRENT_TIMESTAMP > expiration AND session_id = %s")
+                "WHERE expiration < CURRENT_TIMESTAMP AND session_id = %s")
         params = (session_id,)
         return query, params
 
@@ -61,4 +61,18 @@ class SQLQueries:
     def get_active_session(session_id):
         query = "SELECT * FROM user_session WHERE session_id = %s"
         params = (session_id,)
+        return query, params
+    
+    #Gets hashed password
+    @staticmethod
+    def get_hashed_password_by_username(username):
+        query = "SELECT userPass FROM user_info WHERE email = %s"
+        params = (username,)
+        return query, params
+    
+    #Gets id and hashed password
+    @staticmethod
+    def get_hashed_password_and_id_by_username(username):
+        query = "SELECT id, userPass FROM user_info WHERE email = %s"
+        params = (username,)
         return query, params
