@@ -49,6 +49,7 @@ ns = api.namespace('api', description='API Endpoints')
 Session(app)
 user_session = SH.UserSession(session, None)
 
+#Requires valid session for requests
 def require_session(func):
     @wraps(func)
     def wrapped(*args, **kwargs):
@@ -61,6 +62,8 @@ def require_session(func):
 @ns.route('/test')
 class Test(Resource):
     @api.doc('get_test')
+    
+    #requires valid session
     @require_session
 
     def get(self):
@@ -83,6 +86,9 @@ class login(Resource):
         data = request.get_json()
         #Sets username and password from post request
         username = data["username"]
+        #Sets username to lower case
+        if isinstance(username, str):
+            username = data['username'].lower()
         password = data["password"]
 
         #Checks if username and password is ok
@@ -131,16 +137,17 @@ class CreateLeaderUser(Resource):
 
         #Gets data from post request
         data = request.get_json()
-
-        #accountType = data["accountType"].lower()
-
-        #returns error if no account data is found
-        #if accountType != "leader" or accountType != "operator":
-        #    return {"Error": "Invalid account type"}, 400
+        
+        #Sets email and accountType from post request to loweer case
+        if isinstance(data['email'], str):
+            email = data['email'].lower()
+        if isinstance(data['accountType'], str):
+            accountType = data['accountType'].lower()
 
         #Makes new User Objekt
-        new_user = USR.users(data["email"], hash.hash(data['password']), data["accountType"])
-
+        #new_user = USR.users(data["email"], hash.hash(data['password']), data["accountType"])
+        new_user = USR.users(email, hash.hash(data['password']), accountType)
+        
         #Creates new user in database
         makeUSR.createUser(new_user).saveToDB()
 
