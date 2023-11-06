@@ -28,5 +28,5 @@ def user_model(api):
     return api.model('New user', { 
         'email': fields.String(required=True, description='User email'),
         'password': fields.String(required=True, description='User password'),
-        'accountType': fields.String(required=True, description='Account type | leader or operator')
+        'accountType': fields.String(required=True, description='Account type | admin/leader/operator')
     })

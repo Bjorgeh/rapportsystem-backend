@@ -25,7 +25,12 @@ class SQLQueries:
     # Switches to the users database for subsequent queries
     def use_users_database():
         return f"USE users;", None
-
+    '''
+    @staticmethod
+    # Switches to the users database for subsequent queries
+    def update_session_table():
+        return f"UPDATE user_session;", None
+    '''
     @staticmethod
     # Inserts new user credentials into the user_info table
     def save_user_credentials(email, password, accountType='leader'):
@@ -37,8 +42,7 @@ class SQLQueries:
     @staticmethod
     # Checks if a given session has expired based on the timestamp in the user_session table
     def check_session_expired(session_id):
-        query = ("SELECT COUNT(*) FROM user_session "
-                "WHERE expiration < CURRENT_TIMESTAMP AND session_id = %s")
+        query = ("SELECT CASE WHEN expiration < CURRENT_TIMESTAMP THEN 1 ELSE 0 END AS has_expired FROM user_session WHERE session_id = %s;")
         params = (session_id,)
         return query, params
 
@@ -75,4 +79,10 @@ class SQLQueries:
     def get_hashed_password_and_id_by_username(username):
         query = "SELECT id, userPass FROM user_info WHERE email = %s"
         params = (username,)
+        return query, params
+    
+    @staticmethod
+    def update_session(session_id):
+        query = "UPDATE user_session SET expiration = timestamp + INTERVAL 30 MINUTE WHERE session_id = %s;"
+        params = (session_id,)
         return query, params

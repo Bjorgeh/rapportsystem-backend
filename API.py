@@ -53,7 +53,7 @@ def require_session(func):
     @wraps(func)
     def wrapped(*args, **kwargs):
         if not user_session.is_authenticated():
-            return {"Error": "No access or Session expired"}, 401
+            return {"Error": "No access or session expired"}, 401
         return func(*args, **kwargs)
     return wrapped
 
@@ -75,9 +75,12 @@ class login(Resource):
     @api.expect(new_login_model, validate=True)
     def post(self):
 
+        #Checks if user is already logged in
+        if user_session.is_authenticated():
+            return {"Error": "Already logged in"}, 401
+        
         #user_session = SH.UserSession(session, None)
         data = request.get_json()
-
         #Sets username and password from post request
         username = data["username"]
         password = data["password"]
@@ -94,10 +97,13 @@ class login(Resource):
         #creates new session for logged in user.
         if user_exists:
             user_session.user_id = user_id
+
+            #Lager ny session
             user_session.login()
 
             print(username, "created new session")
-            #Her skal session lagres i database -- lage objekt av bruker som logger inn?
+
+            #lage objekt av bruker som logger inn?
 
             return {"message": "Log-in successfull"}, 200
 
