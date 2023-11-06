@@ -61,14 +61,35 @@ class UserSession:
         connection = SQLC.SQLConAdmin()
         connection.connect()
         connection.execute_query(SQLQ.SQLQueries.use_users_database())
-        connection.execute_query(SQLQ.SQLQueries.check_session_expired(session_id))
-        
-        result = connection.cursor.fetchone()
+        #connection.execute_query(SQLQ.SQLQueries.check_session_expired(session_id))
+        result = connection.execute_query(SQLQ.SQLQueries.check_session_expired(session_id))
         connection.close()
-        
+
+        print(result)
+                
         # If the session has expired, return False
-        if result is not None and result[0] > 0:
-            return False
-        
+        if result is not None and result[0][0] == 1:
+            print("Session expired")
+            self.logout()
+            return {'session_expired': True, 'message': 'Session expired'}
+                
         # If the session hasn't expired, return True
+        self.update_session()
+        return True
+
+    #Updates expiration with extra 30 minutes.
+    def update_session(self):
+
+        if 'session_id' not in self.sesh_id:
+            return False
+
+        session_id = self.sesh_id['session_id']
+        connection = SQLC.SQLConAdmin()
+        connection.connect()
+        connection.execute_query(SQLQ.SQLQueries.use_users_database())
+        #connection.execute_query(SQLQ.SQLQueries.update_users_database())
+        connection.execute_query(SQLQ.SQLQueries.update_session(session_id))
+        connection.cnx.commit()
+        connection.close()
+
         return True
