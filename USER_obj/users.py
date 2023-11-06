@@ -11,12 +11,21 @@ from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 
 #user class for handeling user data
 class users:
-    def __init__(self,email,password,accountType,databaseName=None):
+    def __init__(self,ID=None,email=None,password=None,accountType=None,databaseName=None, session_id=None):
+        self.userID = ID
         self.email = email
         self.password = password
         self.databaseName = databaseName
         self.accountType = accountType
-        self.sessionID = None
+        self.sessionID = session_id
+
+    #updates user ID
+    def updateID(self,ID):
+        if not ID:
+            return 'ID not updated'
+
+        self.userID = ID
+        return 'ID updated:', ID
 
     #updates user email
     def updateEmail(self,email):
@@ -48,6 +57,12 @@ class users:
         self.accountType = accountType
         return 'Account type updated:' + accountType
     
+    def updatesessionId(self, session_id):
+        if not session_id:
+            return 'Session ID not updated'
+        self.sessionID = session_id
+        return 'Session ID updated:' + session_id
+    
     #returns user email
     def getEmail(self):
         if not self.email:
@@ -57,7 +72,7 @@ class users:
     #returns user password
     def getPassword(self):
         if not self.password:
-            return 'No password found'
+            return 'Password is protected'
         return self.password
     
     #returns user database name
@@ -73,10 +88,16 @@ class users:
         return self.accountType
     
     #returns user session ID
-    def getAccountType(self):
+    def getSessionID(self):
         if not self.sessionID:
             return 'No sessionID type found'
         return self.sessionID
+    
+    #returns user ID
+    def getID(self):
+        if not self.userID:
+            return 'No ID found'
+        return self.userID
     
     #Returns true if leader, else false
     def isLeader(self):
