@@ -40,6 +40,7 @@ api = Api(app,
 #gets and implements user models
 new_user_model = user_model(api)
 new_login_model = login_model(api)
+new_password_model = update_password_model(api)
 
 #defines namespace
 ns = api.namespace('api', description='API Endpoints')
@@ -61,6 +62,15 @@ def require_session(func):
         return func(*args, **kwargs)
     return wrapped
 
+#function for valid accountType requirement
+def require_admin_account(func):
+    @wraps(func)
+    def wrapped(*args, **kwargs):
+        if not logged_in_user.getAccountType() == "admin":
+            return {"Error": "You need an Admin account for this."}, 401
+        return func(*args, **kwargs)
+    return wrapped
+
 #Get request for testing API connection
 @ns.route('/test')
 class Test(Resource):
@@ -71,7 +81,7 @@ class Test(Resource):
 
     def get(self):
         #returns test data
-        return {"Test": "OK"}
+        return {"Test": "OK", "Session": logged_in_user.getSessionID()}, 200
 
 #Post request for login
 @ns.route('/login')
@@ -116,7 +126,7 @@ class login(Resource):
             logged_in_user.updateAccountType(user_accountType)
             logged_in_user.updatesessionId(user_session.get_session_id())
             logged_in_user.updateDatabaseName(None)
-            logged_in_user.updatePassword(None)
+            #logged_in_user.updatePassword(None)
 
             #Creates current user dict for returning data
             current_user = {
@@ -141,9 +151,11 @@ class logout(Resource):
     def get(self):
         user_session = SH.UserSession(session, None)
         user_session.logout()
+
+        good_bye = logged_in_user.getEmail()
         
         #Returns success if logout is successfull
-        return {"Logout": "OK", "Goodbye":logged_in_user.getEmail()}, 200
+        return {"Logout": "OK", "Goodbye":good_bye}, 200
 
 #Post request for creating a new leader user & belonging database
 @ns.route('/createUser')
@@ -171,7 +183,29 @@ class CreateLeaderUser(Resource):
         if not data:
             return {"Error": "No data"}, 400
         return data
+    
+@ns.route('/updatePassword')
+class UpdatePassword(Resource):
+    @api.doc('/updatePassword')
+    @api.expect(new_password_model, validate=True)
 
+    #requires valid session
+    @require_session
+
+    def post(self):
+        #Gets data from post request
+        data = request.get_json()
+
+        #updates user password
+        new_pass1 = data['password1']
+        new_pass2 = data['password2']
+
+        #returns error if no data is found or faulty
+        if not data:
+            return {"Error": "No data provided"}, 400
+        
+        return logged_in_user.updatePassword(new_pass1, new_pass2), 200
+    
 #Runs the APP/API
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

@@ -61,21 +61,21 @@ class UserSession:
         connection = SQLC.SQLConAdmin()
         connection.connect()
         connection.execute_query(SQLQ.SQLQueries.use_users_database())
-        #connection.execute_query(SQLQ.SQLQueries.check_session_expired(session_id))
         result = connection.execute_query(SQLQ.SQLQueries.check_session_expired(session_id))
         connection.close()
 
         print(result)
                 
-        # If the session has expired, return False
-        if result is not None and result[0][0] == 1:
-            print("Session expired")
-            self.logout()
-            return {'session_expired': True, 'message': 'Session expired'}
+        # If there's no result or the session has expired, return False
+        if not result or result[0][0] != 1:
+            print("Session not active or expired")
+            #self.logout()
+            return {'session_expired': True, 'message': 'Session not active or expired'}
                 
         # If the session hasn't expired, return True
         self.update_session()
         return True
+    
 
     #Updates expiration with extra 30 minutes.
     def update_session(self):

@@ -5,6 +5,9 @@ current_directory = os.getcwd()
 import sys
 sys.path.append(os.path.join(current_directory))
 
+#Imports hash handler
+from PW_hashHandler import pw_manager as hash
+
 #Imports SQLAdminConnections modules
 from SQLAdminConnections import SQL_AdminConnector as SQLC
 from SQLAdminConnections import SQL_AdminQuerys as SQLQ
@@ -36,12 +39,25 @@ class users:
         return 'new email:' + email
     
     #updates user password
-    def updatePassword(self,password):
-        if not password:
-            return 'Password not updated'
+    def updatePassword(self,new_password1, new_password2):
+        if not new_password1 == new_password2:
+            return {"Password": "Does not match."}
+        
+        #Secures password with hash
+        hashed_password = hash.hash(new_password1)
+        
+        #Updates user password.
+        connection = SQLC.SQLConAdmin()
+        connection.connect()
+        connection.execute_query(SQLQ.SQLQueries.use_users_database())
+        connection.execute_query(SQLQ.SQLQueries.update_user_login_password(self.userID, hashed_password))
+        connection.execute_query(SQLQ.SQLQueries.update_sql_user_password(self.email, hashed_password))
+        connection.execute_query(SQLQ.SQLQueries.flush_privileges())
+        connection.cnx.commit()
+        connection.close()
 
-        self.password = password
-        return 'Password updated!'
+        #Returns success if password is updated
+        return {"Passwrod": "Updated!", "New password": "PROTECTED"}
     
     #updates user database name
     def updateDatabaseName(self,databaseName):
