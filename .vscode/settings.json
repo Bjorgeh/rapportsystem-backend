@@ -1,0 +1,20 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "__pycache__": true,
+        "__init__.py": true,
+        "**/*.pyc": true,
+        "**/__pycache__": true,
+        "**/__init__.py": true,
+        "**/.vscode": true,
+        ".vscode": true,
+        "**/flask_session": true,
+        "flask_session": true
+    },
+    "explorerExclude.backup": {}
+}
