@@ -1,27 +1,31 @@
-<h1>rapportsystem-backend</h1>
+# rapportsystem-backend
 
-Before clone:<br>
+Before cloning the repository, make sure to follow these steps:
 
-Install pip:<br>
-python3 get-pip.py<br>
+1. Install pip:
+    ```
+    python3 get-pip.py
+    ```
 
-mySqlConnector:<br>
-pip install mysql-connector-python<br>
+2. Install the following packages:
+    - mysql-connector-python
+    - Flask
+    - flask-restx
+    - flask-session
+    - bcrypt
 
-Flask:<br>
-pip install Flask<br>
-pip install flask-restx<br>
-pip install flask-session<br>
+    You can install them using pip:
+    ```
+    pip install mysql-connector-python Flask flask-restx flask-session bcrypt
+    ```
 
-Bcrypt:<br>
-pip install bcrypt<br>
+3. Create a secret file at `./SQLConnections/secret.py` with the following content:
+    ```
+    host_IP = 'YOUR MYSQL SERVER IP'
+    host_user = 'YOUR USERNAME'
+    host_password = 'YOUR PASSWORD'
+    host_database = 'TARGET DATABASE'
+    simple_query = 'YOUR SQL QUERY'
+    ```
 
-Secret file:<br>
-Make ./SQLConnections/secret.py, with content:<br>
-host_IP = 'YOUR MYSQL SERVER IP'<br>
-host_user = 'YOUR USERNAME'<br>
-host_password = 'YOUR PASSWORD'<br>
-host_database = 'TARGET DATABASE'<br>
-simple_query = 'YOUR SQL QUERY' <br>
-
-or, if collab: download secret.py from teams chat.
+    If you are collaborating with others, you can download `secret.py` from the Teams chat.
