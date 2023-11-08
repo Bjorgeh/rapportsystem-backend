@@ -22,6 +22,15 @@ class users:
         self.accountType = accountType
         self.sessionID = session_id
 
+    #clears user data
+    def clearUser(self):
+        self.userID = None
+        self.email = None
+        self.password = None
+        self.databaseName = None
+        self.accountType = None
+        self.sessionID = None
+
     #updates user ID
     def updateID(self,ID):
         if not ID:
@@ -146,3 +155,5 @@ class users:
 
         #returns true if session is expired, else false
         return count > 0
+    
+logged_in_user = users()

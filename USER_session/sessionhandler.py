@@ -36,10 +36,13 @@ class UserSession:
         print("ERROR making new session")
         return False
             
-    def logout(self):
+    def logout(self,logged_in_user = None):
         # Remove the session from the database if exists
         if 'session_id' in self.sesh_id:
             session_id = self.sesh_id['session_id']
+
+            #Clears user data
+            logged_in_user.clearUser()
 
             connection = SQLC.SQLConAdmin()
             connection.connect()
@@ -52,6 +55,7 @@ class UserSession:
             
             #Remove the session_id from Flask's session
             del self.sesh_id['session_id']
+            return True
 
     def is_authenticated(self):
         if 'session_id' not in self.sesh_id:
