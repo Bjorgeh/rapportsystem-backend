@@ -1,9 +1,12 @@
-import os
+'''import os
 #Gets current directory
 current_directory = os.getcwd()
 #imports sys
 import sys
 sys.path.append(os.path.join(current_directory))
+
+#Imports hash handler
+from PW_hashHandler import pw_manager as hash
 
 #Imports SQLAdminConnections modules
 from SQLAdminConnections import SQL_AdminConnector as SQLC
@@ -18,6 +21,15 @@ class users:
         self.databaseName = databaseName
         self.accountType = accountType
         self.sessionID = session_id
+
+    #clears user data
+    def clearUser(self):
+        self.userID = None
+        self.email = None
+        self.password = None
+        self.databaseName = None
+        self.accountType = None
+        self.sessionID = None
 
     #updates user ID
     def updateID(self,ID):
@@ -36,12 +48,25 @@ class users:
         return 'new email:' + email
     
     #updates user password
-    def updatePassword(self,password):
-        if not password:
-            return 'Password not updated'
+    def updatePassword(self,new_password1, new_password2):
+        if not new_password1 == new_password2:
+            return {"Password": "Does not match."}
+        
+        #Secures password with hash
+        hashed_password = hash.hash(new_password1)
+        
+        #Updates user password.
+        connection = SQLC.SQLConAdmin()
+        connection.connect()
+        connection.execute_query(SQLQ.SQLQueries.use_users_database())
+        connection.execute_query(SQLQ.SQLQueries.update_user_login_password(self.userID, hashed_password))
+        connection.execute_query(SQLQ.SQLQueries.update_sql_user_password(self.email, hashed_password))
+        connection.execute_query(SQLQ.SQLQueries.flush_privileges())
+        connection.cnx.commit()
+        connection.close()
 
-        self.password = password
-        return 'Password updated!'
+        #Returns success if password is updated
+        return {"Passwrod": "Updated!", "New password": "PROTECTED"}
     
     #updates user database name
     def updateDatabaseName(self,databaseName):
@@ -130,3 +155,7 @@ class users:
 
         #returns true if session is expired, else false
         return count > 0
+    
+#logged_in_user = users()
+
+'''
