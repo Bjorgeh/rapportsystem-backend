@@ -12,6 +12,7 @@ from Models import user_model as UM
 
 #Login route
 def login_route(ns):
+    new_session = SH.UserSession(session)
     #Post request for login
     @ns.route('/login')
     class login(Resource):
@@ -22,6 +23,7 @@ def login_route(ns):
 
             # Checks if user is already logged in
             if 'user_id' in session:
+                new_session.update_session()
                 return {"Error": "Already logged in"}, 401
             
             data = request.get_json()
@@ -53,7 +55,6 @@ def login_route(ns):
                     "accountType": session['account_type']
                 }
 
-                new_session = SH.UserSession(session)
                 new_session.login()
 
                 # Returns success if username and password is ok
