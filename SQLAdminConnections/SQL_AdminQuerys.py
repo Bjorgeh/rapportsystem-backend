@@ -1,3 +1,12 @@
+import os
+#Gets current directory
+current_directory = os.getcwd()
+#imports sys
+import sys
+sys.path.append(os.path.join(current_directory))
+#Gets secret.py
+from SQLConnections import secret as S
+
 class SQLQueries:
 
     @staticmethod
@@ -85,4 +94,16 @@ class SQLQueries:
     def update_session(session_id):
         query = "UPDATE user_session SET expiration = timestamp + INTERVAL 30 MINUTE WHERE session_id = %s;"
         params = (session_id,)
+        return query, params
+    
+    @staticmethod
+    def update_user_login_password(username, new_password):
+        query = "UPDATE user_info SET userPass = %s WHERE id = %s;"
+        params = (new_password, username,)
+        return query, params
+    
+    @staticmethod
+    def update_sql_user_password(username, new_password):
+        query = "ALTER USER %s@%s IDENTIFIED BY %s;"
+        params = (username,'%', new_password,)
         return query, params

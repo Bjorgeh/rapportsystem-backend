@@ -1,33 +1,30 @@
 #imports flask & flask_restx for creating API
-from flask import Flask, request, url_for, jsonify,session
-from flask_restx import Api, Resource, fields
+from flask import Flask, session
+from flask_restx import Api
 from flask_session import Session
-#imports os for getting current working directory
+#imports os
 import os
-#Imports function for requiring API key
-from functools import wraps
-#imports authorization file
-#from authorization import apiKeyAuth as auth
-#imports function for requiring API key
-from authorization import api_key as key
-#imports user models
-from Models.user_model import *
-#PasswordHandler
-from PW_hashHandler import pw_manager as hash
-#imports user object
-from USER_obj import users as USR
-from USER_obj import new_user as makeUSR
-from USER_session import sessionhandler as SH
-from authorization import login_validation as login_auth
+current_directory = os.getcwd()
+#imports sys
+import sys
+sys.path.append(os.path.join(current_directory))
+#Get-requests
+from Requests.GET_R import test as get_test
+from Requests.GET_R import test_admin as get_test_admin
+from Requests.GET_R import logout as get_logout
+#Post-requests
+from Requests.POST_R import login as post_login
+from Requests.POST_R import createUser as post_createUser
+from Requests.POST_R import updatePassword as post_updatePassword
 
-#print(os.getcwd()) #uncomment for troubleshooting to see current working directory
+#imports secret.py
+from SQLConnections import secret as Secret
 
 #defines app and api
 app = Flask(__name__)
 
-#This will be saved in secret.py -------------------------------------------------------------------
-app.config['SECRET_KEY'] = 'TESTKEY'
-app.config['SESSION_TYPE'] = 'filesystem'
+#Sets app config SECRET_KEY and SESSION_TYPE
+Secret.setConfig(app)
 
 #defines api
 api = Api(app,
@@ -37,141 +34,31 @@ api = Api(app,
           doc='/api/'
         )
 
-#gets and implements user models
-new_user_model = user_model(api)
-new_login_model = login_model(api)
-
 #defines namespace
-ns = api.namespace('api', description='API Endpoints')
+ns_Post = api.namespace('POST', description='POST Endpoints')
+ns_Get = api.namespace('GET', description='GET Endpoints')
 
 #Sets up sessions
 Session(app)
-user_session = SH.UserSession(session, None)
 
-#Sets up user object 
-global logged_in_user
-logged_in_user = USR.users(None, None, None, None, None, None)
+#Gets the test route
+get_test.test_route(ns_Get)
 
-#function for valid session requirement
-def require_session(func):
-    @wraps(func)
-    def wrapped(*args, **kwargs):
-        if not user_session.is_authenticated():
-            return {"Error": "No access or session expired"}, 401
-        return func(*args, **kwargs)
-    return wrapped
+#Gets the test admin route
+get_test_admin.test_admin_route(ns_Get)
 
-#Get request for testing API connection
-@ns.route('/test')
-class Test(Resource):
-    @api.doc('get_test')
+#Gets the login route
+post_login.login_route(ns_Post)
+
+#Gets the logout route
+get_logout.logout_route(ns_Get)
+
+#Gets the create user route
+post_createUser.create_user(ns_Post)
+
+#Gets the update password route
+post_updatePassword.update_password_route(ns_Post)
     
-    #requires valid session
-    @require_session
-
-    def get(self):
-        #returns test data
-        return {"Test": "OK"}
-
-#Post request for login
-@ns.route('/login')
-class login(Resource):
-    @api.doc('login')
-    
-    @api.expect(new_login_model, validate=True)
-    def post(self):
-
-        #Checks if user is already logged in
-        if user_session.is_authenticated():
-            return {"Error": "Already logged in"}, 401
-        
-        #user_session = SH.UserSession(session, None)
-        data = request.get_json()
-        #Sets username and password from post request
-        username = data["username"]
-        #Sets username to lower case
-        if isinstance(username, str):
-            username = data['username'].lower()
-        password = data["password"]
-
-        #Checks if username and password is ok
-        login_validation = login_auth.loginValidation(username, password).validate_credentials()
-
-        #Variabler fra login_validation
-        user_exists = login_validation[0]
-        user_id = login_validation[1]
-        user_accountType = login_validation[2]
-
-        #creates new session for logged in user.
-        if user_exists:
-            user_session.user_id = user_id
-
-            #Lager ny session
-            user_session.login()
-            print(username, "created new session")
-
-            #Updates userobject with new data
-            logged_in_user.updateID(user_id)
-            logged_in_user.updateEmail(username)
-            logged_in_user.updateAccountType(user_accountType)
-            logged_in_user.updatesessionId(user_session.get_session_id())
-            logged_in_user.updateDatabaseName(None)
-            logged_in_user.updatePassword(None)
-
-            #Creates current user dict for returning data
-            current_user = {
-                "user_id": logged_in_user.getID(),
-                "email": logged_in_user.getEmail(),
-                "password": logged_in_user.getPassword(),
-                "accountType": logged_in_user.getAccountType(),
-                "databaseName": logged_in_user.getDatabaseName(),
-                "session_id": logged_in_user.getSessionID()
-            }
-
-            #Returns success if username and password is ok
-            return {"message": "Log-in successfull", "Logged in as": current_user}, 200
-        #Returns error if username or password is wrong
-        return {"Error": "Invalid username or password"}, 401
-
-#Get request for logout
-@ns.route('/logout')
-class logout(Resource):
-    @api.doc('logout')
-
-    def get(self):
-        user_session = SH.UserSession(session, None)
-        user_session.logout()
-        
-        #Returns success if logout is successfull
-        return {"Logout": "OK", "Goodbye":logged_in_user.getEmail()}, 200
-
-#Post request for creating a new leader user & belonging database
-@ns.route('/createUser')
-class CreateLeaderUser(Resource):
-    @api.doc('create_user')
-
-    #expects user model from post request
-    @api.expect(new_user_model, validate=True)
-    def post(self):
-
-        #Gets data from post request
-        data = request.get_json()
-        
-        #Sets email and accountType from post request to loweer case
-        email = str(data['email']).lower()
-        accountType = str(data['accountType']).lower()
-        print("New Account: ", email, "Type: ", accountType)
-
-        #Makes new User Objekt
-        new_user = USR.users(None,email, hash.hash(data['password']), accountType,None,None)
-        #uses the new objekt to create new user in database
-        makeUSR.createUser(new_user).saveToDB()
-
-        #returns error if no data is found or faulty
-        if not data:
-            return {"Error": "No data"}, 400
-        return data
-
 #Runs the APP/API
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

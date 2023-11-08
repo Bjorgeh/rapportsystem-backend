@@ -12,12 +12,12 @@ from SQLAdminConnections import SQL_CreateNewAdminUser as save_admin
 
 #Takes in user object and saves it to database
 class createUser:
-    def __init__(self, userObject):
-        self.email = userObject.email
-        self.password = userObject.password
-        self.accountType = userObject.accountType
-        self.databaseName = userObject.databaseName
-        self.sessionId = userObject.sessionID
+    def __init__(self, email, password, accountType):
+        self.email = email
+        self.password = password
+        self.accountType = accountType
+        self.databaseName = None
+
 
     #saves user to database
     def saveToDB(self):
