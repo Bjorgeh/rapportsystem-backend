@@ -1,5 +1,5 @@
 #imports flask & flask_restx for creating API
-from flask import Flask, session
+from flask import Flask
 from flask_restx import Api
 from flask_session import Session
 #imports os
@@ -35,8 +35,8 @@ api = Api(app,
         )
 
 #defines namespace
-ns_Post = api.namespace('POST', description='POST Endpoints')
-ns_Get = api.namespace('GET', description='GET Endpoints')
+ns_Post = api.namespace('api/post', description='POST Endpoints')
+ns_Get = api.namespace('api/get', description='GET Endpoints')
 
 #Sets up sessions
 Session(app)

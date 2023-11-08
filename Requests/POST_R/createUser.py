@@ -1,5 +1,5 @@
 from flask_restx import Resource
-from flask import request, session
+from flask import request, jsonify
 #imports os
 import os
 current_directory = os.getcwd()
@@ -38,5 +38,5 @@ def create_user(ns):
 
             #returns error if no data is found or faulty
             if not data:
-                return {"Error": "No data"}, 400
+                return jsonify({"Error": "No data"})
             return data
