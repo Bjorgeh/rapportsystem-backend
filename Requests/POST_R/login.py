@@ -1,5 +1,5 @@
 from flask_restx import Resource
-from flask import session, request
+from flask import session, request,jsonify
 #imports os
 import os
 current_directory = os.getcwd()
@@ -9,6 +9,8 @@ sys.path.append(os.path.join(current_directory))
 from USER_session import sessionhandler as SH
 from authorization import login_validation as login_auth
 from Models import user_model as UM
+from SQLAdminConnections import SQL_AdminConnector as SQLC
+from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 
 #Login route
 def login_route(ns):
@@ -24,7 +26,7 @@ def login_route(ns):
             # Checks if user is already logged in
             if 'user_id' in session:
                 new_session.update_session()
-                return {"Error": "Already logged in"}, 401
+                return jsonify({"Error": "Already logged in"})
             
             data = request.get_json()
             username = data["username"].lower()
@@ -37,6 +39,9 @@ def login_route(ns):
             user_exists = login_validation[0]
             user_id = login_validation[1]
             user_accountType = login_validation[2]
+
+            #Deletes old sessions for user
+            delete_user_sessions(user_id)
 
             # creates new session for logged in user.
             if user_exists:
@@ -58,7 +63,34 @@ def login_route(ns):
                 new_session.login()
 
                 # Returns success if username and password is ok
-                return {"message": "Log-in successful", "Logged in as": current_user}, 200
+                return jsonify({"message": "Log-in successful", "Logged in as": current_user})
 
             # Returns error if username or password is wrong
-            return {"Error": "Invalid username or password"}, 401
+            return jsonify({"Error": "Invalid username or password"})
+        
+#fiction for removing old sessions
+def delete_user_sessions(user_id):
+    #connects to database
+    connection = SQLC.SQLConAdmin()
+    connection.connect()  
+    
+    #query and params
+    query, params = SQLQ.SQLQueries.delete_old_sessions_by_user_id(user_id)
+    
+    #Deletes old sessions
+    try:
+        result = connection.execute_query((query, params))
+        connection.cnx.commit()  
+
+        #gets number of rows affected
+        rows_affected = connection.cursor.rowcount
+        if rows_affected == 0:
+            print(f"No sessions found for user_id {user_id}.")
+        else:
+            print(f"Deleted {rows_affected} sessions for user_id {user_id}.")
+            
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        #closes connection
+        connection.close()

@@ -1,4 +1,5 @@
 from flask_restx import Resource
+from flask import jsonify
 #imports os
 import os
 current_directory = os.getcwd()
@@ -17,4 +18,4 @@ def test_route(ns):
         @require_session
         #@require_admin_account  
         def get(self):
-            return {"Test": "OK"}
+            return jsonify({"Test": "OK"})

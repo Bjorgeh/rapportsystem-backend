@@ -107,3 +107,9 @@ class SQLQueries:
         query = "ALTER USER %s@%s IDENTIFIED BY %s;"
         params = (username,'%', new_password,)
         return query, params
+    
+    @staticmethod
+    def delete_old_sessions_by_user_id(user_id):
+        query = "DELETE FROM user_session WHERE user_id = %s;"
+        params = (user_id,)
+        return query, params

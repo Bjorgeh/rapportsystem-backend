@@ -1,4 +1,5 @@
 from flask_restx import Resource
+from flask import jsonify
 #imports os
 import os
 current_directory = os.getcwd()
@@ -17,5 +18,5 @@ def logout_route(ns):
         @require_session
         def get(self):
             user_session = SH.UserSession(session)
-            return {"Goodbye": "See you again soon!","Logout": user_session.logout()}, 200
+            return jsonify({"Goodbye": "See you again soon!","Logout": user_session.logout()})
         

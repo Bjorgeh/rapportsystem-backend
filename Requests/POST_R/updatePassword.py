@@ -1,5 +1,5 @@
 from flask_restx import Resource
-from flask import request,session
+from flask import request,session,jsonify
 #imports os
 import os
 current_directory = os.getcwd()
@@ -36,14 +36,14 @@ def update_password_route(ns):
 
             #returns error if no data is found or faulty
             if not data:
-                return {"Error": "No data provided"}, 400
+                return jsonify({"Error": "No data provided"})
             
-            return updatePassword(new_pass1, new_pass2), 200
+            return updatePassword(new_pass1, new_pass2)
 
 #Function for updating password
 def updatePassword(new_password1, new_password2):
     if not new_password1 == new_password2:
-        return {"Password": "Does not match."}
+        return jsonify({"Password": "Does not match."})
     
     #Secures password with hash
     hashed_password = hash.hash(new_password1)
@@ -63,4 +63,4 @@ def updatePassword(new_password1, new_password2):
     current_user.logout()
 
     #Returns success if password is updated
-    return {"Passwrod": "Updated!", "New password": "PROTECTED"}
+    return jsonify({"Passwrod": "Updated!", "New password": "PROTECTED"})
