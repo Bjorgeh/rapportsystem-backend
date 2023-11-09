@@ -12,14 +12,13 @@ def createNewOperatorUser(email, password,accountType):
     try:
         #Create the new user
         connection.execute_query(SQLQ.SQLQueries.create_user(email, password))
-        
+
         #Add user details to the users database
         connection.execute_query(SQLQ.SQLQueries.use_users_database())
-
         connection.execute_query(SQLQ.SQLQueries.save_user_credentials(email, password, accountType))
-
+        
+        #Commit changes and close connection
         connection.cnx.commit()
-
         connection.close()
 
     except Exception as e:

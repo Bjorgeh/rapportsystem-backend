@@ -34,31 +34,92 @@ api = Api(app,
           doc='/api/'
         )
 
-#defines namespace
-ns_Post = api.namespace('api/post', description='POST Endpoints')
-ns_Get = api.namespace('api/get', description='GET Endpoints')
+'''Defines namespaces'''
+#defines namespace all users.
+user_post = api.namespace('api/user/post', description='POST Endpoints')
+user_get = api.namespace('api/user/get', description='GET Endpoints')
+#defines namespace for admin users.
+admin_post = api.namespace('api/admin/post', description='POST Endpoints')
+admin_get = api.namespace('api/admin/get', description='GET Endpoints')
+#defines namespace for leader users.
+leader_post = api.namespace('api/leader/post', description='POST Endpoints')
+leader_get = api.namespace('api/leader/get', description='GET Endpoints')
+#defines namespace for operator users.
+operator_post = api.namespace('api/operator/post', description='POST Endpoints')
+operator_get = api.namespace('api/operator/get', description='GET Endpoints')
 
 #Sets up sessions
 Session(app)
 
-#Gets the test route
-get_test.test_route(ns_Get)
+#Routes for the API
+'''
+  ------------------------
+|                         |
+|   Routes for all users  |
+V                         V
+'''
 
-#Gets the test admin route
-get_test_admin.test_admin_route(ns_Get)
+'''GET - api/user/get'''
 
-#Gets the login route
-post_login.login_route(ns_Post)
+#Test route
+get_test.test_route(user_get)
+#Logout route
+get_logout.logout_route(user_get)
+#Create user route
+post_createUser.create_user(user_post)
 
-#Gets the logout route
-get_logout.logout_route(ns_Get)
+'''POST - api/user/post'''
+#Login route
+post_login.login_route(user_post)
+#Update password route
+post_updatePassword.update_password_route(user_post)
 
-#Gets the create user route
-post_createUser.create_user(ns_Post)
 
-#Gets the update password route
-post_updatePassword.update_password_route(ns_Post)
-    
-#Runs the APP/API
+'''
+  ----------------------------
+ |                            |
+ |   Routes for Admin users   |
+ V                            V
+'''
+
+'''GET - api/admin/get'''
+
+#Test admin route
+get_test_admin.test_admin_route(admin_get)
+
+'''POST - api/admin/post'''
+#POST
+
+
+'''
+  --------------------------                       
+ |                          |
+ |    Routes for Leaders    |
+ V                          V
+'''
+
+'''GET - api/leader/get'''
+#GET
+
+'''POST - api/leader/post'''
+#POST
+
+
+'''
+  ---------------------------
+ |                           |
+ |    Routes for Operators   |
+ V                           V
+'''
+
+'''GET - api/operator/get'''
+#GET
+
+'''POST - api/operator/post'''
+#POST
+
+
+'''Runs the API'''
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    #Hosts the API on port 5001 and sets debug to True
+    app.run(host='0.0.0.0',debug=True, port=5001)

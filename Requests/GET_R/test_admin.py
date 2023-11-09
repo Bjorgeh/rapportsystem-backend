@@ -15,7 +15,12 @@ from Common.Requirements.admin_req import require_admin_account
 def test_admin_route(ns):
     @ns.route('/test_admin')
     class Test(Resource):
-        @ns.doc('test_admin')
+        @ns.doc('test_admin',
+                description='Test route, returns OK if the API is running and the user is logged in as Admin.',
+                responses={200: 'OK', 
+                           400: 'Invalid Argument', 
+                           500: 'Mapping Key Error'})
+
         #requirements
         @require_session
         @require_admin_account  

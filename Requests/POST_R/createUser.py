@@ -16,7 +16,13 @@ def create_user(ns):
     @ns.route('/createUser')
     class CreateLeaderUser(Resource):
         new_user_model = UM.user_model(ns)
-        @ns.doc('create_user')
+        @ns.doc('create_user',
+                description='Create new user when given Email, Password and Account type.',
+                responses={
+                    200: 'OK',
+                    400: 'Invalid Argument or faulty data',
+                    500: 'Internal server error'
+                })
 
         #expects user model from post request
         @ns.expect(new_user_model, validate=True)
