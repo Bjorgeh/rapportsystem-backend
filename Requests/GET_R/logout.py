@@ -14,7 +14,11 @@ from Common.Requirements.session_req import require_session
 def logout_route(ns):
     @ns.route('/logout')
     class logout(Resource):
-        @ns.doc('Logout')
+        @ns.doc('Logout',
+                description='Logout route, logs user out and returns a goodbye message, with Logout: True/False',
+                responses={200: 'OK', 
+                           400: 'Invalid Argument', 
+                           500: 'Mapping Key Error'})
         @require_session
         def get(self):
             user_session = SH.UserSession(session)

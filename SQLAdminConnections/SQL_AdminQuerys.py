@@ -42,10 +42,10 @@ class SQLQueries:
     '''
     @staticmethod
     # Inserts new user credentials into the user_info table
-    def save_user_credentials(email, password, accountType='leader'):
+    def save_user_credentials(email, password, accountType, databaseName='None'):
         # Assuming password is already hashed before calling this method
-        query = "INSERT INTO user_info(email, userPass, accountType) VALUES (%s, %s, %s);"
-        params = (email, password, accountType)
+        query = "INSERT INTO user_info(email, userPass, accountType,databaseName) VALUES (%s, %s, %s, %s);"
+        params = (email, password,accountType,databaseName)
         return query, params
 
     @staticmethod

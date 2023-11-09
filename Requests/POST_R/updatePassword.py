@@ -20,7 +20,14 @@ def update_password_route(ns):
     @ns.route('/updatePassword')
     class UpdatePassword(Resource):
         new_password_model = UM.update_password_model(ns)
-        @ns.doc('/updatePassword')
+        @ns.doc('/updatePassword',
+                description='Updates a users password when given new password and a exact duplicate of the new password.\n\nRequires a valid session.',
+                responses={
+                    200: 'OK',
+                    400: 'Invalid Argument or faulty data',
+                    500: 'Internal server error'
+                })
+        
         @ns.expect(new_password_model, validate=True)
 
         #requires valid session

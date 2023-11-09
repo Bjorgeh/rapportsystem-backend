@@ -19,7 +19,14 @@ def login_route(ns):
     @ns.route('/login')
     class login(Resource):
         new_login_model = UM.login_model(ns)
-        @ns.doc('login')
+        @ns.doc('login',
+                description='Logs user in when given Username and Password. This will create a new session for the user.',
+                responses={
+                    200: 'OK',
+                    400: 'Invalid Argument or faulty data',
+                    500: 'Internal server error'
+                })
+
         @ns.expect(new_login_model, validate=True)
         def post(self):
 
