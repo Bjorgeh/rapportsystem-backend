@@ -31,7 +31,7 @@ Before cloning the repository, make sure to follow these steps:
 
     #Sets app config. This is used in API.py
     def setConfig(app):
-        app.config['SECRET_KEY'] = 'TESTKEY'
+        app.config['SECRET_KEY'] = 'YOUR_SECRET_KEY'
         app.config['SESSION_TYPE'] = 'filesystem'
         return 1
     ```
