@@ -14,7 +14,16 @@
         "**/.vscode": true,
         ".vscode": true,
         "**/flask_session": true,
-        "flask_session": true
+        "flask_session": true,
+        "**/tempCodeRunnerFile.py": true,
+        "tempCodeRunnerFile.py": true,
+        "**/__init__,py": true,
+        "__init__,py": true
     },
-    "explorerExclude.backup": {}
+    "explorerExclude.backup": {},
+    "cSpell.words": [
+        "jsonify",
+        "restx",
+        "sessionhandler"
+    ]
 }
