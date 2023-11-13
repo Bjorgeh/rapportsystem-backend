@@ -1,16 +1,16 @@
 from functools import wraps
 from USER_session import sessionhandler as SH
-from flask import session
-
+from flask import session,jsonify
 
 #function for valid session requirement
 def require_session(func):
-    user_session = SH.UserSession(session)
     @wraps(func)
     def wrapped(*args, **kwargs):
-        if not user_session.is_authenticated():
-            user_session.logout()
-            return {"Error": "No access or session expired"}, 401
+        user_session = SH.UserSession(session)
+        auth = user_session.is_authenticated() #Gets the authentication status
+        if not auth.get("AUTH", False):
+            return jsonify({"Error": "No access or session expired", "Message": auth})
         return func(*args, **kwargs)
     return wrapped
+
 

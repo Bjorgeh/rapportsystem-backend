@@ -50,15 +50,15 @@ class SQLQueries:
 
     @staticmethod
     # Checks if a given session has expired based on the timestamp in the user_session table
-    def check_session_expired(session_id):
-        query = ("SELECT CASE WHEN expiration < CURRENT_TIMESTAMP THEN 1 ELSE 0 END AS has_expired FROM user_session WHERE session_id = %s;")
-        params = (session_id,)
+    def check_session_expired(user_id):
+        query = ("SELECT CASE WHEN expiration < CURRENT_TIMESTAMP THEN 1 ELSE 0 END AS has_expired FROM user_session WHERE user_id = %s;")
+        params = (user_id,)
         return query, params
 
     @staticmethod
     # Inserts a new session ID and associated user ID into the user_session table
     def insert_session_id(session_id, user_id):
-        query = "INSERT INTO user_session (session_id, user_id) VALUES (%s, %s)"
+        query = query = "INSERT INTO user_session (session_id, user_id, expiration) VALUES (%s, %s, NOW() + INTERVAL 30 MINUTE)"
         params = (session_id, user_id)
         return query, params
 
@@ -71,9 +71,9 @@ class SQLQueries:
 
     @staticmethod
     # Retrieves session details for a given session ID from the user_session table
-    def get_active_session(session_id):
-        query = "SELECT * FROM user_session WHERE session_id = %s"
-        params = (session_id,)
+    def get_active_session(user_id):
+        query = "SELECT * FROM user_session WHERE user_id = %s"
+        params = (user_id,)
         return query, params
     
     #Gets hashed password
@@ -92,7 +92,7 @@ class SQLQueries:
     
     @staticmethod
     def update_session(session_id):
-        query = "UPDATE user_session SET expiration = timestamp + INTERVAL 30 MINUTE WHERE session_id = %s;"
+        query = "UPDATE user_session SET expiration = NOW() + INTERVAL 30 MINUTE WHERE session_id = %s;"
         params = (session_id,)
         return query, params
     

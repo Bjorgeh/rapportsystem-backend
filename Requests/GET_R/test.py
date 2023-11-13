@@ -1,16 +1,14 @@
 from flask_restx import Resource
-from flask import jsonify
+from flask import jsonify, session
 #imports os
 import os
 current_directory = os.getcwd()
 #imports sys
 import sys
 sys.path.append(os.path.join(current_directory))
-
 from Common.Requirements.session_req import require_session
 
 def test_route(ns):
-
     @ns.route('/test')
     class Test(Resource):
         @ns.doc('test',
