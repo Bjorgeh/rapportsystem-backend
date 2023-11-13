@@ -1,7 +1,10 @@
 #imports flask & flask_restx for creating API
-from flask import Flask
+from flask import Flask,session
 from flask_restx import Api
 from flask_session import Session
+from flask_cors import CORS
+#Imports datetime for cookie expiration
+from datetime import timedelta
 #imports os
 import os
 current_directory = os.getcwd()
@@ -25,6 +28,14 @@ app = Flask(__name__)
 
 #Sets app config SECRET_KEY and SESSION_TYPE
 Secret.setConfig(app)
+
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+    #app.permanent_session_lifetime = timedelta(minutes=30)
+
+#Sets up CORS
+CORS(app)
 
 #defines api
 api = Api(app,
