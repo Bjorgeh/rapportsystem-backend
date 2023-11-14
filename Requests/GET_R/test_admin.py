@@ -25,4 +25,4 @@ def test_admin_route(ns):
         @require_session
         @require_admin_account  
         def get(self):
-            return jsonify({"Test": "OK"})
+            return {"Test": "OK"},200

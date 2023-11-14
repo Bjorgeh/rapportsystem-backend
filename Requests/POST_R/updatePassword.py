@@ -50,8 +50,8 @@ def update_password_route(ns):
 #Function for updating password
 def updatePassword(new_password1, new_password2):
     if not new_password1 == new_password2:
-        return jsonify({"Password": "Does not match."})
-    
+        return {"Password": "Does not match."}, 400
+
     #Secures password with hash
     hashed_password = hash.hash(new_password1)
     
@@ -70,4 +70,4 @@ def updatePassword(new_password1, new_password2):
     current_user.logout()
 
     #Returns success if password is updated
-    return jsonify({"Passwrod": "Updated!", "New password": "PROTECTED"})
+    return {"Passwrod": "Updated!", "New password": "PROTECTED"}, 200

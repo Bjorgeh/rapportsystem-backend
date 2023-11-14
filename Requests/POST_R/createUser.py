@@ -44,5 +44,5 @@ def create_user(ns):
 
             #returns error if no data is found or faulty
             if not data:
-                return jsonify({"Error": "No data"})
+                return {"Error": "No data"}, 400
             return data
