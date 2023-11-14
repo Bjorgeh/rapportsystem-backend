@@ -113,3 +113,20 @@ class SQLQueries:
         query = "DELETE FROM user_session WHERE user_id = %s;"
         params = (user_id,)
         return query, params
+
+    @staticmethod
+    def delete_user_from_user_info(user_id):
+        query = "DELETE FROM user_info WHERE email = %s;"
+        params = (user_id,)
+        return query, params
+    
+    @staticmethod
+    def delete_sql_user(username):
+        query = "DROP USER %s@%s;"
+        params = (username, '%')
+        return query, params
+    
+    @staticmethod
+    def drop_database(username):
+        query = f"DROP DATABASE `DB_{username}`;"
+        return query, None

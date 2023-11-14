@@ -19,6 +19,7 @@ from Requests.GET_R import logout as get_logout
 from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
 from Requests.POST_R import updatePassword as post_updatePassword
+from Requests.POST_R import deleteUser as post_deleteUser
 
 #imports secret.py
 from SQLConnections import secret as Secret
@@ -76,14 +77,16 @@ V                         V
 get_test.test_route(user_get)
 #Logout route
 get_logout.logout_route(user_get)
-#Create user route
-post_createUser.create_user(user_post)
 
 '''POST - api/user/post'''
 #Login route
 post_login.login_route(user_post)
 #Update password route
 post_updatePassword.update_password_route(user_post)
+#Create user route
+post_createUser.create_user(user_post)
+#Delete user route
+post_deleteUser.delete_user_route(user_post)
 
 
 '''

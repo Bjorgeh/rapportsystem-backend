@@ -67,3 +67,17 @@ def update_password_model(api):
             ),
         },
     )
+
+# defines delete model
+def delete_model(api):
+    return api.model(
+        "Delete user",
+        {
+            "username": fields.String(
+                required=True, description="User email", example="ola.nordmann@viken.no"
+            ),
+            "password": fields.String(
+                required=True, description="User password", example="EpicPassword69"
+            ),
+        },
+    )
