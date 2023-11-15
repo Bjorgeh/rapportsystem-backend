@@ -21,3 +21,14 @@ CREATE TABLE user_session(
     expiration DATETIME DEFAULT (CURRENT_TIMESTAMP + INTERVAL 30 MINUTE),
     FOREIGN KEY (user_id) REFERENCES user_info(id)
 );
+
+-- sets up activity table
+CREATE TABLE user_activity(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    ip_address VARCHAR(50),
+    user_agent VARCHAR(255),
+    operating_system VARCHAR(255),  
+    activity_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user_info(id)
+);
