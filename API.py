@@ -15,6 +15,7 @@ sys.path.append(os.path.join(current_directory))
 from Requests.GET_R import test as get_test
 from Requests.GET_R import test_admin as get_test_admin
 from Requests.GET_R import logout as get_logout
+from Requests.GET_R import userActivity as get_userActivity
 #Post-requests
 from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
@@ -77,6 +78,8 @@ V                         V
 get_test.test_route(user_get)
 #Logout route
 get_logout.logout_route(user_get)
+#Get user activity
+get_userActivity.activity_route(user_get)
 
 '''POST - api/user/post'''
 #Login route

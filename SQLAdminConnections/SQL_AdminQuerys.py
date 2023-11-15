@@ -130,3 +130,51 @@ class SQLQueries:
     def drop_database(username):
         query = f"DROP DATABASE `DB_{username}`;"
         return query, None
+    
+    @staticmethod
+    def insert_user_activity(user_id, ip_address, user_agent, operating_system):
+        query = "INSERT INTO user_activity (user_id, ip_address, user_agent, operating_system) VALUES (%s, %s, %s, %s);"
+        params = (user_id, ip_address, user_agent, operating_system)
+        return query, params
+    
+    @staticmethod
+    def delete_activities_older_than_30_days(user_id):
+        query = "DELETE FROM user_activity WHERE user_id = %s AND activity_timestamp < NOW() - INTERVAL 30 DAY;"
+        params = (user_id,)
+        return query, params
+
+    @staticmethod
+    def delete_oldest_activity_if_needed(user_id):
+        query = "DELETE FROM user_activity WHERE user_id = %s AND id IN (SELECT id FROM user_activity WHERE user_id = %s ORDER BY activity_timestamp ASC LIMIT 1 OFFSET 4);"
+        params = (user_id, user_id)
+        return query, params
+    
+    @staticmethod
+    def get_oldest_activity_id_to_delete(user_id):
+        query = "SELECT id FROM user_activity WHERE user_id = %s ORDER BY activity_timestamp ASC LIMIT 1 OFFSET 4;"
+        params = (user_id,)
+        return query, params
+
+    @staticmethod
+    def delete_activity_by_id(activity_id):
+        query = "DELETE FROM user_activity WHERE id = %s;"
+        params = (activity_id,)
+        return query, params
+    
+    @staticmethod
+    def get_oldest_activities(user_id):
+        query = "SELECT * FROM user_activity WHERE user_id = %s ORDER BY activity_timestamp ASC LIMIT 5;"
+        params = (user_id,)
+        return query, params
+    
+    @staticmethod
+    def count_user_activities(user_id):
+        query = "SELECT COUNT(*) FROM user_activity WHERE user_id = %s;"
+        params = (user_id,)
+        return query, params
+
+    @staticmethod
+    def get_oldest_activity_id(user_id):
+        query = "SELECT id FROM user_activity WHERE user_id = %s ORDER BY activity_timestamp ASC LIMIT 1;"
+        params = (user_id,)
+        return query, params
