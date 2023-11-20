@@ -13,6 +13,8 @@ Before cloning the repository, make sure to follow these steps:
     - flask-restx
     - flask-session
     - bcrypt
+    - httpagentparser
+    - flask-cors
 
     You can install them using pip:
     ```
