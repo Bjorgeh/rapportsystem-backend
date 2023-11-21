@@ -18,7 +18,7 @@ Before cloning the repository, make sure to follow these steps:
 
     You can install them using pip:
     ```
-    pip install mysql-connector-python Flask flask-restx flask-session bcrypt
+    pip install mysql-connector-python Flask flask-restx flask-session bcrypt flask-cors httpagentparser
     ```
 
 3. Create a secret file at `./SQLConnections/secret.py` with the following content:
