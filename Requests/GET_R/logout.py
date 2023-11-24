@@ -7,8 +7,9 @@ current_directory = os.getcwd()
 import sys
 sys.path.append(os.path.join(current_directory))
 from flask import session
-from USER_session import sessionhandler as SH
-from Common.Requirements.session_req import require_session
+from USER_session import tokenHandler as TH
+#from Common.Requirements.session_req import require_session
+from flask_jwt_extended import jwt_required
 
 #Get request for logout
 def logout_route(ns):
@@ -19,8 +20,8 @@ def logout_route(ns):
                 responses={200: 'OK', 
                            400: 'Invalid Argument', 
                            500: 'Mapping Key Error'})
-        @require_session
+        @jwt_required()
         def get(self):
-            user_session = SH.UserSession(session)
-            return {"Goodbye": "See you again soon!","Logout": user_session.logout()},200
+            user_token = TH.UserTokenHandler()
+            return {"Goodbye": "See you again soon!","Logout": user_token.logout()},200
         
