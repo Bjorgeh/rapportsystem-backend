@@ -1,52 +1,72 @@
+#imports necessary modules
 from flask_restx import Resource
-from flask import request, jsonify
+from flask import request
 from mysql.connector import Error
 import httpagentparser as parser
 from flask_jwt_extended import create_access_token
 import os
 import sys
-
 current_directory = os.getcwd()
 sys.path.append(os.path.join(current_directory))
 
-# Importer nødvendige moduler og klasser
+#Imports custom modules
 from authorization import login_validation as login_auth
 from Models import user_model as UM
 from SQLAdminConnections import SQL_AdminConnector as SQLC
 from SQLAdminConnections import SQL_AdminQuerys as SQLQ
+from USER_session import tokenHandler as TH
 
 # Login route
 def login_route(ns):
+    tokenHandler = TH.UserTokenHandler()
+
     @ns.route('/login')
     class login(Resource):
         #Sets model for swagger
         new_login_model = UM.login_model(ns)
+        #Documentation for swagger UI
         @ns.doc('login', description='Logs user in when given Username and Password...',
                 responses={200: 'OK', 
                            400: 'Invalid Argument or faulty data', 
                            500: 'Internal server error'})
-        
+
+        #Validates input
         @ns.expect(new_login_model, validate=True)
         def post(self):
             data = request.get_json()
             username = data["username"].lower()
             password = data["password"]
 
+            #Validates credentials
             login_validation = login_auth.loginValidation(username, password).validate_credentials()
             user_exists, user_id, user_accountType = login_validation
 
+            #Checks if user exists
             if user_exists:
+
+                connection = SQLC.SQLConAdmin()
+                connection.connect()
+                #Deletes old tokens for user
+                connection.execute_query(SQLQ.SQLQueries.use_users_database())
+                connection.execute_query(SQLQ.SQLQueries.delete_tokens_by_user_id(user_id))
+                connection.cnx.commit()
+
                 #Generates token for user
                 access_token = create_access_token(identity={"user_id": user_id, "email": username, "accountType": user_accountType})
 
-                #saved user activity to database
+                #Stores token in database
+                tokenHandler.store_token(user_id, access_token)
+                
+                #saves user activity to database
                 save_activity(user_id)
 
+                #Temp-stores user info in current_user
                 current_user = {
                     "user_id": user_id,
                     "email": username,
                     "accountType": user_accountType
                 }
+
                 #Returns token and user info
                 return {"message": "Log-in successful", "Logged in as": current_user, "access_token": access_token}, 200
             #Returns error if user does not exist
@@ -54,6 +74,7 @@ def login_route(ns):
 
 #Function for saving activity to database
 def save_activity(user_id):
+    tokenHandler = TH.UserTokenHandler()
 
     #Checks if user has old activity - deletes 30 days old activity
     check_old_activity(user_id)
@@ -74,6 +95,7 @@ def save_activity(user_id):
         check_old_activity(user_id)
 
         connection.execute_query(SQLQ.SQLQueries.use_users_database())
+
         #save activity to database
         connection.execute_query(SQLQ.SQLQueries.insert_user_activity(user_id, ip_address, browser_name, operating_system))
         connection.cnx.commit()
@@ -111,5 +133,3 @@ def check_old_activity(user_id):
         print("Error while checking and deleting old activity.", e)
     finally:
         connection.close()
-
-

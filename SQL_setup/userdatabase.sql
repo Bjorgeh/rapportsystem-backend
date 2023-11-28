@@ -1,7 +1,8 @@
-#CREATE DATABASE users;
+CREATE DATABASE users;
 
 USE users;
--- sets up user table
+
+-- Setter opp brukertabellen
 CREATE TABLE user_info(
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(50) UNIQUE,
@@ -12,17 +13,16 @@ CREATE TABLE user_info(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- sets up session table
-CREATE TABLE user_session(
-    session_id VARCHAR(255) PRIMARY KEY,
+-- Oppretter en ny tabell for JWT-tokens
+CREATE TABLE tokens (
+    token_id VARCHAR(767) PRIMARY KEY,
     user_id INT,
-    data TEXT, 
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     expiration DATETIME DEFAULT (CURRENT_TIMESTAMP + INTERVAL 30 MINUTE),
+    revoked BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES user_info(id)
 );
 
--- sets up activity table
+-- Setter opp aktivitetstabellen
 CREATE TABLE user_activity(
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -32,3 +32,4 @@ CREATE TABLE user_activity(
     activity_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user_info(id)
 );
+

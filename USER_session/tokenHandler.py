@@ -1,6 +1,6 @@
 import uuid
 from flask_jwt_extended import create_access_token, get_jwt_identity, get_jwt
-
+from flask import request
 from SQLAdminConnections import SQL_AdminConnector as SQLC
 from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 
@@ -19,20 +19,24 @@ class UserTokenHandler:
     # Validates a given JWT
     def is_authenticated(self):
         try:
-            current_user = get_jwt_identity()
-            jti = get_jwt()["jti"]  # JWT Token ID
-            return self.check_token_validity(jti)
+            auth_header = request.headers.get('Authorization', None)
+            if auth_header:
+                token = auth_header.split()[1]  # Splitter 'Bearer <token>' og tar den andre delen
+                return self.check_token_validity(token)
+            else:
+                return {"AUTH": False, "Reason": "No token provided"}
         except Exception as e:
             print(f"An error occurred: {e}")
             return {"AUTH": False, "Reason": "Unable to verify token"}
 
     # Checks if the token ID (jti) is valid and not revoked in the database
-    def check_token_validity(self, jti):
+    def check_token_validity(self, token):
         try:
             connection = SQLC.SQLConAdmin()
             connection.connect()
-            result = connection.execute_query(SQLQ.SQLQueries.check_token_validity(jti))
-            if result and result[0][0]:  # Assuming the query returns a boolean or similar to indicate validity
+            connection.execute_query(SQLQ.SQLQueries.use_users_database())
+            result = connection.execute_query(SQLQ.SQLQueries.check_token_validity(token))
+            if result and result[0][0]:  #query returns a boolean or similar to indicate validity
                 return {"AUTH": True}
             else:
                 return {"AUTH": False, "Reason": "Token invalid or revoked"}
@@ -44,34 +48,38 @@ class UserTokenHandler:
                 connection.close()
 
     # Logs out the user by marking the token ID as revoked
-    def logout(self, user_id):
+    def logout(self):
         try:
-            jti = get_jwt()["jti"]  # JWT Token ID
-            self.revoke_token(jti)
+            user_identity = get_jwt_identity()  # Get the identity from the token
+            user_id = user_identity["user_id"]  # Extracting the user ID
+            self.revoke_tokens_by_user_id(user_id)
         except Exception as e:
             print(f"An error occurred while logging out: {e}")
             return False
         return True
 
-    # Marks the token ID as revoked in the database
-    def revoke_token(self, jti):
+    # Revokes all tokens for a given user
+    def revoke_tokens_by_user_id(self, user_id):
         try:
             connection = SQLC.SQLConAdmin()
             connection.connect()
-            connection.execute_query(SQLQ.SQLQueries.revoke_token(jti))
+            connection.execute_query(SQLQ.SQLQueries.use_users_database())
+            connection.execute_query(SQLQ.SQLQueries.revoke_tokens_by_user_id(user_id))
             connection.cnx.commit()
         except Exception as e:
-            print(f"An error occurred while revoking token: {e}")
+            print(f"An error occurred while revoking tokens: {e}")
             return False
         finally:
             if connection:
                 connection.close()
+        return True
 
     # Stores the token ID in the database for tracking purposes
     def store_token(self, user_id, jti):
         try:
             connection = SQLC.SQLConAdmin()
             connection.connect()
+            connection.execute_query(SQLQ.SQLQueries.use_users_database())
             connection.execute_query(SQLQ.SQLQueries.insert_token_id(jti, user_id))
             connection.cnx.commit()
         except Exception as e:
@@ -81,5 +89,3 @@ class UserTokenHandler:
             if connection:
                 connection.close()
         return True
-
-# Note: Remember to update SQL_AdminQuerys with the relevant queries for token handling

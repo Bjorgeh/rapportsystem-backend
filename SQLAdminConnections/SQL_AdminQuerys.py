@@ -178,3 +178,51 @@ class SQLQueries:
         query = "SELECT id FROM user_activity WHERE user_id = %s ORDER BY activity_timestamp ASC LIMIT 1;"
         params = (user_id,)
         return query, params
+    
+    '''TOKEN-UPDATE FROM HERE ON'''
+    
+    # Inserts a new JWT token ID and associated user ID into the tokens table
+    @staticmethod
+    def insert_token_id(token_id, user_id):
+        query = "INSERT INTO tokens (token_id, user_id, expiration) VALUES (%s, %s, NOW() + INTERVAL 1 DAY);"
+        params = (token_id, user_id)
+        return query, params
+
+    # Checks if a given JWT token is valid and not revoked based on the token_id in the tokens table
+    @staticmethod
+    def check_token_validity(token_id):
+        query = ("SELECT CASE WHEN expiration > CURRENT_TIMESTAMP AND revoked = FALSE THEN 1 ELSE 0 END AS is_valid FROM tokens WHERE token_id = %s;")
+        params = (token_id,)
+        return query, params
+
+    # Marks a given JWT token as revoked in the tokens table
+    @staticmethod
+    def revoke_tokens_by_user_id(user_id):
+        query = "UPDATE tokens SET revoked = TRUE WHERE user_id = %s;"
+        params = (user_id,)
+        return query, params
+
+    # Deletes expired tokens from the tokens table
+    @staticmethod
+    def delete_expired_tokens():
+        query = "DELETE FROM tokens WHERE expiration < CURRENT_TIMESTAMP;"
+        return query, None
+    
+    @staticmethod
+    def get_user_id_by_email(email):
+        query = "SELECT id FROM user_info WHERE email = %s;"
+        params = (email,)
+        return query, params
+
+    @staticmethod
+    def delete_tokens_by_user_id(user_id):
+        query = "DELETE FROM tokens WHERE user_id = %s;"
+        params = (user_id,)
+        return query, params
+
+    @staticmethod
+    def delete_activities_by_user_id(user_id):
+        query = "DELETE FROM user_activity WHERE user_id = %s;"
+        params = (user_id,)
+        return query, params
+

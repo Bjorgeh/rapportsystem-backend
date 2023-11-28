@@ -32,7 +32,6 @@ from flask_jwt_extended import create_access_token
 #for protected routes
 from flask_jwt_extended import jwt_required
 
-
 #defines app and api
 app = Flask(__name__)
 
@@ -40,13 +39,12 @@ app = Flask(__name__)
 Secret.setConfig(app)
 
 #sets up JWT - this shall be moved to the secret file
-app.config['JWT_SECRET_KEY'] = 'SUPER_SECRET_KEY' 
-jwt = JWTManager(app)
+JWTManager(app)
 
 #Sets up CORS
-CORS(app)
+CORS(app,supports_credentials=True)
 
-#Set up authorizations for swagger - Usage: Bearer <access_token>
+#Set up authorizations for swagger - Usage: Bearer <access_token> - This is not acutal an API key, but a token. functions as a key.
 authorizations = {
     'Bearer Auth': {
         'type': 'apiKey',

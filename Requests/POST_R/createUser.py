@@ -35,9 +35,6 @@ def create_user(ns):
             email = str(data['email']).lower()
             accountType = str(data['accountType']).lower()
             print("New Account: ", email, "Type: ", accountType)
-
-            #Makes new User Objekt
-            #new_user = USR.users(None,email, hash.hash(data['password']), accountType,None,None)
            
             #uses the new objekt to create new user in database
             makeUSR.createUser(email, hash.hash(data['password']), accountType).saveToDB()
