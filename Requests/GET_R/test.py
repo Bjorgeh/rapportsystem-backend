@@ -6,8 +6,10 @@ current_directory = os.getcwd()
 #imports sys
 import sys
 sys.path.append(os.path.join(current_directory))
-from Common.Requirements.session_req import require_session
+from flask_jwt_extended import jwt_required
+from Common.Requirements import valid_token as vt
 
+#test route for all userstypes
 def test_route(ns):
     @ns.route('/test')
     class Test(Resource):
@@ -16,8 +18,10 @@ def test_route(ns):
                 responses={200: 'OK', 
                            400: 'Invalid Argument', 
                            500: 'Mapping Key Error'})
-        #requirements
-        @require_session
-        #@require_admin_account  
+        
+        #Requires valid jwt token
+        @jwt_required()
+        @vt.require_valid_token
+
         def get(self):
             return jsonify({"Test": "OK"})

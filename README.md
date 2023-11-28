@@ -23,19 +23,20 @@ Before cloning the repository, make sure to follow these steps:
 
 3. Create a secret file at `./SQLConnections/secret.py` with the following content:
     ```
-    host_IP = 'DATABASE IP
-    host_user = 'USERNAME'
-    host_password = 'YOUR PASSWORD'
+    host_IP = 'YOUR DB IP'
+    host_user = 'ADMIN USER'
+    host_password = 'ADMIN PASSWORD'
     host_database = None
-    host_userdatabase = "DATABASE NAME"
+    host_userdatabase = "users"
     host_users_table = "user_info"
-    host_session_table = "session_info"
-
-    #Sets app config. This is used in API.py
+    host_session_table = "tokens"
+    
+    # Sets app config. This is used in API.py
     def setConfig(app):
-        app.config['SECRET_KEY'] = 'YOUR_SECRET_KEY'
-        app.config['SESSION_TYPE'] = 'filesystem'
-        return 1
+    app.config['SECRET_KEY'] = 'TESTKEY'
+    app.config['JWT_SECRET_KEY'] = 'SUPER_SECRET_KEY' 
+    return 1
+
     ```
 
     If you are collaborating with others, you can download `secret.py` from the Teams chat.

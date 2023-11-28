@@ -1,7 +1,7 @@
 #imports flask & flask_restx for creating API
-from flask import Flask,session
+from flask import Flask #,session
 from flask_restx import Api
-from flask_session import Session
+#from flask_session import Session
 from flask_cors import CORS
 #Imports datetime for cookie expiration
 from datetime import timedelta
@@ -25,26 +25,43 @@ from Requests.POST_R import deleteUser as post_deleteUser
 #imports secret.py
 from SQLConnections import secret as Secret
 
+#For API
+from flask_jwt_extended import JWTManager
+#for login route
+from flask_jwt_extended import create_access_token
+#for protected routes
+from flask_jwt_extended import jwt_required
+
 #defines app and api
 app = Flask(__name__)
 
 #Sets app config SECRET_KEY and SESSION_TYPE
 Secret.setConfig(app)
 
-@app.before_request
-def make_session_permanent():
-    session.permanent = True
-    #app.permanent_session_lifetime = timedelta(minutes=30)
+#sets up JWT - this shall be moved to the secret file
+JWTManager(app)
 
 #Sets up CORS
-CORS(app)
+CORS(app,supports_credentials=True)
+
+#Set up authorizations for swagger - Usage: Bearer <access_token> - This is not acutal an API key, but a token. functions as a key.
+authorizations = {
+    'Bearer Auth': {
+        'type': 'apiKey',
+        'in': 'header',
+        'name': 'Authorization',
+        'description': 'Type in the *Bearer* space token'
+    },
+}
 
 #defines api
 api = Api(app,
           version='1.0',
           title='RapportSystem API Doc',
-          description='Overview of the API endpoints',
-          doc='/api/'
+          description='Overview of the API endpoints.\n\nUsage:\n- Log in\n- Go to authorize\n- Type in the *Bearer* space access_token\n- Use the API',
+          doc='/api/',
+          authorizations=authorizations, 
+          security='Bearer Auth'
         )
 
 '''Defines namespaces'''
@@ -62,7 +79,7 @@ operator_post = api.namespace('api/operator/post', description='POST Endpoints')
 operator_get = api.namespace('api/operator/get', description='GET Endpoints')
 
 #Sets up sessions
-Session(app)
+#Session(app)
 
 #Routes for the API
 '''
