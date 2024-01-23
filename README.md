@@ -42,7 +42,7 @@ Before cloning the repository, make sure to follow these steps:
     If you are collaborating with others, you can download `secret.py` from the Teams chat.
 
 4. Using the API in browser:
-   ```
+   
    - Run API.py
    - http://127.0.0.1:5001/api/
    - Create user
@@ -59,4 +59,4 @@ Before cloning the repository, make sure to follow these steps:
    ![image](https://github.com/Bjorgeh/rapportsystem-backend/assets/122554284/b83ac38b-ffad-49cc-9791-37938edde0e4)
 
    - You now have access to the functionality of the usertype of your account.
-   ```
+   
