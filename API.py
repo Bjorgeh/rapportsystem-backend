@@ -21,6 +21,7 @@ from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
 from Requests.POST_R import updatePassword as post_updatePassword
 from Requests.POST_R import deleteUser as post_deleteUser
+from Requests.POST_R import createRapport as post_createRapport
 
 #imports secret.py
 from SQLConnections import secret as Secret
@@ -117,13 +118,12 @@ post_deleteUser.delete_user_route(user_post)
 '''
 
 '''GET - api/admin/get'''
-
 #Test admin route
 get_test_admin.test_admin_route(admin_get)
 
 '''POST - api/admin/post'''
-#POST
-
+#Create Rapport route
+post_createRapport.createRapport(admin_post)
 
 '''
   --------------------------                       
@@ -134,6 +134,7 @@ get_test_admin.test_admin_route(admin_get)
 
 '''GET - api/leader/get'''
 #GET
+
 
 '''POST - api/leader/post'''
 #POST

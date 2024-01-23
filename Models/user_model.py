@@ -32,7 +32,7 @@ def login_model(api):
         },
     )
 
-# defines login model
+# defines user model
 def user_model(api):
     return api.model(
         "New user",
@@ -52,7 +52,7 @@ def user_model(api):
     )
 
 
-# defines login model
+# defines pw model
 def update_password_model(api):
     return api.model(
         "New password",
@@ -78,6 +78,17 @@ def delete_model(api):
             ),
             "password": fields.String(
                 required=True, description="User password", example="EpicPassword69"
+            ),
+        },
+    )
+
+# defines rapport creation model
+def create_rapport_model(api):
+    return api.model(
+        "Create rapport",
+        {
+            "rapportType": fields.String(
+                required=True, description="Rapport type", example="Disa/Sandanalyse/Smelte/Skrap/Borreprove"
             ),
         },
     )
