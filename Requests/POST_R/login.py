@@ -68,7 +68,7 @@ def login_route(ns):
                 }
 
                 #Returns token and user info
-                return {"message": "Log-in successful", "Logged in as": current_user, "access_token": access_token}, 200
+                return {"message": "Log-in successful", "user": current_user, "access_token": access_token}, 200
             #Returns error if user does not exist
             return {"Error": "Invalid username or password"}, 400
 
