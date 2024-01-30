@@ -15,6 +15,7 @@ Before cloning the repository, make sure to follow these steps:
     - bcrypt
     - httpagentparser
     - flask-cors
+    - flask-jwt-extended
 
     You can install them using pip:
     ```
