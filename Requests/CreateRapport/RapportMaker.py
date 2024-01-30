@@ -1,7 +1,6 @@
 from SQLAdminConnections import SQL_AdminConnector as SQLC
 from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 
-
 #class for creating rapports
 class RapportMaker:
     def __init__(self):
