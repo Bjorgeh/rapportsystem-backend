@@ -100,6 +100,8 @@ get_test.test_route(user_get)
 get_logout.logout_route(user_get)
 #Get user activity
 get_userActivity.activity_route(user_get)
+#Get user information
+get_userInfo.uInfo_route(user_get)
 
 '''POST - api/user/post'''
 #Login route

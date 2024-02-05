@@ -13,7 +13,7 @@ from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 from Common.Requirements import valid_token as vt
 
 #defines activity route 
-def activity_route(ns):
+def uInfo_route(ns):
     @ns.route('/info')
     class Information(Resource):
         @ns.doc('userInfo',
@@ -26,7 +26,7 @@ def activity_route(ns):
 
         def get(self):
             current_user = get_jwt_identity()
-            return {"Info": fetch_user_info(current_user['user_id'])}
+            return {"User_info": fetch_user_info(current_user['user_id'])}
 
 #fetches the last 5 activities from the database
 def fetch_user_info(user_id):
