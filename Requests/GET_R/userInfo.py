@@ -15,9 +15,9 @@ from Common.Requirements import valid_token as vt
 #defines activity route 
 def activity_route(ns):
     @ns.route('/info')
-    class activity(Resource):
+    class Information(Resource):
         @ns.doc('userInfo',
-                description='Info route, returns json with 5 last IP and user agent logins.',
+                description='Info route, returns json with user information.',
                 responses={200: 'OK', 400: 'Invalid Argument', 500: 'Mapping Key Error'})
 
         #Requires valid jwt token
@@ -36,14 +36,14 @@ def fetch_user_info(user_id):
         connection = SQLC.SQLConAdmin()
         connection.connect()
         connection.execute_query(SQLQ.SQLQueries.use_users_database())
-        #Get the result from the query - 5 or fewer activities
+
+
         result = connection.execute_query(SQLQ.SQLQueries.get_user_information_by_id(user_id))
         
         #If the result is not empty
         if result:
             for row in result:
-                
-                #Format activity_timestamp as a string
+
                 formatted_timestamp = row[5].strftime('%Y-%m-%d %H:%M:%S') if row[5] else None
 
                 #Return the result  as a dictionary
