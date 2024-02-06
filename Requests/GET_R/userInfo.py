@@ -30,36 +30,30 @@ def uInfo_route(ns):
 
 #fetches the last 5 activities from the database
 def fetch_user_info(user_id):
-    
+    user_information = {}
+
     try:
-        #Connect to the database
+        # Connect to the database
         connection = SQLC.SQLConAdmin()
         connection.connect()
         connection.execute_query(SQLQ.SQLQueries.use_users_database())
 
-
         result = connection.execute_query(SQLQ.SQLQueries.get_user_information_by_id(user_id))
-        
-        #If the result is not empty
+
+        # If the result is not empty
         if result:
-            for row in result:
+            row = result.fetchone()
+            formatted_timestamp = row[5].strftime('%Y-%m-%d %H:%M:%S') if row[5] else None
 
-                formatted_timestamp = row[5].strftime('%Y-%m-%d %H:%M:%S') if row[5] else None
+            # Return the result as a dictionary
+            user_information = {
+                "user_id": user_id,
+                "email": row[1],
+                "accountType": row[2]
+            }
 
-                #Return the result  as a dictionary
-                user_information = {
-                    "id": row[0],
-                    "email": row[1],
-                    "userPass": row[2],
-                    "accountType": row[3],
-                    "databaseName": row[4],
-                    "activity_timestamp": formatted_timestamp
-                }
-                
-                
-                    
     except Error as e:
-        print("Error while fetching activities.", e)
+        print("Error while fetching user information.", e)
     finally:
         connection.close()
 
