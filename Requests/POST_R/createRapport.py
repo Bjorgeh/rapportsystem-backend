@@ -53,5 +53,5 @@ def createRapport(ns):
                 return {"Error": "No data provided"}
             
             #creates new rapport and returns status code
-            return RM.RapportMaker().createRapport(current_user['user_id'], rapportType)
+            return RM.RapportMaker().createRapport(current_user['email'], rapportType)
         
