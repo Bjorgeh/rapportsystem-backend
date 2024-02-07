@@ -1,5 +1,5 @@
 from flask_restx import Resource
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_current_user
 from mysql.connector import Error
 #imports os
 import os
@@ -25,8 +25,8 @@ def uInfo_route(ns):
         @vt.require_valid_token
 
         def get(self):
-            current_user = get_jwt_identity()
-            return {"User_info": fetch_user_info(current_user['user_id'])}
+            current_user = get_current_user()
+            return {"User_info": fetch_user_info(current_user['user_id', 'email', 'accountType'])}
 
 #fetches the last 5 activities from the database
 def fetch_user_info(user_id):
