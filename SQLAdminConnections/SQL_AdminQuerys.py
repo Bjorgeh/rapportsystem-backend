@@ -208,21 +208,75 @@ class SQLQueries:
         query = "DELETE FROM tokens WHERE expiration < CURRENT_TIMESTAMP;"
         return query, None
     
+    # Gets ID from user_info by email
     @staticmethod
     def get_user_id_by_email(email):
         query = "SELECT id FROM user_info WHERE email = %s;"
         params = (email,)
         return query, params
 
+    # Deletes token by user_id
     @staticmethod
     def delete_tokens_by_user_id(user_id):
         query = "DELETE FROM tokens WHERE user_id = %s;"
         params = (user_id,)
         return query, params
 
+    #deletes activity by user_id
     @staticmethod
     def delete_activities_by_user_id(user_id):
         query = "DELETE FROM user_activity WHERE user_id = %s;"
         params = (user_id,)
         return query, params
+    
+    '''Creating rapports for user'''
+    
+    # use database
+    @staticmethod
+    def use_database(dbname):
+        query = f"USE {dbname};"
+        return query, None
 
+    # create table -> custom
+    @staticmethod
+    def create_table(table_name):
+        query = "CREATE TABLE %s ();"
+        params = (table_name,)
+        return query, params
+    
+    #add column to table -> custom
+    @staticmethod
+    def add_column(table_name, column_name, column_type, prim_or_foreignKey = None):
+        if prim_or_foreignKey is None:
+            query = "ALTER TABLE %s ADD COLUMN %s %s;"
+            params = (table_name, column_name, column_type)
+        else:
+            query = "ALTER TABLE %s ADD COLUMN %s %s %s;"
+            params = (table_name, column_name, column_type, prim_or_foreignKey)
+        return query, params
+
+
+    @staticmethod
+    def create_disa_table(table_name):
+        query = f"CREATE TABLE {table_name} (rapportID INT PRIMARY KEY, shift VARCHAR(255), time_and_date DATETIME, num_shaped INT, num_cast INT, comment VARCHAR(255), model_tray INT);"
+        return query, None
+    
+    @staticmethod
+    def create_sandAnalyseRapport_table(table_name):
+        query = f"CREATE TABLE {table_name} (ID INT PRIMARY KEY,dato DATE, time TIME, fuktighet DECIMAL, Trykkstyrke DECIMAL, Pakningsgrad DECIMAL, glowtemp DECIMAL, SpalteStyrke DECIMAL, aktiv_bentonitt DECIMAL, sandanalysecol DECIMAL, kompersibiliget DECIMAL, standtemperatur DECIMAL, signatur VARCHAR(20));"
+        return query, None
+    
+    @staticmethod
+    def create_skrapRapport_table(table_name):
+        query = f"CREATE TABLE {table_name} (idSkrap INT PRIMARY KEY, katalogNummer INT, antall_bestilt INT, antall_manko INT, pris_pr_del FLOAT, sum_pris FLOAT, skrapcol VARCHAR(255));"
+        return query, None
+    
+    @staticmethod
+    def create_smelteRapport_table(table_name):
+        query = f"CREATE TABLE {table_name} (registreringsID INT PRIMARY KEY, ovnsnummer INT, dato DATE, tid TIME, kg_eget FLOAT, kg_stal FLOAT, totalvekt_smelte FLOAT, kg_karbon FLOAT, kg_malm FLOAT, kg_fesi FLOAT, kg_fep FLOAT, kwh_for_smelte DOUBLE, kwh_etter_smelte DOUBLE, SUM_kwh_brukt DOUBLE);"
+        return query, None
+    
+    @staticmethod
+    def create_borreproverapport_table(table_name):
+        query = f"CREATE TABLE {table_name} (proveID INT PRIMARY KEY, deltype VARCHAR(45), ovn VARCHAR(45), katalognummer INT, antallproveobjekter INT, ordrenummer VARCHAR(45), godkjent TINYINT, dato DATE, tid TIME, signatur VARCHAR(45));"
+        return query, None
