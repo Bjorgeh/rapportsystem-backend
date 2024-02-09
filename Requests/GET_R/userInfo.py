@@ -11,10 +11,11 @@ sys.path.append(os.path.join(current_directory))
 from SQLAdminConnections import SQL_AdminConnector as SQLC
 from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 from Common.Requirements import valid_token as vt
+from flask import jsonify
 
 #defines activity route 
 def uInfo_route(ns):
-    @ns.route('/info')
+    @ns.route('/user/<int:user_id>')
     class Information(Resource):
         @ns.doc('userInfo',
                 description='Info route, returns json with user information.',
@@ -24,39 +25,13 @@ def uInfo_route(ns):
         @jwt_required()
         @vt.require_valid_token
 
-        def get(self):
-            current_user = get_current_user()
-            return {"User_info": fetch_user_info(current_user['user_id', 'email', 'accountType'])}
-
-#fetches the last 5 activities from the database
-def fetch_user_info(user_id):
-    user_information = {}
-
-    try:
-        # Connect to the database
-        connection = SQLC.SQLConAdmin()
-        connection.connect()
-        connection.execute_query(SQLQ.SQLQueries.use_users_database())
-
-        result = connection.execute_query(SQLQ.SQLQueries.get_user_information_by_id(user_id))
-
-        # If the result is not empty
-        if result:
-            row = result.fetchone()
-            formatted_timestamp = row[5].strftime('%Y-%m-%d %H:%M:%S') if row[5] else None
-
-            # Return the result as a dictionary
-            user_information = {
-                "user_id": user_id,
-                "email": row[1],
-                "accountType": row[2]
-            }
-
-    except Error as e:
-        print("Error while fetching user information.", e)
-    finally:
-        connection.close()
-
-    return user_information
-
-        
+        def get(self, user_id):
+            #gets the current user
+            current_user = get_jwt_identity()
+            #connects to the database
+            connection = SQLC.connector()
+            #gets the user information
+            user_info = SQLQ.get_user_info(connection, user_id)
+            #closes the connection
+            connection.close()
+            return jsonify(user_info), 200
