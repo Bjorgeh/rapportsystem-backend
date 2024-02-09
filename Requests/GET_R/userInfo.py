@@ -26,12 +26,21 @@ def uInfo_route(ns):
         @vt.require_valid_token
 
         def get(self, user_id):
-            #gets the current user
+            # gets the current user
             current_user = get_jwt_identity()
-            #connects to the database
+            # connects to the database
             connection = SQLC.connector()
-            #gets the user information
+            # gets the user information
             user_info = SQLQ.get_user_info(connection, user_id)
-            #closes the connection
+            # closes the connection
             connection.close()
-            return jsonify(user_info), 200
+
+            # Extract the required fields from user_info
+            user_info_json = {
+                'user_Id': user_info['user_id'],
+                'Name': user_info['username'],
+                'email': user_info['email'],
+                'user_accountType': user_info['user_accountType']
+            }
+
+            return jsonify(user_info_json), 200
