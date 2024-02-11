@@ -1,5 +1,5 @@
 from flask_restx import Resource
-from flask_jwt_extended import jwt_required, get_jwt_identity, get_current_user
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from mysql.connector import Error
 #imports os
 import os
@@ -15,7 +15,7 @@ from flask import jsonify
 
 #defines activity route 
 def uInfo_route(ns):
-    @ns.route('/user/<int:user_id>')
+    @ns.route('/user/info')
     class Information(Resource):
         @ns.doc('userInfo',
                 description='Info route, returns json with user information.',
@@ -25,22 +25,40 @@ def uInfo_route(ns):
         @jwt_required()
         @vt.require_valid_token
 
-        def get(self, user_id):
+        def get(self):
             # gets the current user
             current_user = get_jwt_identity()
             # connects to the database
-            connection = SQLC.connector()
-            # gets the user information
-            user_info = SQLQ.get_user_info(connection, user_id)
+            connection = SQLC.SQLConAdmin()
+            connection.connect()
+            connection.execute_query(SQLQ.SQLQueries.use_users_database())
+            # gets the user information - From adminQuerry
+            user_info = SQLQ.SQLQueries.get_user_information_by_id(current_user['user_id'])
+
+            result = connection.execute_query(user_info)
+            connection.cnx.commit()
+
+            
+
+            if result:
+                for row in result:
+                    #Format activity_timestamp as a string
+                    created_timestamp = row[5].strftime('%Y-%m-%d %H:%M:%S') if row[5] else None
+                    updated_timestamp = row[6].strftime('%Y-%m-%d %H:%M:%S') if row[6] else None
+
+                    user_info = {
+                        'user_Id': row[0],
+                        'email': row[1],
+                        'accountType': row[2],
+                        'dbName': row[3],
+                        'created_timestamp': created_timestamp,
+                        'updater_timestamp': updated_timestamp
+
+                    }
+            
+
+            
             # closes the connection
             connection.close()
 
-            # Extract the required fields from user_info
-            user_info_json = {
-                'user_Id': user_info['user_id'],
-                'Name': user_info['username'],
-                'email': user_info['email'],
-                'user_accountType': user_info['user_accountType']
-            }
-
-            return jsonify(user_info_json), 200
+            return user_info
