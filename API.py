@@ -16,12 +16,14 @@ from Requests.GET_R import test as get_test
 from Requests.GET_R import test_admin as get_test_admin
 from Requests.GET_R import logout as get_logout
 from Requests.GET_R import userActivity as get_userActivity
+from Requests.GET_R import userInfo as get_userInfo
 #Post-requests
 from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
 from Requests.POST_R import updatePassword as post_updatePassword
 from Requests.POST_R import deleteUser as post_deleteUser
 from Requests.POST_R import createRapport as post_createRapport
+
 
 #imports secret.py
 from SQLConnections import secret as Secret
@@ -98,6 +100,8 @@ get_test.test_route(user_get)
 get_logout.logout_route(user_get)
 #Get user activity
 get_userActivity.activity_route(user_get)
+#Get user information
+get_userInfo.uInfo_route(user_get)
 
 '''POST - api/user/post'''
 #Login route

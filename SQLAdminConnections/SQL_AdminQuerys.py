@@ -168,6 +168,12 @@ class SQLQueries:
         return query, params
     
     @staticmethod
+    def get_user_information_by_id(user_id):
+        query = "SELECT * FROM user_info WHERE id = %s;"
+        params = (user_id,)
+        return query, params
+    
+    @staticmethod
     def count_user_activities(user_id):
         query = "SELECT COUNT(*) FROM user_activity WHERE user_id = %s;"
         params = (user_id,)
