@@ -18,7 +18,6 @@ class createUser:
         self.accountType = accountType
         self.databaseName = None
 
-
     #saves user to database
     def saveToDB(self):
         if self.accountType == "admin":

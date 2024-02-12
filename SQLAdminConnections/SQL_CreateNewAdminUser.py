@@ -9,8 +9,11 @@ from Requests.CreateRapport import RapportMaker as RM
 
 
 def createNewAdminUser(email, password, accountType):
-    #sets up database name
-    databaseName = "DB_"+email
+
+    #sets up database name and email - Formats email to be used as database & table name
+    databaseName = "DB_"+email.replace("@", "_").replace(".", "_")
+    onlyEmail = email.replace("@", "_").replace(".", "_")
+
     #makes object of SQLConAdmin class
     adminConnection = SQLC.SQLConAdmin()
 
@@ -27,7 +30,7 @@ def createNewAdminUser(email, password, accountType):
         connection.execute_query(query)
 
         #Use the new database
-        query = SQLQ.SQLQueries.use_database("DB_"+email)
+        query = SQLQ.SQLQueries.use_database(databaseName)
 
         #Grant the new user privileges on the new database
         query = SQLQ.SQLQueries.grant_access(databaseName, email)
@@ -51,14 +54,15 @@ def createNewAdminUser(email, password, accountType):
     finally:
         connection.close()
 
+        #innitializes the RapportMaker class
         RapportSetup = RM.RapportMaker()
 
         #Creates rapports for the new user and returns status information
-        return {RapportSetup.createRapport(email, "Disa"),
-                RapportSetup.createRapport(email, "Skrap"),
-                RapportSetup.createRapport(email, "Smelte"),
-                RapportSetup.createRapport(email, "Borreprove"),
-                RapportSetup.createRapport(email, "Sandanalyse")}
+        return {RapportSetup.createRapport(onlyEmail, "Disa"),
+                RapportSetup.createRapport(onlyEmail, "Skrap"),
+                RapportSetup.createRapport(onlyEmail, "Smelte"),
+                RapportSetup.createRapport(onlyEmail, "Borreprove"),
+                RapportSetup.createRapport(onlyEmail, "Sandanalyse")}
 
         
 
