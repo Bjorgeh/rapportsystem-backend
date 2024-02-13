@@ -13,6 +13,7 @@ sys.path.append(os.path.join(current_directory))
 from Common.Requirements.admin_req import require_admin_account
 from Common.Requirements import valid_token as vt
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from Requests.dataHandler import dataExtractor as dataEx
 
 #creates test route for admin account
 def extract_data_from_database(ns):
@@ -30,7 +31,9 @@ def extract_data_from_database(ns):
         @require_admin_account 
         
         def get(self):
+            current_user = get_jwt_identity()
 
+            dataExtracor = dataEx.data_extractor()
 
             #returns data to user
-            return {"Data": "OK"},200
+            return {"Rapport_data": dataExtracor.extractData(current_user['email'])},200

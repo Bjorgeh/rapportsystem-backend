@@ -286,3 +286,17 @@ class SQLQueries:
     def create_borreproverapport_table(table_name):
         query = f"CREATE TABLE {table_name} (proveID INT PRIMARY KEY, deltype VARCHAR(45), ovn VARCHAR(45), katalognummer INT, antallproveobjekter INT, ordrenummer VARCHAR(45), godkjent TINYINT, dato DATE, tid TIME, signatur VARCHAR(45));"
         return query, None
+    
+    @staticmethod
+    def getTableDescription(table_name):
+        query = f"DESCRIBE {table_name};"
+        return query, None
+    
+    @staticmethod
+    def getAllFromTable(table_name):
+        query = f"SELECT * FROM {table_name};"
+        return query, None
+    
+    @staticmethod
+    def show_tables():
+        return "SHOW TABLES;", None

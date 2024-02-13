@@ -35,11 +35,11 @@ def uInfo_route(ns):
             # gets the user information - From adminQuerry
             user_info = SQLQ.SQLQueries.get_user_information_by_id(current_user['user_id'])
 
+            #executes the query
             result = connection.execute_query(user_info)
             connection.cnx.commit()
 
-            
-
+            #loops through the result if there is any
             if result:
                 for row in result:
                     #Format activity_timestamp as a string
@@ -53,12 +53,10 @@ def uInfo_route(ns):
                         'dbName': row[3],
                         'created_timestamp': created_timestamp,
                         'updater_timestamp': updated_timestamp
-
                     }
             
-
-            
-            # closes the connection
+            #Closes the connection
             connection.close()
 
+            #Returns the user information
             return user_info
