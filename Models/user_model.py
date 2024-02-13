@@ -88,7 +88,7 @@ def create_rapport_model(api):
         "Create rapport",
         {
             "rapportType": fields.String(
-                required=True, description="Rapport type", example="Disa/Sandanalyse/Smelte/Skrap/Borreprove"
+                required=True, description="Rapport type", example="MyRapport"
             ),
         },
     )

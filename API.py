@@ -17,6 +17,7 @@ from Requests.GET_R import test_admin as get_test_admin
 from Requests.GET_R import logout as get_logout
 from Requests.GET_R import userActivity as get_userActivity
 from Requests.GET_R import userInfo as get_userInfo
+from Requests.GET_R import extractData as extract_data_from_database
 #Post-requests
 from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
@@ -124,6 +125,8 @@ post_deleteUser.delete_user_route(user_post)
 '''GET - api/admin/get'''
 #Test admin route
 get_test_admin.test_admin_route(admin_get)
+#Extract data from database
+extract_data_from_database.extract_data_from_database(admin_get)
 
 '''POST - api/admin/post'''
 #Create Rapport route
