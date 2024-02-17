@@ -264,25 +264,80 @@ class SQLQueries:
 
     @staticmethod
     def create_disa_table(table_name):
-        query = f"CREATE TABLE {table_name} (rapportID INT PRIMARY KEY, shift VARCHAR(255), time_and_date DATETIME, num_shaped INT, num_cast INT, comment VARCHAR(255), model_tray INT);"
+        query = f"CREATE TABLE {table_name} (test_id INT NOT NULL AUTO_INCREMENT, part_type VARCHAR(45) NOT NULL, stove VARCHAR(45) NOT NULL, catalog_number INT NULL, test_amount INT NULL, ordrer_number VARCHAR(45) NOT NULL, approved TINYINT NOT NULL, date DATE NOT NULL, time TIME NOT NULL,sign VARCHAR(20) NOT NULL, PRIMARY KEY (test_id), UNIQUE INDEX test_id_UNIQUE (test_id ASC) VISIBLE);"
         return query, None
     
     @staticmethod
     def create_sandAnalyseRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (ID INT PRIMARY KEY,dato DATE, time TIME, fuktighet DECIMAL, Trykkstyrke DECIMAL, Pakningsgrad DECIMAL, glowtemp DECIMAL, SpalteStyrke DECIMAL, aktiv_bentonitt DECIMAL, sandanalysecol DECIMAL, kompersibiliget DECIMAL, standtemperatur DECIMAL, signatur VARCHAR(20));"
+        query = f"CREATE TABLE {table_name} (`id` INT NOT NULL,
+        `date` DATE NOT NULL,
+        `time` TIME NOT NULL,
+        `moisture` DECIMAL NOT NULL,
+        `pressure_strengt` DECIMAL NOT NULL,
+        `packing_degree` DECIMAL NOT NULL,
+        `brun_out` DECIMAL NOT NULL,
+        `shear_strength` DECIMAL NOT NULL,
+        `active_bentonie` DECIMAL NOT NULL,
+        `sludge_content` DECIMAL NOT NULL,
+        `sieve_analysis` DECIMAL NOT NULL,
+        `compressibility` DECIMAL NOT NULL,
+        `sand_temp` DECIMAL NOT NULL,
+        `signature` VARCHAR(20) CHARACTER SET 'utf16' NOT NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `ID_UNIQUE` (`id` ASC) VISIBLE)
+        ENGINE = InnoDB);"
         return query, None
     
     @staticmethod
     def create_skrapRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (idSkrap INT PRIMARY KEY, katalogNummer INT, antall_bestilt INT, antall_manko INT, pris_pr_del FLOAT, sum_pris FLOAT, skrapcol VARCHAR(255));"
+        query = f"CREATE TABLE {table_name} (
+        `scrap_id` INT NOT NULL AUTO_INCREMENT,
+        `catalog_number` INT NOT NULL,
+        `amount_ordered` INT NOT NULL,
+        `amount_lacking` INT NOT NULL,
+        `price_pr_piece` FLOAT NULL,
+        `sum_price` FLOAT GENERATED ALWAYS AS (Antall_manko * Pris_Pr_del) VIRTUAL,
+        PRIMARY KEY (`scrap_id`),
+        UNIQUE INDEX `scrap_id_UNIQUE` (`scrap_id` ASC) VISIBLE)
+        ENGINE = InnoDB);"
         return query, None
     
     @staticmethod
     def create_smelteRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (registreringsID INT PRIMARY KEY, ovnsnummer INT, dato DATE, tid TIME, kg_eget FLOAT, kg_stal FLOAT, totalvekt_smelte FLOAT, kg_karbon FLOAT, kg_malm FLOAT, kg_fesi FLOAT, kg_fep FLOAT, kwh_for_smelte DOUBLE, kwh_etter_smelte DOUBLE, SUM_kwh_brukt DOUBLE);"
+        query = f"CREATE TABLE {table_name} (`melt_report_id` INT NOT NULL AUTO_INCREMENT,
+        `furnace_number` INT NOT NULL,
+        `date` DATE NOT NULL,
+        `time` TIME NOT NULL,
+        `kg_returns` FLOAT NOT NULL,
+        `kg_scrap_metal` FLOAT NOT NULL,
+        `total_weight_melt` FLOAT GENERATED ALWAYS AS (kg_returns + kg_scrap_metal) VIRTUAL,
+        `kg_carbon` FLOAT NOT NULL,
+        `kg_ore` FLOAT NOT NULL,
+        `kg_fesi` FLOAT NOT NULL,
+        `kg_fep` FLOAT NOT NULL,
+        `kwh_pre_melt` DOUBLE NOT NULL,
+        `kwh_post_melt` DOUBLE NOT NULL,
+        `sum_kwh_used` DOUBLE GENERATED ALWAYS AS (kwh_pre_melt + kwh_post_melt) VIRTUAL,
+        PRIMARY KEY (`melt_report_id`),
+        UNIQUE INDEX `melt_report_id_UNIQUE` (`melt_report_id` ASC) VISIBLE)
+        ENGINE = InnoDB);"
         return query, None
     
     @staticmethod
     def create_borreproverapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (proveID INT PRIMARY KEY, deltype VARCHAR(45), ovn VARCHAR(45), katalognummer INT, antallproveobjekter INT, ordrenummer VARCHAR(45), godkjent TINYINT, dato DATE, tid TIME, signatur VARCHAR(45));"
+        query = f"CREATE TABLE {table_name} (
+        `test_id` INT NOT NULL AUTO_INCREMENT,
+  `part_type` VARCHAR(45) NOT NULL,
+  `stove` VARCHAR(45) NOT NULL,
+  `catalog_number` INT NULL,
+  `test_amount` INT NULL,
+  `ordrer_number` VARCHAR(45) NOT NULL,
+  `approved` TINYINT NOT NULL COMMENT,
+  `date` DATE NOT NULL,
+  `time` TIME NOT NULL,
+  `sign` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`test_id`),
+  UNIQUE INDEX `test_id_UNIQUE` (`test_id` ASC) VISIBLE)
+ENGINE = InnoDB;
+        );"
         return query, None
