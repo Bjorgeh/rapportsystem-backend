@@ -327,17 +327,16 @@ class SQLQueries:
     def create_borreproverapport_table(table_name):
         query = f"CREATE TABLE {table_name} (
         `test_id` INT NOT NULL AUTO_INCREMENT,
-  `part_type` VARCHAR(45) NOT NULL,
-  `stove` VARCHAR(45) NOT NULL,
-  `catalog_number` INT NULL,
-  `test_amount` INT NULL,
-  `ordrer_number` VARCHAR(45) NOT NULL,
-  `approved` TINYINT NOT NULL COMMENT,
-  `date` DATE NOT NULL,
-  `time` TIME NOT NULL,
-  `sign` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`test_id`),
-  UNIQUE INDEX `test_id_UNIQUE` (`test_id` ASC) VISIBLE)
-ENGINE = InnoDB;
-        );"
+        `part_type` VARCHAR(45) NOT NULL,
+        `stove` VARCHAR(45) NOT NULL,
+        `catalog_number` INT NULL,
+        `test_amount` INT NULL,
+        `ordrer_number` VARCHAR(45) NOT NULL,
+        `approved` TINYINT NOT NULL COMMENT,
+        `date` DATE NOT NULL,
+        `time` TIME NOT NULL,
+        `sign` VARCHAR(20) NOT NULL,
+        PRIMARY KEY (`test_id`),
+        UNIQUE INDEX `test_id_UNIQUE` (`test_id` ASC) VISIBLE)
+        ENGINE = InnoDB);"
         return query, None
