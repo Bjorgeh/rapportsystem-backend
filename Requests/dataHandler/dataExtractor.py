@@ -1,7 +1,9 @@
 from SQLAdminConnections import SQL_AdminConnector as SQLC
 from SQLAdminConnections import SQL_AdminQuerys as SQLQ
-from datetime import datetime
+from datetime import datetime, date, time, timedelta
+from decimal import Decimal
 
+#Defines the class data_extractor
 class data_extractor:
     def __init__(self):
         pass
@@ -36,13 +38,13 @@ class data_extractor:
                 table_description = connection.execute_query(SQLQ.SQLQueries.getTableDescription(current_table))
                 
                 #Convert datetime objects to strings in the description
-                table_description = {col[0]: str(col[1]) for col in table_description}
+                table_description = {col[0]: str(col[1]) if isinstance(col[1], (datetime, date, time, timedelta, Decimal)) else col[1] for col in table_description}
 
                 #Gets all data from current table
                 data_in_tables = connection.execute_query(SQLQ.SQLQueries.getAllFromTable(current_table))
 
                 #Convert datetime objects to strings in the data
-                data_in_tables = [dict(zip(table_description.keys(), (str(value) if isinstance(value, datetime) else value for value in row))) for row in data_in_tables]
+                data_in_tables = [dict(zip(table_description.keys(), (str(value) if isinstance(value, (datetime, date, time, timedelta, Decimal)) else value for value in row))) for row in data_in_tables]
 
                 #Adds the data to the dictionary
                 result_dict[current_table] = {"Table_description": table_description, "Data": data_in_tables}
