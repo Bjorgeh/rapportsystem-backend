@@ -17,7 +17,7 @@ from Requests.GET_R import test_admin as get_test_admin
 from Requests.GET_R import logout as get_logout
 from Requests.GET_R import userActivity as get_userActivity
 from Requests.GET_R import userInfo as get_userInfo
-from Requests.GET_R import extractData as extract_data_from_database
+from Requests.GET_R import extractData_admin as extract_data_from_database
 from Requests.GET_R import tableDescription_admin as extract_table_description_from_database
 #Post-requests
 from Requests.POST_R import login as post_login
