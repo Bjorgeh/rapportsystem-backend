@@ -93,7 +93,7 @@ def create_rapport_model(api):
         },
     )
 
-# defines rapport insertion model
+# defines rapport-insertion model
 def insert_data_model(api):
     return api.model(
         "InsertData",
