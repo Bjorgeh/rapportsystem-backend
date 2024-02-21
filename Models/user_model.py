@@ -92,3 +92,17 @@ def create_rapport_model(api):
             ),
         },
     )
+
+# defines rapport-insertion model
+def insert_data_model(api):
+    return api.model(
+        "InsertData",
+        {
+            "table_name": fields.String(
+                required=True, description="Name of the table where data will be inserted.", example="myTable"
+            ),
+            "data": fields.Raw(
+                required=True, description="Data to be inserted into the table.", example= {"column1": "myValue", "column2": 1337}
+            ),
+        },
+    )

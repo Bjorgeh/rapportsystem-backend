@@ -17,14 +17,15 @@ from Requests.GET_R import test_admin as get_test_admin
 from Requests.GET_R import logout as get_logout
 from Requests.GET_R import userActivity as get_userActivity
 from Requests.GET_R import userInfo as get_userInfo
-from Requests.GET_R import extractData as extract_data_from_database
+from Requests.GET_R import extractData_admin as extract_data_from_database
+from Requests.GET_R import tableDescription_admin as extract_table_description_from_database
 #Post-requests
 from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
 from Requests.POST_R import updatePassword as post_updatePassword
 from Requests.POST_R import deleteUser as post_deleteUser
 from Requests.POST_R import createRapport as post_createRapport
-
+from Requests.POST_R import insertData_admin as post_insertData
 
 #imports secret.py
 from SQLConnections import secret as Secret
@@ -127,10 +128,14 @@ post_deleteUser.delete_user_route(user_post)
 get_test_admin.test_admin_route(admin_get)
 #Extract data from database
 extract_data_from_database.extract_data_from_database(admin_get)
+#Extract table description from database
+extract_table_description_from_database.extract_table_description_from_database(admin_get)
 
 '''POST - api/admin/post'''
 #Create Rapport route
 post_createRapport.createRapport(admin_post)
+#Insert data route
+post_insertData.insert_data(admin_post)
 
 '''
   --------------------------                       

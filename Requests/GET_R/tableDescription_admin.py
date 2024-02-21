@@ -13,14 +13,15 @@ sys.path.append(os.path.join(current_directory))
 from Common.Requirements.admin_req import require_admin_account
 from Common.Requirements import valid_token as vt
 from flask_jwt_extended import jwt_required, get_jwt_identity
+#imports dataExtractor
 from Requests.dataHandler import dataExtractor as dataEx
 
 #creates test route for admin account
-def extract_data_from_database(ns):
-    @ns.route('/extract_data')
+def extract_table_description_from_database(ns):
+    @ns.route('/extract_tables')
     class Test(Resource):
-        @ns.doc('extract_data',
-                description='Data extraction route, returns all data the current user has access to from database.',
+        @ns.doc('extract_tables',
+                description='Data extraction route, returns info about all tables a user has.',
                 responses={200: 'OK', 
                            400: 'Invalid Argument', 
                            500: 'Mapping Key Error'})
@@ -33,7 +34,8 @@ def extract_data_from_database(ns):
         def get(self):
             current_user = get_jwt_identity()
 
+            #creates dataExtractor object
             dataExtracor = dataEx.data_extractor()
 
             #returns data to user
-            return {"Rapport_data": dataExtracor.extractData(current_user['email'])},200
+            return {"Table_descriptions": dataExtracor.extractTableDescription(current_user['email'])},200

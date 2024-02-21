@@ -300,3 +300,11 @@ class SQLQueries:
     @staticmethod
     def show_tables():
         return "SHOW TABLES;", None
+    
+    @staticmethod
+    def insert_into_table(table_name, data):
+        columns = ', '.join(data.keys())
+        values = ', '.join(['%s' if value is not None else 'NULL' for value in data.values()])
+        query = f"INSERT INTO {table_name} ({columns}) VALUES ({values});"
+        params = tuple(value if value is not None else None for value in data.values())  # None for 'NULL'
+        return query, params
