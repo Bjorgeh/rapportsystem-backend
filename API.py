@@ -24,7 +24,7 @@ from Requests.POST_R import createUser as post_createUser
 from Requests.POST_R import updatePassword as post_updatePassword
 from Requests.POST_R import deleteUser as post_deleteUser
 from Requests.POST_R import createRapport as post_createRapport
-
+from Requests.POST_R import insertData as post_insertData
 
 #imports secret.py
 from SQLConnections import secret as Secret
@@ -131,6 +131,8 @@ extract_data_from_database.extract_data_from_database(admin_get)
 '''POST - api/admin/post'''
 #Create Rapport route
 post_createRapport.createRapport(admin_post)
+#Insert data route
+post_insertData.insert_data(admin_post)
 
 '''
   --------------------------                       
