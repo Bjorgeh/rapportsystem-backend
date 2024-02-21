@@ -45,7 +45,7 @@ def insert_data(ns):
             current_user = get_jwt_identity()
             data = request.get_json()
 
-            #gets rapport type from userinput
+            #gets data from request -> table & data
             table_name = data['table_name']
             main_data = data['data']
 
@@ -53,6 +53,6 @@ def insert_data(ns):
             if not data:
                 return {"Error": "No data provided"}
             
-            #creates new rapport and returns status code
+            #Returns the result of the insertData function & inserts data into database
             return {"Message":dataIns.Data_insertor().insertData(current_user['email'], table_name, main_data)}
         

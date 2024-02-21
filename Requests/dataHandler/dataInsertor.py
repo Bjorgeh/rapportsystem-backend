@@ -3,6 +3,7 @@ from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 from datetime import datetime, date, time, timedelta
 from decimal import Decimal
 
+#Class for inserting data into a table
 class Data_insertor:
     def __init__(self):
         pass
@@ -24,9 +25,10 @@ class Data_insertor:
             if table_name not in existing_tables:
                 raise Exception(f"Table {table_name} does not exist.")
 
+            #Gets the table description
             table_description = connection.execute_query(SQLQ.SQLQueries.getTableDescription(table_name))
 
-            # Konverterer strenger til riktig datatype basert på tabellbeskrivelsen
+            #converts strings to the correct datatype based on the table description
             for column_info in table_description:
                 column_name = column_info[0]
                 column_type = column_info[1]
@@ -42,7 +44,7 @@ class Data_insertor:
                     elif "datetime" in column_type:
                         data[column_name] = datetime.strptime(data[column_name], "%Y-%m-%d %H:%M:%S")
 
-            # Setter inn data i tabellen
+            #Sets data into the table
             insert_query = SQLQ.SQLQueries.insert_into_table(table_name, data)
             connection.execute_query(insert_query)
             connection.cnx.commit()
