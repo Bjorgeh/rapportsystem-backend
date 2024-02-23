@@ -284,7 +284,7 @@ class SQLQueries:
         `sand_temp` DECIMAL NOT NULL,
         `signature` VARCHAR(20) CHARACTER SET 'utf16' NOT NULL,
         PRIMARY KEY (`id`),
-        UNIQUE INDEX `ID_UNIQUE` (`id` ASC) VISIBLE)
+        UNIQUE INDEX `ID_UNIQUE` (`id` ASC) VISIBLE
         ENGINE = InnoDB);"
         return query, None
     

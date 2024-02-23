@@ -80,13 +80,13 @@ KEY_BLOCK_SIZE = 16;
 -- Table `mydb`.`sand_analysis`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`sand_analysis` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `date` DATE NOT NULL,
   `time` TIME NOT NULL,
   `moisture` DECIMAL NOT NULL,
   `pressure_strengt` DECIMAL NOT NULL,
   `packing_degree` DECIMAL NOT NULL,
-  `brun_out` DECIMAL NOT NULL,
+  `burn_out` DECIMAL NOT NULL,
   `shear_strength` DECIMAL NOT NULL,
   `active_bentonie` DECIMAL NOT NULL,
   `sludge_content` DECIMAL NOT NULL,
