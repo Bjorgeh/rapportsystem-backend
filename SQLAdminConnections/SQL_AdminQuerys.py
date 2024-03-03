@@ -269,20 +269,20 @@ class SQLQueries:
     
     @staticmethod
     def create_sandAnalyseRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (id INT NOT NULL, date DATE NOT NULL, time TIME NOT NULL, moisture DECIMAL NOT NULL, pressure_strengt DECIMAL NOT NULL, packing_degree DECIMAL NOT NULL, burn_out DECIMAL NOT NULL, shear_strength DECIMAL NOT NULL, active_bentonie DECIMAL NOT NULL, sludge_content DECIMAL NOT NULL, sieve_analysis DECIMAL NOT NULL, compressibility DECIMAL NOT NULL, sand_temp DECIMAL NOT NULL, signature VARCHAR(20) CHARACTER SET 'utf16' NOT NULL, PRIMARY KEY (id),UNIQUE INDEX `ID_UNIQUE` (id ASC) VISIBLE ENGINE = InnoDB);"
+        query = f"CREATE TABLE {table_name} (id INT NOT NULL, date DATE NOT NULL, time TIME NOT NULL, moisture DECIMAL NOT NULL, pressure_strengt DECIMAL NOT NULL, packing_degree DECIMAL NOT NULL, burn_out DECIMAL NOT NULL, shear_strength DECIMAL NOT NULL, active_bentonie DECIMAL NOT NULL, sludge_content DECIMAL NOT NULL, sieve_analysis DECIMAL NOT NULL, compressibility DECIMAL NOT NULL, sand_temp DECIMAL NOT NULL, signature VARCHAR(20) CHARACTER SET utf16 NOT NULL, PRIMARY KEY (id),UNIQUE INDEX ID_UNIQUE (id ASC) VISIBLE);"
         return query, None
     
     @staticmethod
     def create_skrapRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (scrap_id INT NOT NULL AUTO_INCREMENT, catalog_number INT NOT NULL, amount_ordered INT NOT NULL, amount_lacking INT NOT NULL, price_pr_piece FLOAT NULL, sum_price FLOAT GENERATED ALWAYS AS (Antall_manko * Pris_Pr_del) VIRTUAL, PRIMARY KEY (scrap_id), UNIQUE INDEX scrap_id_UNIQUE (scrap_id ASC) VISIBLE ENGINE = InnoDB);"
+        query = f"CREATE TABLE {table_name} (scrap_id INT NOT NULL AUTO_INCREMENT, catalog_number INT NOT NULL, amount_ordered INT NOT NULL, amount_lacking INT NOT NULL, price_pr_piece FLOAT NULL, sum_price FLOAT GENERATED ALWAYS AS (amount_lacking * price_pr_piece) VIRTUAL, PRIMARY KEY (scrap_id), UNIQUE INDEX scrap_id_UNIQUE (scrap_id ASC) VISIBLE);"
         return query, None
     
     @staticmethod
     def create_smelteRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (melt_report_id INT NOT NULL AUTO_INCREMENT, furnace_number INT NOT NULL, date DATE NOT NULL, time TIME NOT NULL, kg_returns FLOAT NOT NULL, kg_scrap_metal FLOAT NOT NULL, total_weight_melt FLOAT GENERATED ALWAYS AS (kg_returns + kg_scrap_metal) VIRTUAL, kg_carbon FLOAT NOT NULL, kg_ore FLOAT NOT NULL, kg_fesi FLOAT NOT NULL, kg_fep FLOAT NOT NULL, kwh_pre_melt DOUBLE NOT NULL, kwh_post_melt DOUBLE NOT NULL, sum_kwh_used DOUBLE GENERATED ALWAYS AS (kwh_pre_melt + kwh_post_melt) VIRTUAL, PRIMARY KEY (melt_report_id), UNIQUE INDEX melt_report_id_UNIQUE (melt_report_id ASC) VISIBLE ENGINE = InnoDB);"
+        query = f"CREATE TABLE {table_name} (melt_report_id INT NOT NULL AUTO_INCREMENT, furnace_number INT NOT NULL, date DATE NOT NULL, time TIME NOT NULL, kg_returns FLOAT NOT NULL, kg_scrap_metal FLOAT NOT NULL, total_weight_melt FLOAT GENERATED ALWAYS AS (kg_returns + kg_scrap_metal) VIRTUAL, kg_carbon FLOAT NOT NULL, kg_ore FLOAT NOT NULL, kg_fesi FLOAT NOT NULL, kg_fep FLOAT NOT NULL, kwh_pre_melt DOUBLE NOT NULL, kwh_post_melt DOUBLE NOT NULL, sum_kwh_used DOUBLE GENERATED ALWAYS AS (kwh_pre_melt + kwh_post_melt) VIRTUAL, PRIMARY KEY (melt_report_id), UNIQUE INDEX melt_report_id_UNIQUE (melt_report_id ASC) VISIBLE);"
         return query, None
     
     @staticmethod
     def create_borreproverapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (test_id INT NOT NULL AUTO_INCREMENT, part_type VARCHAR(45) NOT NULL, stove VARCHAR(45) NOT NULL, catalog_number INT NULL, test_amount INT NULL, ordrer_number VARCHAR(45) NOT NULL, approved TINYINT NOT NULL COMMENT, date DATE NOT NULL, time TIME NOT NULL, sign VARCHAR(20) NOT NULL, PRIMARY KEY (test_id), UNIQUE INDEX test_id_UNIQUE (`test_id` ASC) VISIBLE ENGINE = InnoDB);"
+        query = f"CREATE TABLE {table_name} (test_id INT NOT NULL AUTO_INCREMENT, part_type VARCHAR(45) NOT NULL, stove VARCHAR(45) NOT NULL, catalog_number INT NULL, test_amount INT NULL, ordrer_number VARCHAR(45) NOT NULL, approved BOOL NOT NULL, date DATE NOT NULL, time TIME NOT NULL, sign VARCHAR(20) NOT NULL, PRIMARY KEY (test_id), UNIQUE INDEX test_id_UNIQUE (test_id ASC) VISIBLE);"
         return query, None
