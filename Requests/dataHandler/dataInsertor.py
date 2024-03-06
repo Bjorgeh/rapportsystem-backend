@@ -18,7 +18,7 @@ class Data_insertor:
             connection.connect()
 
             # Uses the database
-            query = SQLQ.SQLQueries.use_database("DB_" + email)
+            query = SQLQ.SQLQueries.use_database("db_" + email)
             connection.execute_query(query)
 
             existing_tables = [table[0] for table in connection.execute_query(SQLQ.SQLQueries.show_tables())]
