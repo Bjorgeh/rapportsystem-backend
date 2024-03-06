@@ -11,7 +11,7 @@ from Requests.CreateRapport import RapportMaker as RM
 def createNewAdminUser(email, password, accountType):
 
     #sets up database name and email - Formats email to be used as database & table name
-    databaseName = "DB_"+email.replace("@", "_").replace(".", "_")
+    databaseName = "db_"+email.replace("@", "_").replace(".", "_")
     onlyEmail = email.replace("@", "_").replace(".", "_")
 
     #makes object of SQLConAdmin class
