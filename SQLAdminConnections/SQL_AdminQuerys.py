@@ -286,3 +286,27 @@ class SQLQueries:
     def create_borreproverapport_table(table_name):
         query = f"CREATE TABLE {table_name} (test_id INT NOT NULL AUTO_INCREMENT, part_type VARCHAR(45) NOT NULL, stove VARCHAR(45) NOT NULL, catalog_number INT NULL, test_amount INT NULL, ordrer_number VARCHAR(45) NOT NULL, approved BOOL NOT NULL, date DATE NOT NULL, time TIME NOT NULL, sign VARCHAR(20) NOT NULL, PRIMARY KEY (test_id), UNIQUE INDEX test_id_UNIQUE (test_id ASC) VISIBLE);"
         return query, None
+
+  
+    @staticmethod
+    def getTableDescription(table_name):
+        query = f"DESCRIBE {table_name};"
+        return query, None
+    
+    @staticmethod
+    def getAllFromTable(table_name):
+        query = f"SELECT * FROM {table_name};"
+        return query, None
+    
+    @staticmethod
+    def show_tables():
+        return "SHOW TABLES;", None
+    
+    @staticmethod
+    def insert_into_table(table_name, data):
+        columns = ', '.join(data.keys())
+        values = ', '.join(['%s' if value is not None else 'NULL' for value in data.values()])
+        query = f"INSERT INTO {table_name} ({columns}) VALUES ({values});"
+        params = tuple(value if value is not None else None for value in data.values())  # None for 'NULL'
+        return query, params
+
