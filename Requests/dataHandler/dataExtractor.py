@@ -21,7 +21,7 @@ class data_extractor:
             connection.connect()
 
             #Uses the database
-            query = SQLQ.SQLQueries.use_database("DB_" + email)
+            query = SQLQ.SQLQueries.use_database("db_" + email)
             connection.execute_query(query)
 
             #Gets all tablenames from the database
@@ -69,7 +69,7 @@ class data_extractor:
             connection.connect()
 
             #Uses the database
-            query = SQLQ.SQLQueries.use_database("DB_" + email)
+            query = SQLQ.SQLQueries.use_database("db_" + email)
             connection.execute_query(query)
 
             #Gets all tablenames from the database
