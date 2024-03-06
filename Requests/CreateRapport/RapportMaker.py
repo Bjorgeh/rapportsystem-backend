@@ -30,8 +30,11 @@ class RapportMaker:
     #Function for creating new disa rapport
     def makeDisaRapport(self, email):
 
+        databaseName = "db_"+email.replace("@", "_").replace(".", "_")
+        onlyEmail = email.replace("@", "_").replace(".", "_")
+
         #sets up the name of the rapport
-        self.newDisaRapport = "DisaRapport_"+str(email)
+        self.newDisaRapport = "DisaRapport_"+str(onlyEmail)
 
         '''
         #layout for DisaRapport
@@ -50,7 +53,7 @@ class RapportMaker:
             connection.connect()
 
             #use the corrent database
-            query = SQLQ.SQLQueries.use_database("DB_"+email)
+            query = SQLQ.SQLQueries.use_database(databaseName)
             print(query)
             connection.execute_query(query)
             
@@ -76,6 +79,9 @@ class RapportMaker:
     
     #Function for creating new sandanalyse rapport
     def makeSandanalyseRapport(self, email):
+
+        databaseName = "db_"+email.replace("@", "_").replace(".", "_")
+        onlyEmail = email.replace("@", "_").replace(".", "_")
         '''
         #layout for sandanalyseRapport
         #NAME: sandanalyserapprot_[UserID]
@@ -83,7 +89,7 @@ class RapportMaker:
         | slam_innhold DECIMAL | sikteanalyse DECIMAL | sandanalysecol DECIMAL | kompersibilitet DECIMAL | sandtemperatur DECIMAL | signatur VARCHAR(20)
         '''
         #sets name of the rapport
-        self.newSandanalyseRapport = "SandanalyseRapport_"+str(email)
+        self.newSandanalyseRapport = "SandanalyseRapport_"+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
@@ -93,7 +99,7 @@ class RapportMaker:
 
             
             #use the corrent database
-            query = SQLQ.SQLQueries.use_database("DB_"+email)
+            query = SQLQ.SQLQueries.use_database(databaseName)
             connection.execute_query(query)
 
             #Create the new table
@@ -114,6 +120,8 @@ class RapportMaker:
     
     #Function for creating new skrap rapport
     def makeSkrapRapport(self, email):
+        databaseName = "db_"+email.replace("@", "_").replace(".", "_")
+        onlyEmail = email.replace("@", "_").replace(".", "_")
         '''
         #layout for skrapRapport
         #NAME: skraprapport_[UserID]
@@ -121,7 +129,7 @@ class RapportMaker:
         '''
 
         #sets name of the rapport
-        self.newSkrapRapport = "SkrapRapport_"+str(email)
+        self.newSkrapRapport = "SkrapRapport_"+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
@@ -130,7 +138,7 @@ class RapportMaker:
             connection.connect()
 
             #use the corrent database
-            query = SQLQ.SQLQueries.use_database("DB_"+email)
+            query = SQLQ.SQLQueries.use_database(databaseName)
             connection.execute_query(query)
 
             #Create the new table
@@ -150,6 +158,8 @@ class RapportMaker:
 
     #Function for creating new smelte rapport
     def makeSmelteRapport(self, email):
+        databaseName = "db_"+email.replace("@", "_").replace(".", "_")
+        onlyEmail = email.replace("@", "_").replace(".", "_")
         
         '''
         #layout for smelteRapport
@@ -159,7 +169,7 @@ class RapportMaker:
         '''
 
         #sets name of the rapport
-        self.newSmelteRapport = "SmelteRapport_"+str(email)
+        self.newSmelteRapport = "SmelteRapport_"+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
@@ -168,7 +178,7 @@ class RapportMaker:
             connection.connect()
 
             #use the corrent database
-            query = SQLQ.SQLQueries.use_database("DB_"+email)
+            query = SQLQ.SQLQueries.use_database(databaseName)
             connection.execute_query(query)
 
             #Create the new table
@@ -188,6 +198,8 @@ class RapportMaker:
 
     #Function for creating new borreprove rapport
     def makeBorreproveRapport(self, email):
+        databaseName = "db_"+email.replace("@", "_").replace(".", "_")
+        onlyEmail = email.replace("@", "_").replace(".", "_")
         
         '''
         #layout for borreproveRapport
@@ -196,7 +208,7 @@ class RapportMaker:
         '''
 
         #sets name of the rapport
-        self.newBorreproveRapport = "BorreproveRapport_"+str(email)
+        self.newBorreproveRapport = "BorreproveRapport_"+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
@@ -205,7 +217,7 @@ class RapportMaker:
             connection.connect()
 
             #use the corrent database
-            query = SQLQ.SQLQueries.use_database("DB_"+email)
+            query = SQLQ.SQLQueries.use_database(databaseName)
             connection.execute_query(query)
 
             #Create the new table
@@ -225,13 +237,15 @@ class RapportMaker:
 
     #Function for creating new custom rapport
     def makeCustomRapport(self, email, jsonData, dbname):
+        databaseName = "db_"+email.replace("@", "_").replace(".", "_")
+        onlyEmail = email.replace("@", "_").replace(".", "_")
         '''
         #layout for customRapport
         #NAME: customrapport_[UserID]
         #ID(PRIM) INT | [custom data]
         '''
         #sets name of the rapport
-        self.newCustomRapport = dbname+str(email)
+        self.newCustomRapport = dbname+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
@@ -240,7 +254,7 @@ class RapportMaker:
             connection.connect()
 
             #use the corrent database
-            query = SQLQ.SQLQueries.use_database("DB_"+email)
+            query = SQLQ.SQLQueries.use_database(databaseName)
             connection.execute_query(query)
 
             #Create the new table
