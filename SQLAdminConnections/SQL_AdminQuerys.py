@@ -269,7 +269,7 @@ class SQLQueries:
     
     @staticmethod
     def create_sandAnalyseRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (id INT NOT NULL, date DATE NOT NULL, time TIME NOT NULL, moisture DECIMAL NOT NULL, pressure_strengt DECIMAL NOT NULL, packing_degree DECIMAL NOT NULL, burn_out DECIMAL NOT NULL, shear_strength DECIMAL NOT NULL, active_bentonie DECIMAL NOT NULL, sludge_content DECIMAL NOT NULL, sieve_analysis DECIMAL NOT NULL, compressibility DECIMAL NOT NULL, sand_temp DECIMAL NOT NULL, signature VARCHAR(20) CHARACTER SET utf16 NOT NULL, PRIMARY KEY (id),UNIQUE INDEX ID_UNIQUE (id ASC) VISIBLE);"
+        query = f"CREATE TABLE {table_name} (id INT NOT NULL AUTO_INCREMENT, date DATE NOT NULL, time TIME NOT NULL, moisture DECIMAL NOT NULL, pressure_strengt DECIMAL NOT NULL, packing_degree DECIMAL NOT NULL, burn_out DECIMAL NOT NULL, shear_strength DECIMAL NOT NULL, active_bentonie DECIMAL NOT NULL, sludge_content DECIMAL NOT NULL, sieve_analysis DECIMAL NOT NULL, compressibility DECIMAL NOT NULL, sand_temp DECIMAL NOT NULL, signature VARCHAR(20) CHARACTER SET utf16 NOT NULL, PRIMARY KEY (id),UNIQUE INDEX ID_UNIQUE (id ASC) VISIBLE);"
         return query, None
     
     @staticmethod
