@@ -1,7 +1,12 @@
 from SQLAdminConnections import SQL_AdminConnector as SQLC
 from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 
-def createNewOperatorUser(email, password,accountType):
+def createNewOperatorUser(email, password, accountType,adminEmail, rapportName):
+
+    #sets up database name and email - Formats email to be used as database & table name
+    databaseName = "db_"+adminEmail.replace("@", "_").replace(".", "_")
+    onlyEmail = email.replace("@", "_").replace(".", "_")
+    
     #makes object of SQLConAdmin class
     adminConnection = SQLC.SQLConAdmin()
 
@@ -12,12 +17,19 @@ def createNewOperatorUser(email, password,accountType):
     try:
         #Create the new user
         connection.execute_query(SQLQ.SQLQueries.create_user(email, password))
-
+              
+        #Grant the new user privileges on the new database
+        query = SQLQ.SQLQueries.grant_operator_access(databaseName, rapportName, email)
+        connection.execute_query(query)
+        
+        #Flush privileges
+        query = SQLQ.SQLQueries.flush_privileges()
+        connection.execute_query(query)
+        
         #Add user details to the users database
         connection.execute_query(SQLQ.SQLQueries.use_users_database())
-        connection.execute_query(SQLQ.SQLQueries.save_user_credentials(email, password, accountType))
+        connection.execute_query(SQLQ.SQLQueries.save_user_credentials(email, password, accountType, databaseName,adminEmail))
         
-        #Commit changes and close connection
         connection.cnx.commit()
         connection.close()
 
