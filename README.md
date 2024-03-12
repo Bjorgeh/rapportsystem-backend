@@ -12,6 +12,9 @@ This guide is part of a group project at Fagskolen i Viken, focusing on Programm
 
 Our backend solution centers around a Flask API, a micro web framework for Python, providing a lightweight yet powerful foundation for building web applications.
 
+## SQL Server
+We utilize MariaDB as our SQL server to store and manage data efficiently.
+
 ## Security Measures
 
 Security is a paramount concern, and our implementation includes the use of bcrypt for securely managing passwords and ensuring data integrity.
