@@ -19,6 +19,8 @@ from Requests.GET_R import userActivity as get_userActivity
 from Requests.GET_R import userInfo as get_userInfo
 from Requests.GET_R import extractData_admin as extract_data_from_database
 from Requests.GET_R import tableDescription_admin as extract_table_description_from_database
+from Requests.GET_R import test_leader as get_test_leader
+from Requests.GET_R import test_operator as get_test_operator
 #Post-requests
 from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
@@ -152,8 +154,7 @@ post_createOperatorSubUser.create_sub_operator(admin_post)
 
 '''GET - api/leader/get'''
 #GET
-
-
+get_test_leader.test_leader_route(leader_get)
 '''POST - api/leader/post'''
 #POST
 
@@ -167,12 +168,17 @@ post_createOperatorSubUser.create_sub_operator(admin_post)
 
 '''GET - api/operator/get'''
 #GET
-
+get_test_operator.test_operator_route(operator_get)
 '''POST - api/operator/post'''
 #POST
 
 
-'''Runs the API'''
+'''
+  ---------------------------
+ |                           |
+ |       RUNS the API        |
+ V                           V
+'''
 if __name__ == "__main__":
     #Hosts the API on port 5001 and sets debug to True
     app.run(host='0.0.0.0',debug=True, port=5001)

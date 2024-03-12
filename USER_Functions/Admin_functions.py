@@ -1,8 +1,6 @@
 class admin_functions:
-    def __init__(self, userObjekt):
-        self.id = userObjekt.getID()
-        self.email = userObjekt.getEmail() 
-        self.accountType = userObjekt.getAccountType()
+    def __init__(self):
+        pass
 
     #Sets new password for user
     def Support_updatePassword(self,email,new_password1, new_password2):
