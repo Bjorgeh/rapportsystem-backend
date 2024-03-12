@@ -14,7 +14,7 @@ from USER_obj import new_user as makeUSR
 def create_user(ns):
     #Post request for creating a new leader user & belonging database
     @ns.route('/createUser')
-    class CreateLeaderUser(Resource):
+    class CreateUser(Resource):
         new_user_model = UM.user_model(ns)
         @ns.doc('create_user',
                 description='Create new user when given Email, Password and Account type.',

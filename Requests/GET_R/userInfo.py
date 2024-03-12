@@ -43,8 +43,8 @@ def uInfo_route(ns):
             if result:
                 for row in result:
                     #Format activity_timestamp as a string
-                    created_timestamp = row[5].strftime('%Y-%m-%d %H:%M:%S') if row[5] else None
-                    updated_timestamp = row[6].strftime('%Y-%m-%d %H:%M:%S') if row[6] else None
+                    created_timestamp = row[6].strftime('%Y-%m-%d %H:%M:%S') if row[6] else None
+                    updated_timestamp = row[7].strftime('%Y-%m-%d %H:%M:%S') if row[7] else None
 
                     user_info = {
                         'user_Id': row[0],

@@ -1,22 +1,5 @@
 from flask_restx import fields
 
-"""'
-#defines leader model
-def leader_user_model(api):
-    return api.model('LeaderUser', {  
-        'email': fields.String(required=True, description='User email'),
-        'userPass': fields.String(required=True, description='User password'),
-        'databaseName': fields.String(required=True, description='Database name for the user')
-    })
-
-#defines operator model
-def operator_user_model(api):
-    return api.model('OperatorUser', {  
-        'email': fields.String(required=True, description='User email'),
-        'userPass': fields.String(required=True, description='User password')
-    })
-"""
-
 
 # defines login model
 def login_model(api):
@@ -45,8 +28,8 @@ def user_model(api):
             ),
             "accountType": fields.String(
                 required=True,
-                description="Account type | admin/leader/operator",
-                example="operator",
+                description="Account type | admin",
+                example="admin",
             ),
         },
     )
@@ -103,6 +86,38 @@ def insert_data_model(api):
             ),
             "data": fields.Raw(
                 required=True, description="Data to be inserted into the table.", example= {"column1": "myValue", "column2": 1337}
+            ),
+        },
+    )
+
+
+# defines subuser model
+def sub_leader_model(api):
+    return api.model(
+        "New leader user",
+        {
+            "email": fields.String(
+                required=True, description="User email", example="paul.nordmann@viken.no"
+            ),
+            "password": fields.String(
+                required=True, description="User password", example="EpicPassword420"
+            ),
+        },
+    )
+
+# defines subuser model
+def sub_operator_model(api):
+    return api.model(
+        "New operator user",
+        {
+            "email": fields.String(
+                required=True, description="User email", example="lars.nordmann@viken.no"
+            ),
+            "password": fields.String(
+                required=True, description="User password", example="EpicPassword420"
+            ),
+            "rapportName": fields.String(
+                required=True, description="Rapport name", example="borreproverapport_ola_nordmann_viken_no"
             ),
         },
     )

@@ -26,12 +26,12 @@ class createUser:
             return True
 
         if self.accountType == 'leader':
-            save_leader.createNewLeaderUser(self.email, self.password, self.accountType)
-            print("Leader account created successfully")
+            #save_leader.createNewLeaderUser(self.email, self.password, self.accountType)
+            print("Only admin can create leader accounts.")
             return True
         
         if self.accountType == 'operator':
-            save_operator.createNewOperatorUser(self.email, self.password,self.accountType)
-            print("Operator account created successfully")
+            #save_operator.createNewOperatorUser(self.email, self.password,self.accountType)
+            print("Only admin can create operator accounts.")
             return True
         return False

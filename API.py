@@ -26,6 +26,8 @@ from Requests.POST_R import updatePassword as post_updatePassword
 from Requests.POST_R import deleteUser as post_deleteUser
 from Requests.POST_R import createRapport as post_createRapport
 from Requests.POST_R import insertData_admin as post_insertData
+from Requests.POST_R import adminCreateSubLeader as post_createLeaderSubUser
+from Requests.POST_R import adminCreateSubOperator as post_createOperatorSubUser
 
 #imports secret.py
 from SQLConnections import secret as Secret
@@ -136,6 +138,10 @@ extract_table_description_from_database.extract_table_description_from_database(
 post_createRapport.createRapport(admin_post)
 #Insert data route
 post_insertData.insert_data(admin_post)
+#Create leader sub user route
+post_createLeaderSubUser.create_sub_leader(admin_post)
+#Create operator sub user route
+post_createOperatorSubUser.create_sub_operator(admin_post)
 
 '''
   --------------------------                       

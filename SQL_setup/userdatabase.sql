@@ -7,8 +7,9 @@ CREATE TABLE user_info(
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(50) UNIQUE,
     accountType VARCHAR(255),
-    databaseName VARCHAR(255) UNIQUE,
-    userPass VARCHAR(255), 
+    databaseName VARCHAR(255),
+    userPass VARCHAR(255),
+    creator_name VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -32,4 +33,3 @@ CREATE TABLE user_activity(
     activity_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user_info(id)
 );
-

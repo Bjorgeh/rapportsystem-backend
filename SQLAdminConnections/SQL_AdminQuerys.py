@@ -42,10 +42,10 @@ class SQLQueries:
     '''
     @staticmethod
     # Inserts new user credentials into the user_info table
-    def save_user_credentials(email, password, accountType, databaseName='None'):
+    def save_user_credentials(email, password, accountType, databaseName='None', adminEmail='None'):
         # Assuming password is already hashed before calling this method
-        query = "INSERT INTO user_info(email, userPass, accountType,databaseName) VALUES (%s, %s, %s, %s);"
-        params = (email, password,accountType,databaseName)
+        query = "INSERT INTO user_info(email, userPass, accountType,databaseName,creator_name) VALUES (%s, %s, %s, %s,%s);"
+        params = (email, password,accountType,databaseName,adminEmail)
         return query, params
 
     @staticmethod
@@ -274,7 +274,7 @@ class SQLQueries:
     
     @staticmethod
     def create_skrapRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (scrap_id INT NOT NULL AUTO_INCREMENT, catalog_number INT NOT NULL, amount_ordered INT NOT NULL, amount_lacking INT NOT NULL, price_pr_piece FLOAT NULL, sum_price FLOAT GENERATED ALWAYS AS (amount_lacking * price_pr_piece) VIRTUAL, PRIMARY KEY (scrap_id), UNIQUE INDEX scrap_id_UNIQUE (scrap_id ASC) VISIBLE);"
+        query = f"CREATE TABLE {table_name} (scrap_id INT NOT NULL AUTO_INCREMENT, date DATE NOT NULL, time TIME NOT NULL, catalog_number INT NOT NULL, amount_ordered INT NOT NULL, amount_lacking INT NOT NULL, price_pr_piece FLOAT NULL, sum_price FLOAT GENERATED ALWAYS AS (amount_lacking * price_pr_piece) VIRTUAL, PRIMARY KEY (scrap_id), UNIQUE INDEX scrap_id_UNIQUE (scrap_id ASC) VISIBLE);"
         return query, None
     
     @staticmethod
@@ -310,3 +310,12 @@ class SQLQueries:
         params = tuple(value if value is not None else None for value in data.values())  # None for 'NULL'
         return query, params
 
+    @staticmethod
+    def grant_leader_access(user_id, database_name):
+        query = f"GRANT SELECT, INSERT, UPDATE, DELETE ON {database_name}.* TO '{user_id}'@'%';"
+        return query, None
+    
+    @staticmethod
+    def grant_operator_access(database_name, table_name, user_id):
+        query = f"GRANT INSERT ON {database_name}.{table_name} TO '{user_id}'@'%';"
+        return query, None
