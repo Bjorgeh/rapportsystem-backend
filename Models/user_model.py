@@ -26,11 +26,6 @@ def user_model(api):
             "password": fields.String(
                 required=True, description="User password", example="EpicPassword69"
             ),
-            "accountType": fields.String(
-                required=True,
-                description="Account type | admin",
-                example="admin",
-            ),
         },
     )
 

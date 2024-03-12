@@ -16,9 +16,9 @@ from Common.Requirements import valid_token as vt
 
 #Create subuser route
 def create_sub_operator(ns):
-    #Post request for creating a new leader user & belonging database
+    #Post request for creating a new operator user and grants acces to a rapport
     @ns.route('/createSubOperator')
-    class CreateLeaderUser(Resource):
+    class CreateOperatorUser(Resource):
         new_sub_user_model = UM.sub_operator_model(ns)
         @ns.doc('admin_create_sub_operator_user',
                 description='Create new operator user when given Email, Password and rapport name',
