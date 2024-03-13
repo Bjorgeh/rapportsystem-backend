@@ -116,3 +116,23 @@ def sub_operator_model(api):
             ),
         },
     )
+
+# defines data date num model
+def data_date_num_model(api):
+    return api.model(
+        "Data date num",
+        {
+            "table_name": fields.String(
+                required=True, description="Name of the table where data will be extracted.", example="myTable"
+            ),
+            "date_start": fields.String(
+                required=False, description="Start date for extraction", example="2022-01-01"
+            ),
+            "date_stop": fields.String(
+                required=False, description="Stop date for extraction", example="2022-01-31"
+            ),
+            "date_stop": fields.String(
+                required=False, description="Number of rapports", example="5"
+            ),
+        }
+    )
