@@ -264,7 +264,7 @@ class SQLQueries:
 
     @staticmethod
     def create_disa_table(table_name):
-        query = f"CREATE TABLE {table_name} (test_id INT NOT NULL AUTO_INCREMENT, part_type VARCHAR(45) NOT NULL, stove VARCHAR(45) NOT NULL, catalog_number INT NULL, test_amount INT NULL, ordrer_number VARCHAR(45) NOT NULL, approved TINYINT NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, sign VARCHAR(20) NOT NULL, PRIMARY KEY (test_id), UNIQUE INDEX test_id_UNIQUE (test_id ASC) VISIBLE);"
+        query = f"CREATE TABLE {table_name} (report_id INT NOT NULL AUTO_INCREMENT, shift VARCHAR(45) NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, amt_formed INT NOT NULL, amt_cast INT NOT NULL, model_number INT NOT NULL, comment VARCHAR(250), sign VARCHAR(20) NOT NULL, PRIMARY KEY (report_id), UNIQUE INDEX report_id_UNIQUE (report_id ASC) VISIBLE);"
         return query, None
 
     @staticmethod
