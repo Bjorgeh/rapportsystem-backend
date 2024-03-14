@@ -4,10 +4,10 @@ from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 #class for creating rapports
 class RapportMaker:
     def __init__(self):
-        self.newDisaRapport = "DisaRapport_"
+        self.newDisaRapport = "DisaRapport"
         self.newSandanalyseRapport = "SandanalyseRapport"
         self.newSkrapRapport = "SkrapRapport"
-        self.newSmelteRapport = "SmalteRapport"
+        self.newSmelteRapport = "SmelteRapport"
         self.newBorreproveRapport = "BorreproveRapport"
         self.newCustomRapport = ""
         pass
@@ -34,7 +34,7 @@ class RapportMaker:
         onlyEmail = email.replace("@", "_").replace(".", "_")
 
         #sets up the name of the rapport
-        self.newDisaRapport = "DisaRapport_"+str(onlyEmail)
+        #self.newDisaRapport = "DisaRapport_"+str(onlyEmail)
 
         '''
         #layout for DisaRapport
@@ -89,7 +89,7 @@ class RapportMaker:
         | slam_innhold DECIMAL | sikteanalyse DECIMAL | sandanalysecol DECIMAL | kompersibilitet DECIMAL | sandtemperatur DECIMAL | signatur VARCHAR(20)
         '''
         #sets name of the rapport
-        self.newSandanalyseRapport = "SandanalyseRapport_"+str(onlyEmail)
+        #self.newSandanalyseRapport = "SandanalyseRapport_"+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
@@ -129,7 +129,7 @@ class RapportMaker:
         '''
 
         #sets name of the rapport
-        self.newSkrapRapport = "SkrapRapport_"+str(onlyEmail)
+        #self.newSkrapRapport = "SkrapRapport_"+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
@@ -169,7 +169,7 @@ class RapportMaker:
         '''
 
         #sets name of the rapport
-        self.newSmelteRapport = "SmelteRapport_"+str(onlyEmail)
+        #self.newSmelteRapport = "SmelteRapport_"+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
@@ -208,7 +208,7 @@ class RapportMaker:
         '''
 
         #sets name of the rapport
-        self.newBorreproveRapport = "BorreproveRapport_"+str(onlyEmail)
+        #self.newBorreproveRapport = "BorreproveRapport_"+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
@@ -245,7 +245,7 @@ class RapportMaker:
         #ID(PRIM) INT | [custom data]
         '''
         #sets name of the rapport
-        self.newCustomRapport = dbname+str(onlyEmail)
+        #self.newCustomRapport = dbname+str(onlyEmail)
 
         #try to create the table for the rapport
         try:
