@@ -22,14 +22,6 @@ class createSubUser:
 
     #saves user to database
     def saveToDB(self):
-        if self.accountType == "admin":
-            #save_admin.createNewAdminUser(self.email, self.password, self.accountType) < dont use this
-
-            '''Could add functuinallity to allow admin to create SUB admin accounts'''
-            #save_subadmin.createNewSubAdminUser(self.email, self.password, self.accountType)
-
-            print("Admin can't create admin account.") 
-            return False
 
         if self.accountType == 'leader':
             save_leader.createNewLeaderUser(self.email, self.password, self.accountType, self.creatorAccount, self.key)

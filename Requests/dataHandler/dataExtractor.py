@@ -131,8 +131,6 @@ class data_extractor:
             connection.connect()
             print("Connected to the database")
 
-            print(connection.getConnectionInfo())
-
             # Use the specified database
             use_database_query = SQLQ.SQLQueries.use_database(self.getDatabaseName(email))
             connection.execute_query(use_database_query)
@@ -175,6 +173,7 @@ class data_extractor:
 
         return {"requested_data": result_dict}
 
+    # Extracts the database name from the user
     def getDatabaseName(self,email):
         try:
             connection = SQLC.SQLConAdmin()
