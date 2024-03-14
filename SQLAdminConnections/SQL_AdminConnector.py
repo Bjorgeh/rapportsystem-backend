@@ -46,6 +46,9 @@ class SQLConAdmin:
         self.DB = database
         print("User set to: ", self.USR, "Database set to: ", self.DB)
     
+    def getConnectionInfo(self):
+        return self.IP, self.USR, self.PW, self.DB
+    
     #connects to SQL database
     def connect(self):
         try:
@@ -61,6 +64,7 @@ class SQLConAdmin:
             
         # If connection fails, print error
         except mysql.connector.Error as err:
+            print("koden stopper her...")
             print(f"Error: {err}")
             self.close()
             

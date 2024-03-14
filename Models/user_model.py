@@ -112,7 +112,7 @@ def sub_operator_model(api):
                 required=True, description="User password", example="EpicPassword420"
             ),
             "rapportName": fields.String(
-                required=True, description="Rapport name", example="borreproverapport_ola_nordmann_viken_no"
+                required=True, description="Rapport name", example="BorreproveRapport_ola_nordmann_viken_no"
             ),
         },
     )
@@ -126,10 +126,10 @@ def data_date_num_model(api):
                 required=True, description="Name of the table where data will be extracted.", example="myTable"
             ),
             "date_start": fields.String(
-                required=False, description="Start date for extraction", example="2022-01-01"
+                required=False, description="Start date for extraction", example="1992-01-01"
             ),
             "date_stop": fields.String(
-                required=False, description="Stop date for extraction", example="2022-01-31"
+                required=False, description="Stop date for extraction", example="2025-01-31"
             ),
             "rapport_count": fields.String(
                 required=False, description="Number of rapports", example="5"

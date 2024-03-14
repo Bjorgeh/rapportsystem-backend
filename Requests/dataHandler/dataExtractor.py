@@ -56,6 +56,7 @@ class data_extractor:
             connection.cnx.close()
             connection.close()
             return {"Tables": result_dict}
+    
 
     # Gets data from the database
     def extractData(self, email):
@@ -120,29 +121,20 @@ class data_extractor:
     def extractGivenTable(self, email, table_name, start_date=None, stop_date=None, num_rows=None):
         connection = None  # Initialize connection variable to None
         try:
+            dbName= email.replace("@", "_").replace(".", "_")
             result_dict = {}
 
             userDatabaseLogin = get_jwt_identity()
 
-            # Define connection variable first
-            print("Userdata: ", userDatabaseLogin['email'], userDatabaseLogin['password'], userDatabaseLogin['db_name'])
-            
+            # Define connection variable first            
             connection = SQLC.SQLConAdmin(None, userDatabaseLogin['email'], userDatabaseLogin['password'], userDatabaseLogin['db_name'])
-            print("Connection object created")
             connection.connect()
             print("Connected to the database")
 
-            # Use the user database
-            use_users_db_query = SQLQ.SQLQueries.use_users_database()
-            connection.execute_query(use_users_db_query)
-
-            # Get the database name from the email
-            dbname_query = SQLQ.SQLQueries.get_database_name(email)
-            dbname_result = connection.execute_query(dbname_query)
-            dbname = dbname_result[0][0]  # Get the first element of the first tuple
+            print(connection.getConnectionInfo())
 
             # Use the specified database
-            use_database_query = SQLQ.SQLQueries.use_database(dbname)
+            use_database_query = SQLQ.SQLQueries.use_database(self.getDatabaseName(email))
             connection.execute_query(use_database_query)
 
             # Get the data from the table
@@ -182,3 +174,31 @@ class data_extractor:
                 connection.close()
 
         return {"requested_data": result_dict}
+
+    def getDatabaseName(self,email):
+        try:
+            connection = SQLC.SQLConAdmin()
+            connection.connect()
+
+            #Uses the database
+            query = SQLQ.SQLQueries.use_users_database()
+            connection.execute_query(query)
+
+            #Gets the database name from the email
+            query = SQLQ.SQLQueries.get_database_name(email)
+            dbName = connection.execute_query(query)
+            userDataBaseName = dbName[0][0]
+            connection.cnx.close()
+            connection.close()
+
+        except Exception as e:
+            print(e)
+            connection.cnx.close()
+            connection.close()
+            return {"Error": "Error when extracting database name from the database for user: " + email}
+        
+        finally:
+            connection.cnx.close()
+            connection.close()
+
+            return userDataBaseName

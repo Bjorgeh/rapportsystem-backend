@@ -48,9 +48,11 @@ def create_sub_leader(ns):
             
             #Sets email and accountType from post request to loweer case
             email = str(data['email']).lower()
+            passwordToHash = data['password']
+            passwordToPass = data['password']
            
             #uses the new objekt to create new user in database
-            makeUSR.createSubUser(email, hash.hash(data['password']), "leader", creatorAccount).saveToDB()
+            makeUSR.createSubUser(email, hash.hash(passwordToHash), "leader", creatorAccount,passwordToPass).saveToDB()
             #makeUSR.createSubUser(email, hash.hash(data['password']), accountType).saveToDB()
 
             #returns error if no data is found or faulty

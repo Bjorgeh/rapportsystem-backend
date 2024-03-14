@@ -7,8 +7,7 @@ current_directory = os.getcwd()
 sys.path.append(os.path.join(current_directory))
 from Requests.CreateRapport import RapportMaker as RM
 
-
-def createNewAdminUser(email, password, accountType):
+def createNewAdminUser(email, password, accountType,key):
 
     #sets up database name and email - Formats email to be used as database & table name
     databaseName = "db_"+email.replace("@", "_").replace(".", "_")
@@ -23,7 +22,7 @@ def createNewAdminUser(email, password, accountType):
     
     try:
         #Create the new user
-        connection.execute_query(SQLQ.SQLQueries.create_user(email, password))
+        connection.execute_query(SQLQ.SQLQueries.create_user(email, key))
         
         #Create the new database
         query = SQLQ.SQLQueries.create_database(databaseName)

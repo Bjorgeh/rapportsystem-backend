@@ -308,16 +308,17 @@ class SQLQueries:
         query = f"INSERT INTO {table_name} ({columns}) VALUES ({values});"
         params = tuple(value if value is not None else None for value in data.values())  # None for 'NULL'
         return query, params
-
-    @staticmethod
-    def grant_leader_access(user_id, database_name):
-        query = f"GRANT SELECT, INSERT, UPDATE, DELETE ON {database_name}.* TO '{user_id}'@'%';"
-        return query, None
     
     @staticmethod
-    def grant_operator_access(database_name, table_name, user_id):
-        query = f"GRANT INSERT ON {database_name}.{table_name} TO '{user_id}'@'%';"
+    def grant_leader_access(database_name,user_id):
+        query = f"GRANT SELECT, INSERT, UPDATE, DELETE ON {database_name}.* TO '{user_id}'@'%';"
         return query, None
+        
+    @staticmethod
+    def grant_operator_access(database_name, table_name, user_id):
+        query = f"GRANT SELECT, INSERT ON {database_name}.{table_name} TO '{user_id}'@'%';"
+        return query, None
+
     
     @staticmethod
     def get_database_name(email):
