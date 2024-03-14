@@ -57,8 +57,12 @@ def login_route(ns):
 
                 database_name = query[0][0]
 
+                crypt_secret = connection.execute_query(SQLQ.SQLQueries.get_pw(username.lower()))
+                crypt_secret = crypt_secret[0][0]
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+crypt_secret)
+
                 #Generates token for user
-                access_token = create_access_token(identity={"user_id": user_id, "email": username, "accountType": user_accountType, "password": password,"db_name": database_name})
+                access_token = create_access_token(identity={"user_id": user_id, "email": username, "accountType": user_accountType, "password": crypt_secret,"db_name": database_name})
 
                 #Stores token in database
                 tokenHandler.store_token(user_id, access_token)

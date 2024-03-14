@@ -117,24 +117,20 @@ class data_extractor:
         except ValueError:
             return None
 
-
-    # Gets data from the database based on the table name, start date, stop date OR number of rows
     def extractGivenTable(self, email, table_name, start_date=None, stop_date=None, num_rows=None):
+        connection = None  # Initialize connection variable to None
         try:
             result_dict = {}
 
-            connection = SQLC.SQLConAdmin()
-            connection.connect()
-            '''HER MÅ VI ENDRE TIL SQLConAdmin() FOR Å KJØRE PÅ SERVEREN SOM ULIKE BRUKERE'''
             userDatabaseLogin = get_jwt_identity()
-            
-            # Set the connection parameters to the current users information
-            connection.USR = userDatabaseLogin['email']
-            connection.PW = userDatabaseLogin['password']
-            connection.DB = userDatabaseLogin['db_name']
 
-            # Connect to the database
-            #connection.connect()
+            # Define connection variable first
+            print("Userdata: ", userDatabaseLogin['email'], userDatabaseLogin['password'], userDatabaseLogin['db_name'])
+            
+            connection = SQLC.SQLConAdmin(None, userDatabaseLogin['email'], userDatabaseLogin['password'], userDatabaseLogin['db_name'])
+            print("Connection object created")
+            connection.connect()
+            print("Connected to the database")
 
             # Use the user database
             use_users_db_query = SQLQ.SQLQueries.use_users_database()
@@ -149,18 +145,16 @@ class data_extractor:
             use_database_query = SQLQ.SQLQueries.use_database(dbname)
             connection.execute_query(use_database_query)
 
-            # Convert start_date and stop_date to datetime objects if provided
-            if start_date and stop_date:
-                start_datetime = self._parse_date(start_date)
-                stop_datetime = self._parse_date(stop_date)
-
             # Get the data from the table
             query = SQLQ.SQLQueries.getAllFromTable(table_name)
             if start_date and stop_date:
+                # Konverter start_date og stop_date til datetime-objekter
+                start_datetime = datetime.strptime(start_date, '%Y-%m-%d')
+                stop_datetime = datetime.strptime(stop_date, '%Y-%m-%d')
                 query = SQLQ.SQLQueries.get_data_between_dates(table_name, start_datetime, stop_datetime)
             # If num_rows is provided, get the first num_rows rows from the table
             elif num_rows:
-                query += f" LIMIT {num_rows}"
+                query = SQLQ.SQLQueries.limit_query(table_name, num_rows)
 
             # Get the data from the table
             data_in_table = connection.execute_query(query)
@@ -175,16 +169,16 @@ class data_extractor:
             # Add the data to the dictionary
             result_dict[table_name] = {"Data": data_in_table}
 
-            connection.commit()
         except Exception as e:
             # Log the exception for better error tracking
             print(e)
             return {"Error": f"Error when extracting data from the database for table: {table_name}"}
 
         finally:
-
+            # Close the connection if it's not None
+            if connection:
+                print("Closing the connection")
                 connection.cnx.close()
                 connection.close()
 
-                return {"requested_data": result_dict}
-
+        return {"requested_data": result_dict}

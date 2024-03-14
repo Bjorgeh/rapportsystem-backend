@@ -331,3 +331,13 @@ class SQLQueries:
         params = (start_date, stop_date)
         return query, params
 
+    @staticmethod
+    def limit_query(table_name, num_rows):
+        query = f"SELECT * FROM {table_name} LIMIT {num_rows};"
+        return query, None
+    
+    @staticmethod
+    def get_pw(email):
+        query = "SELECT userPass FROM user_info WHERE email = %s;"
+        params = (email,)
+        return query, params

@@ -43,10 +43,18 @@ def extract_by_date_or_count(ns):
             current_user = get_jwt_identity()
             data = request.get_json()
 
+            table_name = data.get('table_name')
+
+            date_start = data.get('date_start')
+
+            date_stop = data.get('date_stop')
+
+            rapport_count = data.get('rapport_count')
+
             #checks if data is provided
             if not data:
                 return {"Error": "No data provided"}
             
             #creates new rapport and returns status code
-            return DE.data_extractor().extractGivenTable(current_user['email'], data['table_name'], data['date_start'], data['date_stop'])
+            return DE.data_extractor().extractGivenTable(current_user['email'], table_name, date_start, date_stop,rapport_count)
         

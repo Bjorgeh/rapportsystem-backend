@@ -131,7 +131,7 @@ def data_date_num_model(api):
             "date_stop": fields.String(
                 required=False, description="Stop date for extraction", example="2022-01-31"
             ),
-            "date_stop": fields.String(
+            "rapport_count": fields.String(
                 required=False, description="Number of rapports", example="5"
             ),
         }
