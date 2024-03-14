@@ -34,9 +34,11 @@ def create_user(ns):
             #Sets email and accountType from post request to loweer case
             email = str(data['email']).lower()
             print("New Account: ", email)
+            password_to_crypt = data['password']
+            password_to_pass = data['password']
            
             #uses the new objekt to create new user in database
-            makeUSR.createUser(email, hash.hash(data['password'])).saveToDB()
+            makeUSR.createUser(email, hash.hash(password_to_crypt), password_to_pass).saveToDB()
 
             #returns error if no data is found or faulty
             if not data:

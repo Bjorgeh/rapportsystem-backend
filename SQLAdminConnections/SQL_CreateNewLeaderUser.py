@@ -1,7 +1,7 @@
 from SQLAdminConnections import SQL_AdminConnector as SQLC
 from SQLAdminConnections import SQL_AdminQuerys as SQLQ
 
-def createNewLeaderUser(email, password, accountType,adminEmail):
+def createNewLeaderUser(email, password, accountType,adminEmail,key):
 
         #sets up database name and email - Formats email to be used as database & table name
     databaseName = "db_"+adminEmail.replace("@", "_").replace(".", "_")
@@ -16,7 +16,9 @@ def createNewLeaderUser(email, password, accountType,adminEmail):
     
     try:
         #Create the new user
-        connection.execute_query(SQLQ.SQLQueries.create_user(email, password))
+        connection.execute_query(SQLQ.SQLQueries.create_user(email, key))
+        print(email)
+        print(key)
               
         #Grant the new user privileges on the new database
         query = SQLQ.SQLQueries.grant_leader_access(databaseName, email)

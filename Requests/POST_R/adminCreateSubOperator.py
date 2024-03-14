@@ -47,10 +47,12 @@ def create_sub_operator(ns):
             
             #Sets email and accountType from post request to loweer case
             email = str(data['email']).lower()
-            rapportName = str(data['rapportName']).lower()
+            passwordToHash = data['password']
+            passwordToPass = data['password']
+            rapportName = data['rapportName']
            
             #uses the new objekt to create new user in database
-            makeUSR.createSubUser(email, hash.hash(data['password']), "operator", creatorAccount).saveToDB()
+            makeUSR.createSubUser(email, hash.hash(passwordToHash), "operator", creatorAccount,passwordToPass,rapportName).saveToDB()
             #makeUSR.createSubUser(email, hash.hash(data['password']), accountType).saveToDB()
 
             #returns error if no data is found or faulty

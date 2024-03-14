@@ -51,8 +51,18 @@ def login_route(ns):
                 connection.execute_query(SQLQ.SQLQueries.delete_tokens_by_user_id(user_id))
                 connection.cnx.commit()
 
+                #Get database name
+                connection.execute_query(SQLQ.SQLQueries.use_users_database())
+                query = connection.execute_query(SQLQ.SQLQueries.get_database_name(username.lower()))
+
+                database_name = query[0][0]
+
+                #Get key from db
+                connection.execute_query(SQLQ.SQLQueries.use_users_database())
+                query = connection.execute_query(SQLQ.SQLQueries.get_pw(data["username"].lower()))
+
                 #Generates token for user
-                access_token = create_access_token(identity={"user_id": user_id, "email": username, "accountType": user_accountType})
+                access_token = create_access_token(identity={'user_id': user_id, 'email': username, 'accountType': user_accountType, 'password': password,"db_name": database_name})
 
                 #Stores token in database
                 tokenHandler.store_token(user_id, access_token)

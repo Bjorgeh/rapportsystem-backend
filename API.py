@@ -30,6 +30,7 @@ from Requests.POST_R import createRapport as post_createRapport
 from Requests.POST_R import insertData_admin as post_insertData
 from Requests.POST_R import adminCreateSubLeader as post_createLeaderSubUser
 from Requests.POST_R import adminCreateSubOperator as post_createOperatorSubUser
+from Requests.POST_R import extractPreciseData as post_extractPreciseData
 
 #imports secret.py
 from SQLConnections import secret as Secret
@@ -118,6 +119,8 @@ post_updatePassword.update_password_route(user_post)
 post_createUser.create_user(user_post)
 #Delete user route
 post_deleteUser.delete_user_route(user_post)
+#Get data from date or count
+post_extractPreciseData.extract_by_date_or_count(user_post)
 
 
 '''

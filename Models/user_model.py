@@ -77,7 +77,7 @@ def insert_data_model(api):
         "InsertData",
         {
             "table_name": fields.String(
-                required=True, description="Name of the table where data will be inserted.", example="myTable"
+                required=True, description="Name of the table where data will be inserted.", example="BorreproveRapport"
             ),
             "data": fields.Raw(
                 required=True, description="Data to be inserted into the table.", example= {"column1": "myValue", "column2": 1337}
@@ -112,7 +112,27 @@ def sub_operator_model(api):
                 required=True, description="User password", example="EpicPassword420"
             ),
             "rapportName": fields.String(
-                required=True, description="Rapport name", example="borreproverapport_ola_nordmann_viken_no"
+                required=True, description="Rapport name", example="BorreproveRapport"
             ),
         },
+    )
+
+# defines data date num model
+def data_date_num_model(api):
+    return api.model(
+        "Data date num",
+        {
+            "table_name": fields.String(
+                required=True, description="Name of the table where data will be extracted.", example="BorreproveRapport"
+            ),
+            "date_start": fields.String(
+                required=False, description="Start date for extraction", example="1992-01-01"
+            ),
+            "date_stop": fields.String(
+                required=False, description="Stop date for extraction", example="2025-01-31"
+            ),
+            "rapport_count": fields.String(
+                required=False, description="Number of rapports", example="5"
+            ),
+        }
     )

@@ -10,11 +10,23 @@ from SQLConnections import secret as S
 
 #Class for connecting to SQL database as Admin
 class SQLConAdmin:
-    def __init__(self):
-        self.IP = S.host_IP
-        self.USR = S.host_user
-        self.PW = S.host_password
-        self.DB = S.host_database
+    def __init__(self, IP= None, USR= None, PW= None, DB= None):
+        if IP is None:
+            self.IP = S.host_IP
+        else:
+            self.IP = IP
+        if USR is None:
+            self.USR = S.host_user
+        else:
+            self.USR = USR
+        if PW is None:
+            self.PW = S.host_password
+        else:
+            self.PW = PW
+        if DB is None:
+            self.DB = S.host_database
+        else:
+            self.DB = DB
         self.cnx = None
         self.cursor = None
 
@@ -28,6 +40,14 @@ class SQLConAdmin:
     def db(self):
         return self.DB
     '''
+    def setUser(self, username, password, database):
+        self.USR = username
+        self.PW = password
+        self.DB = database
+        print("User set to: ", self.USR, "Database set to: ", self.DB)
+    
+    def getConnectionInfo(self):
+        return self.IP, self.USR, self.PW, self.DB
     
     #connects to SQL database
     def connect(self):
@@ -44,6 +64,7 @@ class SQLConAdmin:
             
         # If connection fails, print error
         except mysql.connector.Error as err:
+            print("koden stopper her...")
             print(f"Error: {err}")
             self.close()
             
