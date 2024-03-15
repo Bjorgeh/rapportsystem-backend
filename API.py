@@ -21,13 +21,14 @@ from Requests.GET_R import extractData_admin as extract_data_from_database
 from Requests.GET_R import tableDescription_admin as extract_table_description_from_database
 from Requests.GET_R import test_leader as get_test_leader
 from Requests.GET_R import test_operator as get_test_operator
+from Requests.GET_R import tableDescription_users as get_users_table_description
 #Post-requests
 from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
 from Requests.POST_R import updatePassword as post_updatePassword
 from Requests.POST_R import deleteUser as post_deleteUser
 from Requests.POST_R import createRapport as post_createRapport
-from Requests.POST_R import insertData_admin as post_insertData
+from Requests.POST_R import insertData as post_insertData
 from Requests.POST_R import adminCreateSubLeader as post_createLeaderSubUser
 from Requests.POST_R import adminCreateSubOperator as post_createOperatorSubUser
 from Requests.POST_R import extractPreciseData as post_extractPreciseData
@@ -88,6 +89,11 @@ leader_get = api.namespace('api/leader/get', description='GET Endpoints')
 operator_post = api.namespace('api/operator/post', description='POST Endpoints')
 operator_get = api.namespace('api/operator/get', description='GET Endpoints')
 
+'''
+  Sessions can be enabled if sessions are to be used in the API
+  ---------------------------
+  ONLY ENABLE if frontend is merged with backend in API, will otherwise make the API unusable.
+'''
 #Sets up sessions
 #Session(app)
 
@@ -109,7 +115,8 @@ get_logout.logout_route(user_get)
 get_userActivity.activity_route(user_get)
 #Get user information
 get_userInfo.uInfo_route(user_get)
-
+#Get table description
+get_users_table_description.extract_table_description(user_get)
 '''POST - api/user/post'''
 #Login route
 post_login.login_route(user_post)
@@ -121,6 +128,8 @@ post_createUser.create_user(user_post)
 post_deleteUser.delete_user_route(user_post)
 #Get data from date or count
 post_extractPreciseData.extract_by_date_or_count(user_post)
+#Insert data route
+post_insertData.insert_data(user_post)
 
 
 '''
@@ -141,8 +150,6 @@ extract_table_description_from_database.extract_table_description_from_database(
 '''POST - api/admin/post'''
 #Create Rapport route
 post_createRapport.createRapport(admin_post)
-#Insert data route
-post_insertData.insert_data(admin_post)
 #Create leader sub user route
 post_createLeaderSubUser.create_sub_leader(admin_post)
 #Create operator sub user route

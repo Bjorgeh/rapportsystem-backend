@@ -11,7 +11,7 @@ import sys
 sys.path.append(os.path.join(current_directory))
 
 #imports custom modules
-from Common.Requirements.admin_req import require_admin_account
+from flask_jwt_extended import get_jwt_identity
 from Models import user_model as UM
 from Common.Requirements import valid_token as vt
 from Requests.dataHandler import dataInsertor as dataIns
@@ -20,12 +20,12 @@ from Requests.dataHandler import dataInsertor as dataIns
 def insert_data(ns):
     @ns.route('/insertData')
 
-    class isert_data_class(Resource):
+    class insert_data_class(Resource):
         new_data_model = UM.insert_data_model(ns)
         
         #Documentation for swagger UI
         @ns.doc('/insertData',
-                description='Takes data -> sets it to given table.',
+                description='Takes data -> sets it to given table.\nNote: Date, Time and ID is automatically set by the system, and should not be provided.\nGet the table description from /api/user/get/rapportInfo to see what data is required.',
                 responses={
                     200: 'OK',
                     400: 'Invalid Argument or faulty data',
@@ -38,21 +38,21 @@ def insert_data(ns):
         #Requires valid JWT token authentication 
         @jwt_required()  
         @vt.require_valid_token
-        @require_admin_account
 
         #recives password data from user
         def post(self):
-            current_user = get_jwt_identity()
             data = request.get_json()
+            current_user = get_jwt_identity()
 
             #gets data from request -> table & data
             table_name = data['table_name']
             main_data = data['data']
+            print("NOW: " + current_user["email"] + " is trying to insert data into table: " + table_name + " with data: " + str(main_data))
 
             #checks if data is provided
             if not data:
                 return {"Error": "No data provided"}
             
             #Returns the result of the insertData function & inserts data into database
-            return {"Message":dataIns.Data_insertor().insertData(current_user['email'], table_name, main_data)}
+            return {"Message":dataIns.Data_insertor(table_name,main_data).insertData()}
         
