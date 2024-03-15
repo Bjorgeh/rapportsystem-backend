@@ -77,10 +77,10 @@ def insert_data_model(api):
         "InsertData",
         {
             "table_name": fields.String(
-                required=True, description="Name of the table where data will be inserted.", example="BorreproveRapport"
+                required=True, description="Name of the rapport where data will be inserted. Get your rapportname from: /api/user/get/rapportInfo", example="BorreproveRapport"
             ),
             "data": fields.Raw(
-                required=True, description="Data to be inserted into the table.", example= {"column1": "myValue", "column2": 1337}
+                required=True, description="Data to be inserted into the table. Note: Date, Time & ID will be autoincremented in rapport, can't be added via request.", example= {"part_type": "some_part_type","stove": "some_stove","catalog_number": 123,"test_amount": 5,"ordrer_number": "some_order_number","approved": True,"sign": "some_sign"}
             ),
         },
     )
