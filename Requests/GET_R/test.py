@@ -11,9 +11,9 @@ from Common.Requirements import valid_token as vt
 
 #test route for all userstypes
 def test_route(ns):
-    @ns.route('/test')
+    @ns.route('/userStatus')
     class Test(Resource):
-        @ns.doc('test',
+        @ns.doc('userStatus',
                 description='Test route, returns OK if the API is running and the user is logged in.',
                 responses={200: 'OK', 
                            400: 'Invalid Argument', 
@@ -24,4 +24,4 @@ def test_route(ns):
         @vt.require_valid_token
 
         def get(self):
-            return jsonify({"Test": "OK"})
+            return jsonify({"Status": "OK"})

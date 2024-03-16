@@ -14,9 +14,9 @@ from flask_jwt_extended import jwt_required
 
 #creates test route for leader account
 def test_leader_route(ns):
-    @ns.route('/test_leader')
+    @ns.route('/leaderStatus')
     class Test(Resource):
-        @ns.doc('test_leader',
+        @ns.doc('leaderStatus',
                 description='Test route, returns OK if the API is running and the user is logged in as leader.',
                 responses={200: 'OK', 
                            400: 'Invalid Argument', 

@@ -14,9 +14,9 @@ from flask_jwt_extended import jwt_required
 
 #creates test route for operator account
 def test_operator_route(ns):
-    @ns.route('/test_operator')
+    @ns.route('/operatorStatus')
     class Test(Resource):
-        @ns.doc('test_operator',
+        @ns.doc('operatorStatus',
                 description='Test route, returns OK if the API is running and the user is logged in as operator.',
                 responses={200: 'OK', 
                            400: 'Invalid Argument', 

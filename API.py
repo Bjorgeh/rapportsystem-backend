@@ -32,6 +32,8 @@ from Requests.POST_R import insertData as post_insertData
 from Requests.POST_R import adminCreateSubLeader as post_createLeaderSubUser
 from Requests.POST_R import adminCreateSubOperator as post_createOperatorSubUser
 from Requests.POST_R import extractPreciseData as post_extractPreciseData
+from Requests.POST_R import deleteLastRapport as post_deleteLastRapport
+from Requests.POST_R import changeDataInRapport as post_changeDataInRapport
 
 #imports secret.py
 from SQLConnections import secret as Secret
@@ -167,6 +169,8 @@ post_createOperatorSubUser.create_sub_operator(admin_post)
 get_test_leader.test_leader_route(leader_get)
 '''POST - api/leader/post'''
 #POST
+post_deleteLastRapport.delete_last_row(leader_post)
+post_changeDataInRapport.change_data(leader_post)
 
 
 '''
