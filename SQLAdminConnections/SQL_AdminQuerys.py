@@ -261,30 +261,29 @@ class SQLQueries:
             params = (table_name, column_name, column_type, prim_or_foreignKey)
         return query, params
 
-
     @staticmethod
     def create_disa_table(table_name):
-        query = f"CREATE TABLE {table_name} (report_id INT NOT NULL AUTO_INCREMENT, shift VARCHAR(45) NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, amt_formed INT NOT NULL, amt_cast INT NOT NULL, model_number INT NOT NULL, comment VARCHAR(250), sign VARCHAR(20) NOT NULL, PRIMARY KEY (report_id), UNIQUE INDEX report_id_UNIQUE (report_id ASC) VISIBLE);"
+        query = f"CREATE TABLE {table_name} (id INT NOT NULL AUTO_INCREMENT, shift VARCHAR(45) NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, amt_formed INT NOT NULL, amt_cast INT NOT NULL, model_number INT NOT NULL, comment VARCHAR(250), sign VARCHAR(20) NOT NULL, PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);"
         return query, None
 
     @staticmethod
     def create_sandAnalyseRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (id INT NOT NULL AUTO_INCREMENT, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, moisture DECIMAL NOT NULL, pressure_strengt DECIMAL NOT NULL, packing_degree DECIMAL NOT NULL, burn_out DECIMAL NOT NULL, shear_strength DECIMAL NOT NULL, active_bentonie DECIMAL NOT NULL, sludge_content DECIMAL NOT NULL, sieve_analysis DECIMAL NOT NULL, compressibility DECIMAL NOT NULL, sand_temp DECIMAL NOT NULL, signature VARCHAR(20) CHARACTER SET utf16 NOT NULL, PRIMARY KEY (id), UNIQUE INDEX ID_UNIQUE (id ASC) VISIBLE);"
+        query = f"CREATE TABLE {table_name} (id INT NOT NULL AUTO_INCREMENT, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, moisture DECIMAL NOT NULL, pressure_strengt DECIMAL NOT NULL, packing_degree DECIMAL NOT NULL, burn_out DECIMAL NOT NULL, shear_strength DECIMAL NOT NULL, active_bentonie DECIMAL NOT NULL, sludge_content DECIMAL NOT NULL, sieve_analysis DECIMAL NOT NULL, compressibility DECIMAL NOT NULL, sand_temp DECIMAL NOT NULL, signature VARCHAR(20) CHARACTER SET utf16 NOT NULL, PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);"
         return query, None
 
     @staticmethod
     def create_skrapRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (scrap_id INT NOT NULL AUTO_INCREMENT, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, catalog_number INT NOT NULL, amount_ordered INT NOT NULL, amount_lacking INT NOT NULL, price_pr_piece FLOAT NULL, sum_price FLOAT GENERATED ALWAYS AS (amount_lacking * price_pr_piece) VIRTUAL, PRIMARY KEY (scrap_id), UNIQUE INDEX scrap_id_UNIQUE (scrap_id ASC) VISIBLE);"
+        query = f"CREATE TABLE {table_name} (id INT NOT NULL AUTO_INCREMENT, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, catalog_number INT NOT NULL, amount_ordered INT NOT NULL, amount_lacking INT NOT NULL, price_pr_piece FLOAT NULL, sum_price FLOAT GENERATED ALWAYS AS (amount_lacking * price_pr_piece) VIRTUAL, PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);"
         return query, None
 
     @staticmethod
     def create_smelteRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (melt_report_id INT NOT NULL AUTO_INCREMENT, furnace_number INT NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, kg_returns FLOAT NOT NULL, kg_scrap_metal FLOAT NOT NULL, total_weight_melt FLOAT GENERATED ALWAYS AS (kg_returns + kg_scrap_metal) VIRTUAL, kg_carbon FLOAT NOT NULL, kg_ore FLOAT NOT NULL, kg_fesi FLOAT NOT NULL, kg_fep FLOAT NOT NULL, kwh_pre_melt DOUBLE NOT NULL, kwh_post_melt DOUBLE NOT NULL, sum_kwh_used DOUBLE GENERATED ALWAYS AS (kwh_pre_melt + kwh_post_melt) VIRTUAL, PRIMARY KEY (melt_report_id), UNIQUE INDEX melt_report_id_UNIQUE (melt_report_id ASC) VISIBLE);"
+        query = f"CREATE TABLE {table_name} (id INT NOT NULL AUTO_INCREMENT, furnace_number INT NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, kg_returns FLOAT NOT NULL, kg_scrap_metal FLOAT NOT NULL, total_weight_melt FLOAT GENERATED ALWAYS AS (kg_returns + kg_scrap_metal) VIRTUAL, kg_carbon FLOAT NOT NULL, kg_ore FLOAT NOT NULL, kg_fesi FLOAT NOT NULL, kg_fep FLOAT NOT NULL, kwh_pre_melt DOUBLE NOT NULL, kwh_post_melt DOUBLE NOT NULL, sum_kwh_used DOUBLE GENERATED ALWAYS AS (kwh_pre_melt + kwh_post_melt) VIRTUAL, PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);"
         return query, None
 
     @staticmethod
     def create_borreproverapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (test_id INT NOT NULL AUTO_INCREMENT, part_type VARCHAR(45) NOT NULL, stove VARCHAR(45) NOT NULL, catalog_number INT NULL, test_amount INT NULL, ordrer_number VARCHAR(45) NOT NULL, approved BOOL NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, sign VARCHAR(20) NOT NULL, PRIMARY KEY (test_id), UNIQUE INDEX test_id_UNIQUE (test_id ASC) VISIBLE);"
+        query = f"CREATE TABLE {table_name} (id INT NOT NULL AUTO_INCREMENT, part_type VARCHAR(45) NOT NULL, stove VARCHAR(45) NOT NULL, catalog_number INT NULL, test_amount INT NULL, ordrer_number VARCHAR(45) NOT NULL, approved BOOL NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, sign VARCHAR(20) NOT NULL, PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);"
         return query, None
 
     @staticmethod
@@ -319,7 +318,6 @@ class SQLQueries:
         query = f"GRANT SELECT, INSERT ON {database_name}.{table_name} TO '{user_id}'@'%';"
         return query, None
 
-    
     @staticmethod
     def get_database_name(email):
         query = "SELECT databaseName FROM user_info WHERE email = %s;"
@@ -342,3 +340,24 @@ class SQLQueries:
         query = "SELECT userPass FROM user_info WHERE email = %s;"
         params = (email,)
         return query, params
+    
+    @staticmethod
+    def get_last_inserted_id(table_name):
+        query = f"SELECT MAX(id) FROM {table_name};"
+        return query, None
+
+    @staticmethod
+    def update_last_row_by_id(table_name, data):
+        update_values = ', '.join([f"{key} = %s" for key in data.keys()])
+        query = f"UPDATE {table_name} SET {update_values} ORDER BY id DESC LIMIT 1;"
+        params = tuple(data.values())
+        return query, params
+
+    @staticmethod
+    def delete_last_row_by_id(table_name):
+        query = f"DELETE FROM {table_name} ORDER BY id DESC LIMIT 1;"
+        return query, None
+
+
+
+

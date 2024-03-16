@@ -44,15 +44,20 @@ def insert_data(ns):
             data = request.get_json()
             current_user = get_jwt_identity()
 
-            #gets data from request -> table & data
+            # get the table name and data from the request
             table_name = data['table_name']
             main_data = data['data']
+
+            # check if forbidden keys are present in the data
+            if any(key in main_data for key in ['date', 'time', 'id', 'sum_price', 'total_weight_melt', 'sum_kwh_used']):
+                return {"Error": "Date, Time, ID, and columns with generated values should not be provided."}
+
             print("NOW: " + current_user["email"] + " is trying to insert data into table: " + table_name + " with data: " + str(main_data))
 
-            #checks if data is provided
-            if not data:
+            # check if the main_data is empty
+            if not main_data:
                 return {"Error": "No data provided"}
             
-            #Returns the result of the insertData function & inserts data into database
-            return {"Message":dataIns.Data_insertor(table_name,main_data).insertData()}
-        
+            # return the result of the insertData function
+            return {"Message":dataIns.Data_insertor(table_name, main_data).insertData()}
+                

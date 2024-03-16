@@ -1,10 +1,13 @@
 from SQLAdminConnections import SQL_AdminConnector as SQLC
 from SQLAdminConnections import SQL_AdminQuerys as SQLQ
+from flask_jwt_extended import get_jwt_identity
 
 def createNewOperatorUser(email, password, accountType,adminEmail,key, rapportName):
 
     #sets up database name and email - Formats email to be used as database & table name
-    databaseName = "db_"+adminEmail.replace("@", "_").replace(".", "_")
+    current_user = get_jwt_identity()
+    #databaseName = "db_"+adminEmail.replace("@", "_").replace(".", "_")
+    databaseName = current_user['db_name']
     onlyEmail = email.replace("@", "_").replace(".", "_")
     
     #makes object of SQLConAdmin class

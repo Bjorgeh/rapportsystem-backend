@@ -95,7 +95,7 @@ def sub_leader_model(api):
                 required=True, description="User email", example="paul.nordmann@viken.no"
             ),
             "password": fields.String(
-                required=True, description="User password", example="EpicPassword420"
+                required=True, description="User password", example="EpicPassword69"
             ),
         },
     )
@@ -109,7 +109,7 @@ def sub_operator_model(api):
                 required=True, description="User email", example="lars.nordmann@viken.no"
             ),
             "password": fields.String(
-                required=True, description="User password", example="EpicPassword420"
+                required=True, description="User password", example="EpicPassword69"
             ),
             "rapportName": fields.String(
                 required=True, description="Rapport name", example="BorreproveRapport"
@@ -135,4 +135,30 @@ def data_date_num_model(api):
                 required=False, description="Number of rapports", example="5"
             ),
         }
+    )
+
+# defines last report deletion model
+def remove_last_row(api):
+    return api.model(
+        "Remove last row",
+        {
+            "table_name": fields.String(
+                required=True, description="Name of the rapport where last data will be removed. Get your rapportname from: /api/user/get/rapportInfo", example="BorreproveRapport"
+            )
+        }
+    )
+
+
+# defines rapport-insertion model
+def update_table_data_model(api):
+    return api.model(
+        "update data",
+        {
+            "table_name": fields.String(
+                required=True, description="Name of the rapport where data will be inserted. Get your rapportname from: /api/user/get/rapportInfo\nNote: Date, Time & ID will be autoincremented in rapport, don't add via request.", example="BorreproveRapport"
+            ),
+            "data": fields.Raw(
+                required=True, description="Data to be updated.", example= {"part_type": "some_part_type","stove": "some_stove","catalog_number": 123,"test_amount": 5,"ordrer_number": "some_order_number","approved": True,"sign": "some_sign"}
+            ),
+        },
     )
