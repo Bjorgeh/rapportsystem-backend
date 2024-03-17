@@ -1,5 +1,5 @@
 #imports flask & flask_restx for creating API
-from flask import Flask #,session
+from flask import Flask,send_from_directory #,session
 from flask_restx import Api
 #from flask_session import Session
 from flask_cors import CORS
@@ -46,7 +46,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required
 
 #defines app and api
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='', static_folder='doc_files')
 
 #Sets app config SECRET_KEY and SESSION_TYPE
 Secret.setConfig(app)
@@ -71,7 +71,7 @@ authorizations = {
 api = Api(app,
           version='1.0',
           title='RapportSystem API Doc',
-          description='Overview of the API endpoints.\n\nUsage:\n- Log in\n- Go to authorize\n- Type in the *Bearer* space access_token\n- Use the API',
+          description='Overview of the API endpoints.\n\nUsage:\n- Log in\n- Go to authorize\n- Type in the *Bearer* space access_token\n- Use the API\n\n<a href="https://bjorgeh.github.io/rapportsystem-backend/doc_files/index.html">Link to API documentation</a>',
           doc='/api/',
           authorizations=authorizations, 
           security='Bearer Auth'
@@ -98,6 +98,10 @@ operator_get = api.namespace('api/operator/get', description='GET Endpoints')
 '''
 #Sets up sessions
 #Session(app)
+@app.route('/doc')
+def serve_index():
+    return send_from_directory('doc_files', 'index.html')
+
 
 #Routes for the API
 '''
