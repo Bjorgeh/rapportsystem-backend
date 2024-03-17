@@ -4,6 +4,9 @@
 
 Welcome to the comprehensive guide for setting up the backend of our group project within the framework of Fagskolen i Viken's Programming with Professional Leadership course. This guide is tailored to facilitate the setup of a robust reporting system designed for a business context. The backend solution comprises a Flask API with security measures such as bcrypt and various essential components.
 
+ * The documentation for the entire API is generated using Doxygen. For detailed setup instructions and steps, refer to the full guide at:
+ * https://bjorgeh.github.io/rapportsystem-backend/doc_files/index.html
+
 ## Project Context
 
 This guide is part of a group project at Fagskolen i Viken, focusing on Programming with Professional Leadership. The objective is to develop a reporting system for a business context, with the backend solution facilitated through this Flask API.
