@@ -1,0 +1,4 @@
+var namespacerapportsystem_backend_1_1_requests_1_1data_handler_1_1data_extractor =
+[
+    [ "data_extractor", "classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_extractor_1_1data__extractor.html", "classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_extractor_1_1data__extractor" ]
+];

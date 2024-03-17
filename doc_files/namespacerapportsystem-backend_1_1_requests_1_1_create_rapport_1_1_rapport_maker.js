@@ -1,0 +1,4 @@
+var namespacerapportsystem_backend_1_1_requests_1_1_create_rapport_1_1_rapport_maker =
+[
+    [ "RapportMaker", "classrapportsystem-backend_1_1_requests_1_1_create_rapport_1_1_rapport_maker_1_1_rapport_maker.html", "classrapportsystem-backend_1_1_requests_1_1_create_rapport_1_1_rapport_maker_1_1_rapport_maker" ]
+];

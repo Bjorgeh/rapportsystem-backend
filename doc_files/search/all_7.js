@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['get_5factive_5fsession_0',['get_active_session',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a86bbfa1f8681de076c235643d5702d6d',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5fdata_5fbetween_5fdates_1',['get_data_between_dates',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a0a0aeaf01c67b374e74d394b8ae952e7',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5fdatabase_5fname_2',['get_database_name',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a1629d26e3ecf05cd6a7481328447cc98',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5fhashed_5fpassword_5fand_5fid_5fby_5fusername_3',['get_hashed_password_and_id_by_username',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a978804206fc99947c4756f2afe4ed806',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5fhashed_5fpassword_5fby_5fusername_4',['get_hashed_password_by_username',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a8c5dfba17109789d74728cc6ce32d792',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5foldest_5factivities_5',['get_oldest_activities',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#ad7568ad3af22184313d30ef5687fa3b0',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5foldest_5factivity_5fid_6',['get_oldest_activity_id',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#ae69998924ab4651009aae54226d75ca6',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5foldest_5factivity_5fid_5fto_5fdelete_7',['get_oldest_activity_id_to_delete',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a1a304f2243469ffbe9b001cb84c1ccf1',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5fpw_8',['get_pw',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a91fcba93a01ef8197ed9cd40bfd9d74c',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5fuser_5fid_9',['get_user_id',['../namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1delete_user.html#a8117dc8fc7206be9bd67b39098781347',1,'rapportsystem-backend::Requests::POST_R::deleteUser']]],
+  ['get_5fuser_5fid_5fby_5femail_10',['get_user_id_by_email',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a2c73e4766f290946b7ff9596ad4ec15e',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['get_5fuser_5finformation_5fby_5fid_11',['get_user_information_by_id',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a6c51d01d1bdf86f31059d941b416f095',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['getallfromtable_12',['getAllFromTable',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#acf6e2feb468e67e96a6c7ad6a38b6211',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['getapikey_13',['getAPIKey',['../namespaceapi__key.html#ae89c474c135f8a79c027affeb4cc26aa',1,'api_key']]],
+  ['getconnectioninfo_14',['getConnectionInfo',['../class_s_q_l___admin_connector_1_1_s_q_l_con_admin.html#af2a75351f8a5f3df2f32e01419559948',1,'SQL_AdminConnector::SQLConAdmin']]],
+  ['getdatabasename_15',['getDatabaseName',['../classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_extractor_1_1data__extractor.html#a5920c87063006a15b11fb98245b70be4',1,'rapportsystem-backend::Requests::dataHandler::dataExtractor::data_extractor']]],
+  ['gettabledescription_16',['getTableDescription',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a41dad2bda1fc4080ea53e74d37174b5f',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['getting_20started_17',['Getting Started',['../md__r_e_a_d_m_e.html#autotoc_md6',1,'']]],
+  ['google_20account_18',['Google Account',['../md__r_e_a_d_m_e.html#autotoc_md9',1,'']]],
+  ['google_20account_20setup_19',['Google Account Setup',['../md__r_e_a_d_m_e.html#autotoc_md8',1,'']]],
+  ['grant_5faccess_20',['grant_access',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a5e6cd20480cb95c8745357676a88576a',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['grant_5fleader_5faccess_21',['grant_leader_access',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#a080e5fa719df3023ebaeba2a49cf1ad0',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['grant_5foperator_5faccess_22',['grant_operator_access',['../class_s_q_l___admin_querys_1_1_s_q_l_queries.html#afb749b73cb02a27a6ae9c9d27df4b364',1,'SQL_AdminQuerys::SQLQueries']]],
+  ['guide_23',['Project RapportSystem Backend Setup Guide',['../md__r_e_a_d_m_e.html',1,'']]]
+];
