@@ -1,5 +1,6 @@
 var _a_p_i_8py =
 [
+    [ "serve_index", "_a_p_i_8py.html#a0359bd690857140bbd93aef7e12c349b", null ],
     [ "admin_get", "_a_p_i_8py.html#aaa9ed00b026ceaf0be652a50e399fcfe", null ],
     [ "admin_post", "_a_p_i_8py.html#afb828bb2a6b8de2894c33680a76ea1e1", null ],
     [ "api", "_a_p_i_8py.html#aca12019ced529b33f98ce99a36f153e6", null ],

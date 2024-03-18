@@ -201,3 +201,37 @@ class data_extractor:
             connection.close()
 
             return userDataBaseName
+        
+    def getAllSubUsers(self):
+        try:
+            current_user = get_jwt_identity()
+            email = current_user['email']
+
+            #Dict for storing data
+            result_dict = {}
+
+            #Connects to the database server
+            connection = SQLC.SQLConAdmin()
+            connection.connect()
+
+            #Uses the database
+            query = SQLQ.SQLQueries.use_users_database()
+            connection.execute_query(query)
+
+            #Gets all subusers from the database
+            query = SQLQ.SQLQueries.get_all_sub_users(email)
+            all_subusers = connection.execute_query(query)
+
+            #Adds the data to the dictionary
+            result_dict["Subusers"] = all_subusers
+
+        except Exception as e:
+            print(e)
+            connection.cnx.close()
+            connection.close()
+            return {"Error": "Error when extracting subusers from the database for user: " + email}
+        
+        finally:
+            connection.cnx.close()
+            connection.close()
+            return result_dict

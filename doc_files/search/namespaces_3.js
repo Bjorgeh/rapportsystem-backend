@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['new_5fsub_5fuser_0',['new_sub_user',['../namespacenew__sub__user.html',1,'']]],
-  ['new_5fuser_1',['new_user',['../namespacenew__user.html',1,'']]]
+  ['leader_5freq_0',['leader_req',['../namespaceleader__req.html',1,'']]],
+  ['login_5fvalidation_1',['login_validation',['../namespacelogin__validation.html',1,'']]],
+  ['logout_2',['logout',['../namespacelogout.html',1,'']]]
 ];

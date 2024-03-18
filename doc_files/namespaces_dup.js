@@ -13,6 +13,10 @@ var namespaces_dup =
       [ "extract_data_from_database", "namespaceextract_data__admin.html#a8304c966b88c402e89e690e8e2a59e37", null ],
       [ "current_directory", "namespaceextract_data__admin.html#a9f56a1818961d4343034ec24b882abec", null ]
     ] ],
+    [ "getSubUsers_admin", "namespaceget_sub_users__admin.html", [
+      [ "extractSubUsers", "namespaceget_sub_users__admin.html#a55eb4b972a93d7cd77e7a43da9a676c2", null ],
+      [ "current_directory", "namespaceget_sub_users__admin.html#a9d4a4848745cbe3c9906f3b00441b26c", null ]
+    ] ],
     [ "leader_req", "namespaceleader__req.html", [
       [ "require_leader_account", "namespaceleader__req.html#a12890ad6c3e76d5f7a3e86268d060bd5", null ]
     ] ],
@@ -75,14 +79,18 @@ var namespaces_dup =
     ] ],
     [ "tokenHandler", "namespacetoken_handler.html", "namespacetoken_handler" ],
     [ "user_model", "namespaceuser__model.html", [
+      [ "admin_update_password_model", "namespaceuser__model.html#ac8e432ee40df3dc0f8716855918bcc51", null ],
       [ "create_rapport_model", "namespaceuser__model.html#a6f1e9ebf1084ea700139617e4f806ab8", null ],
       [ "data_date_num_model", "namespaceuser__model.html#a7e3544acb38c1d0f2c5ef611546b3561", null ],
       [ "delete_model", "namespaceuser__model.html#aa3db2fa38f863bac47eb0a5d6127d93c", null ],
       [ "insert_data_model", "namespaceuser__model.html#ad7249d806c735f3af7479b33362755d4", null ],
       [ "login_model", "namespaceuser__model.html#a67c1d5d2c2d36d3b620cbff37e496c9a", null ],
+      [ "remove_last_row", "namespaceuser__model.html#ad9a4fd43f6debe687a08129570348242", null ],
+      [ "sub_delete_model", "namespaceuser__model.html#a0136ccf41563cc0c565b1c70b85e541b", null ],
       [ "sub_leader_model", "namespaceuser__model.html#aa3580b3ce6067b6dbef1532fb618ff16", null ],
       [ "sub_operator_model", "namespaceuser__model.html#aeebfa88e478caddbd03a352142f243e1", null ],
       [ "update_password_model", "namespaceuser__model.html#afb160a33b44be06ac7c64ed99a1372c0", null ],
+      [ "update_table_data_model", "namespaceuser__model.html#aee55cfb23540e91e74a8ff75920a4f33", null ],
       [ "user_model", "namespaceuser__model.html#a97f49dc3a6a2d16af1cce68bff4e14ff", null ]
     ] ],
     [ "userActivity", "namespaceuser_activity.html", [

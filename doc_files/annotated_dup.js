@@ -20,6 +20,9 @@ var annotated_dup =
           ] ]
         ] ],
         [ "dataHandler", "namespacerapportsystem-backend_1_1_requests_1_1data_handler.html", [
+          [ "dataChanger", "namespacerapportsystem-backend_1_1_requests_1_1data_handler_1_1data_changer.html", [
+            [ "data_changer", "classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_changer_1_1data__changer.html", "classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_changer_1_1data__changer" ]
+          ] ],
           [ "dataExtractor", "namespacerapportsystem-backend_1_1_requests_1_1data_handler_1_1data_extractor.html", [
             [ "data_extractor", "classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_extractor_1_1data__extractor.html", "classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_extractor_1_1data__extractor" ]
           ] ],

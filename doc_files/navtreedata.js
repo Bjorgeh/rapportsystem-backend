@@ -25,33 +25,33 @@
 var NAVTREE =
 [
   [ "Rapportsystem API", "index.html", [
-    [ "Project RapportSystem Backend Setup Guide", "md__r_e_a_d_m_e.html", [
-      [ "Introduction", "md__r_e_a_d_m_e.html#autotoc_md1", null ],
-      [ "Project Context", "md__r_e_a_d_m_e.html#autotoc_md2", null ],
-      [ "Flask API Overview", "md__r_e_a_d_m_e.html#autotoc_md3", null ],
-      [ "SQL Server", "md__r_e_a_d_m_e.html#autotoc_md4", null ],
-      [ "Security Measures", "md__r_e_a_d_m_e.html#autotoc_md5", null ],
-      [ "Getting Started", "md__r_e_a_d_m_e.html#autotoc_md6", [
-        [ "Requirements", "md__r_e_a_d_m_e.html#autotoc_md7", null ]
+    [ "Project RapportSystem Backend Setup Guide", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html", [
+      [ "Introduction", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md1", null ],
+      [ "Project Context", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md2", null ],
+      [ "Flask API Overview", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md3", null ],
+      [ "SQL Server", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md4", null ],
+      [ "Security Measures", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md5", null ],
+      [ "Getting Started", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md6", [
+        [ "Requirements", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md7", null ]
       ] ],
-      [ "Google Account Setup", "md__r_e_a_d_m_e.html#autotoc_md8", [
-        [ "Google Account", "md__r_e_a_d_m_e.html#autotoc_md9", null ],
-        [ "Cloud Platform Account", "md__r_e_a_d_m_e.html#autotoc_md10", null ]
+      [ "Google Account Setup", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md8", [
+        [ "Google Account", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md9", null ],
+        [ "Cloud Platform Account", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md10", null ]
       ] ],
-      [ "Create a VM Instance (Debian/Ubuntu)", "md__r_e_a_d_m_e.html#autotoc_md11", null ],
-      [ "Access the VM", "md__r_e_a_d_m_e.html#autotoc_md12", null ],
-      [ "Install and Set Up MariaDB", "md__r_e_a_d_m_e.html#autotoc_md13", null ],
-      [ "Test MariaDB Connection", "md__r_e_a_d_m_e.html#autotoc_md14", null ],
-      [ "Conclusion", "md__r_e_a_d_m_e.html#autotoc_md15", null ],
-      [ "Execute SQL Commands to Set Up a Database and Tables", "md__r_e_a_d_m_e.html#autotoc_md16", null ],
-      [ "Install", "md__r_e_a_d_m_e.html#autotoc_md17", null ],
-      [ "Conclusion", "md__r_e_a_d_m_e.html#autotoc_md18", null ],
-      [ "Install Python, Frameworks, and Requirements", "md__r_e_a_d_m_e.html#autotoc_md19", null ],
-      [ "Setup the Screen Plugin for Linux", "md__r_e_a_d_m_e.html#autotoc_md20", null ],
-      [ "Conclusion", "md__r_e_a_d_m_e.html#autotoc_md21", null ],
-      [ "Interacting with Swagger UI for Your API", "md__r_e_a_d_m_e.html#autotoc_md22", null ],
-      [ "Conclusion", "md__r_e_a_d_m_e.html#autotoc_md23", null ],
-      [ "Using the API in browser:", "md__r_e_a_d_m_e.html#autotoc_md24", null ]
+      [ "Create a VM Instance (Debian/Ubuntu)", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md11", null ],
+      [ "Access the VM", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md12", null ],
+      [ "Install and Set Up MariaDB", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md13", null ],
+      [ "Test MariaDB Connection", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md14", null ],
+      [ "Conclusion", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md15", null ],
+      [ "Execute SQL Commands to Set Up a Database and Tables", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md16", null ],
+      [ "Install", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md17", null ],
+      [ "Conclusion", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md18", null ],
+      [ "Install Python, Frameworks, and Requirements", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md19", null ],
+      [ "Setup the Screen Plugin for Linux", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md20", null ],
+      [ "Conclusion", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md21", null ],
+      [ "Interacting with Swagger UI for Your API", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md22", null ],
+      [ "Conclusion", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md23", null ],
+      [ "Using the API in browser:", "md__c_1_2rapportsystem-backend_2_r_e_a_d_m_e.html#autotoc_md24", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -79,8 +79,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "____init_____8py.html",
-"create_user_8py.html",
-"pw__manager_8py.html#a82cddc30cc2df8b4398192c0b35c37de"
+"classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_insertor_1_1_data__insertor.html#abb43e4ed4d1a07905e054f05055bf5f1",
+"namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1insert_data.html#ad4e2ed6b449b467610d13ffc34b434aa"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

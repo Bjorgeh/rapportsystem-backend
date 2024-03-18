@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Rapportsystem API: Requests/POST_R/insertData.py Source File</title>
+<title>Rapportsystem API: C:/rapportsystem-backend/Requests/POST_R/insertData.py Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -148,18 +148,23 @@ $(function(){initNavTree('insert_data_8py_source.html',''); initResizable(); });
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            data = request.get_json()</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            current_user = get_jwt_identity()</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="comment">#gets data from request -&gt; table &amp; data</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="comment"># get the table name and data from the request</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            table_name = data[<span class="stringliteral">&#39;table_name&#39;</span>]</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            main_data = data[<span class="stringliteral">&#39;data&#39;</span>]</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            print(<span class="stringliteral">&quot;NOW: &quot;</span> + current_user[<span class="stringliteral">&quot;email&quot;</span>] + <span class="stringliteral">&quot; is trying to insert data into table: &quot;</span> + table_name + <span class="stringliteral">&quot; with data: &quot;</span> + str(main_data))</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="comment">#checks if data is provided</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> data:</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                <span class="keywordflow">return</span> {<span class="stringliteral">&quot;Error&quot;</span>: <span class="stringliteral">&quot;No data provided&quot;</span>}</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="comment">#Returns the result of the insertData function &amp; inserts data into database</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="keywordflow">return</span> {<span class="stringliteral">&quot;Message&quot;</span>:dataIns.Data_insertor(table_name,main_data).insertData()}</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="comment"># check if forbidden keys are present in the data</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">if</span> any(key <span class="keywordflow">in</span> main_data <span class="keywordflow">for</span> key <span class="keywordflow">in</span> [<span class="stringliteral">&#39;date&#39;</span>, <span class="stringliteral">&#39;time&#39;</span>, <span class="stringliteral">&#39;id&#39;</span>, <span class="stringliteral">&#39;sum_price&#39;</span>, <span class="stringliteral">&#39;total_weight_melt&#39;</span>, <span class="stringliteral">&#39;sum_kwh_used&#39;</span>]):</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                <span class="keywordflow">return</span> {<span class="stringliteral">&quot;Error&quot;</span>: <span class="stringliteral">&quot;Date, Time, ID, and columns with generated values should not be provided.&quot;</span>}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            print(<span class="stringliteral">&quot;NOW: &quot;</span> + current_user[<span class="stringliteral">&quot;email&quot;</span>] + <span class="stringliteral">&quot; is trying to insert data into table: &quot;</span> + table_name + <span class="stringliteral">&quot; with data: &quot;</span> + str(main_data))</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="comment"># check if the main_data is empty</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> main_data:</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keywordflow">return</span> {<span class="stringliteral">&quot;Error&quot;</span>: <span class="stringliteral">&quot;No data provided&quot;</span>}</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="comment"># return the result of the insertData function</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">return</span> {<span class="stringliteral">&quot;Message&quot;</span>:dataIns.Data_insertor(table_name, main_data).insertData()}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                </div>
 </div>
 <div class="ttc" id="anamespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1insert_data_html_a8e99aabdaeec96d708cd44c68cc20e81"><div class="ttname"><a href="namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1insert_data.html#a8e99aabdaeec96d708cd44c68cc20e81">rapportsystem-backend.Requests.POST_R.insertData.insert_data</a></div><div class="ttdeci">insert_data(ns)</div><div class="ttdef"><b>Definition</b> <a href="#l00020">insertData.py:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -167,7 +172,7 @@ $(function(){initNavTree('insert_data_8py_source.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_7d8b53ffc17c83806016099b465eb08e.html">Requests</a></li><li class="navelem"><a class="el" href="dir_3e6462ae71772b4f53adae76094eecca.html">POST_R</a></li><li class="navelem"><a class="el" href="insert_data_8py.html">insertData.py</a></li>
+    <li class="navelem"><a class="el" href="dir_63aeb441d4f1abbf2e63d86bee4ca9d3.html">rapportsystem-backend</a></li><li class="navelem"><a class="el" href="dir_1c57c3c2a06fc54c7760fb285297a7fe.html">Requests</a></li><li class="navelem"><a class="el" href="dir_5c7138843298848fa0fc40381ea77758.html">POST_R</a></li><li class="navelem"><a class="el" href="insert_data_8py.html">insertData.py</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>

@@ -46,6 +46,25 @@ def update_password_model(api):
         },
     )
 
+# defines pw model
+def admin_update_password_model(api):
+    return api.model(
+        "Update users password",
+        {
+            "username": fields.String(
+                required=True, description="username", example="lars.nordmann@viken.no"
+            ),
+            "password1": fields.String(
+                required=True, description="New Password", example="EpicPassword69"
+            ),
+            "password2": fields.String(
+                required=True,
+                description="Confirmed Password",
+                example="EpicPassword69",
+            ),
+        },
+    )
+
 # defines delete model
 def delete_model(api):
     return api.model(
@@ -56,6 +75,17 @@ def delete_model(api):
             ),
             "password": fields.String(
                 required=True, description="User password", example="EpicPassword69"
+            ),
+        },
+    )
+
+# defines delete model
+def sub_delete_model(api):
+    return api.model(
+        "Delete subuser",
+        {
+            "username": fields.String(
+                required=True, description="User email", example="lars.nordmann@viken.no"
             ),
         },
     )

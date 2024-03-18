@@ -22,10 +22,12 @@ from Requests.GET_R import tableDescription_admin as extract_table_description_f
 from Requests.GET_R import test_leader as get_test_leader
 from Requests.GET_R import test_operator as get_test_operator
 from Requests.GET_R import tableDescription_users as get_users_table_description
+from Requests.GET_R import getSubUsers_admin as get_subUsers_admin
 #Post-requests
 from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
 from Requests.POST_R import updatePassword as post_updatePassword
+from Requests.POST_R import adminUpdateUsersPass as post_adminUpdateUsersPass
 from Requests.POST_R import deleteUser as post_deleteUser
 from Requests.POST_R import createRapport as post_createRapport
 from Requests.POST_R import insertData as post_insertData
@@ -34,6 +36,7 @@ from Requests.POST_R import adminCreateSubOperator as post_createOperatorSubUser
 from Requests.POST_R import extractPreciseData as post_extractPreciseData
 from Requests.POST_R import deleteLastRapport as post_deleteLastRapport
 from Requests.POST_R import changeDataInRapport as post_changeDataInRapport
+from Requests.POST_R import adminDeleteUser as post_adminDeleteUser
 
 #imports secret.py
 from SQLConnections import secret as Secret
@@ -152,14 +155,19 @@ get_test_admin.test_admin_route(admin_get)
 extract_data_from_database.extract_data_from_database(admin_get)
 #Extract table description from database
 extract_table_description_from_database.extract_table_description_from_database(admin_get)
-
+#Extract sub users
+get_subUsers_admin.extractSubUsers(admin_get)
 '''POST - api/admin/post'''
 #Create Rapport route
-post_createRapport.createRapport(admin_post)
+#post_createRapport.createRapport(admin_post)
 #Create leader sub user route
 post_createLeaderSubUser.create_sub_leader(admin_post)
 #Create operator sub user route
 post_createOperatorSubUser.create_sub_operator(admin_post)
+#Update users password route
+post_adminUpdateUsersPass.admin_update_password_route(admin_post)
+#Delete user route
+post_adminDeleteUser.admin_delete_subuser_route(admin_post)
 
 '''
   --------------------------                       

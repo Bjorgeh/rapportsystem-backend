@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Rapportsystem API: authorization/apiKeyAuth.py Source File</title>
+<title>Rapportsystem API: C:/rapportsystem-backend/authorization/apiKeyAuth.py Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -101,35 +101,20 @@ $(function(){initNavTree('api_key_auth_8py_source.html',''); initResizable(); })
   <div class="headertitle"><div class="title">apiKeyAuth.py</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="api_key_auth_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceapi_key_auth.html#a4c4b2367f41242c42790717769464f82">    1</a></span>API_KEY_SETTINGS = {</div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral">    Settings for the API key.</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="stringliteral">    This dictionary contains the settings for the API key used for authentication.</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="stringliteral">    It specifies the type of authentication, where the API key is expected (in the header),</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="stringliteral">    and the name of the header field where the API key should be placed.</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="stringliteral">    :param apiKey: The type of API key.</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="stringliteral">    :type apiKey: str</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="stringliteral">    :param type: The type of authentication (in this case, &#39;apiKey&#39;).</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="stringliteral">    :type type: str</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="stringliteral">    :param in: The location of the API key (&#39;header&#39; for this example).</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="stringliteral">    :type in: str</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="stringliteral">    :param name: The name of the header field where the API key should be placed.</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="stringliteral">    :type name: str</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="stringliteral">&#39;apiKey&#39;</span>: {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;apiKey&#39;</span>,</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="stringliteral">&#39;in&#39;</span>: <span class="stringliteral">&#39;header&#39;</span>,</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="stringliteral">&#39;name&#39;</span>: <span class="stringliteral">&#39;x-api-key&#39;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
+<a href="api_key_auth_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceapi_key_auth.html">    1</a></span><span class="comment">#settings for api key</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno"><a class="line" href="namespaceapi_key_auth.html#a4c4b2367f41242c42790717769464f82">    2</a></span>API_KEY_SETTINGS = {</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span>    <span class="stringliteral">&#39;apiKey&#39;</span>: {</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>        <span class="stringliteral">&#39;type&#39;</span>: <span class="stringliteral">&#39;apiKey&#39;</span>,</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>        <span class="stringliteral">&#39;in&#39;</span>: <span class="stringliteral">&#39;header&#39;</span>,</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>        <span class="stringliteral">&#39;name&#39;</span>: <span class="stringliteral">&#39;x-api-key&#39;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    }</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d5488af941fcf588fbd435d21eb9c848.html">authorization</a></li><li class="navelem"><a class="el" href="api_key_auth_8py.html">apiKeyAuth.py</a></li>
+    <li class="navelem"><a class="el" href="dir_63aeb441d4f1abbf2e63d86bee4ca9d3.html">rapportsystem-backend</a></li><li class="navelem"><a class="el" href="dir_9fce0fb36300f58ccbc69557b16a4af7.html">authorization</a></li><li class="navelem"><a class="el" href="api_key_auth_8py.html">apiKeyAuth.py</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
