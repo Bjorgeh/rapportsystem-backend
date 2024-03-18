@@ -45,7 +45,7 @@
 <text text-anchor="start" x="26" y="-38.5" font-family="Helvetica,sans-Serif" font-size="10.00">remove_session_id()</text>
 <text text-anchor="start" x="10" y="-22.5" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
 <text text-anchor="start" x="26" y="-22.5" font-family="Helvetica,sans-Serif" font-size="10.00">get_active_session()</text>
-<text text-anchor="start" x="26" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 43 more...</text>
+<text text-anchor="start" x="26" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">and 47 more...</text>
 <polygon fill="#666666" stroke="#666666" points="0,-194 0,-194 150,-194 150,-194 0,-194"/>
 <polygon fill="#666666" stroke="#666666" points="0,-178 0,-178 150,-178 150,-178 0,-178"/>
 <polygon fill="none" stroke="#666666" points="0,0 0,-212 150,-212 150,0 0,0"/>

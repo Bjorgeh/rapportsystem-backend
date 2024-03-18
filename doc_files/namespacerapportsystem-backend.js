@@ -1,6 +1,7 @@
 var namespacerapportsystem_backend =
 [
     [ "API", "namespacerapportsystem-backend_1_1_a_p_i.html", [
+      [ "serve_index", "namespacerapportsystem-backend_1_1_a_p_i.html#a0359bd690857140bbd93aef7e12c349b", null ],
       [ "admin_get", "namespacerapportsystem-backend_1_1_a_p_i.html#aaa9ed00b026ceaf0be652a50e399fcfe", null ],
       [ "admin_post", "namespacerapportsystem-backend_1_1_a_p_i.html#afb828bb2a6b8de2894c33680a76ea1e1", null ],
       [ "api", "namespacerapportsystem-backend_1_1_a_p_i.html#aca12019ced529b33f98ce99a36f153e6", null ],

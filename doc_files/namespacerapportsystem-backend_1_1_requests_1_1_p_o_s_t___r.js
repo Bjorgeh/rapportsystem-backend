@@ -8,6 +8,23 @@ var namespacerapportsystem_backend_1_1_requests_1_1_p_o_s_t___r =
       [ "create_sub_operator", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_create_sub_operator.html#af92b39f1d28f8cb8c1b32fafd547caba", null ],
       [ "current_directory", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_create_sub_operator.html#a520a19b8b396d3da90edc13ac2d91f79", null ]
     ] ],
+    [ "adminDeleteUser", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_delete_user.html", [
+      [ "admin_delete_subuser_route", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_delete_user.html#a1cb9c1c9b1793f680875e2df747aab93", null ],
+      [ "delete_user_tokens", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_delete_user.html#abd0e2139a1b8df83905b005201c44191", null ],
+      [ "get_user_id", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_delete_user.html#a4edecb0fb6e2483cf01f16577b9dc7b3", null ],
+      [ "remove_SQL_account", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_delete_user.html#aab1e35b9c30b832ac340165622b79dcc", null ],
+      [ "remove_user_account", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_delete_user.html#a949291ea7f4826d2f8b727f6ad65dcbc", null ],
+      [ "current_directory", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_delete_user.html#a84ba76caa2f9bcf4e9c130fd07feffd0", null ]
+    ] ],
+    [ "adminUpdateUsersPass", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_update_users_pass.html", [
+      [ "admin_update_password_route", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_update_users_pass.html#acfbe7d6865dff92553f5ae72b8355d8a", null ],
+      [ "updatePassword", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_update_users_pass.html#a27422ac538403bc67ceaacb17d00cdc0", null ],
+      [ "current_directory", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1admin_update_users_pass.html#a16ed5b8c2b69c37a475d06285b4f8456", null ]
+    ] ],
+    [ "changeDataInRapport", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1change_data_in_rapport.html", [
+      [ "change_data", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1change_data_in_rapport.html#abbd87cc59ac4e14ddeeecf5ca490d299", null ],
+      [ "current_directory", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1change_data_in_rapport.html#accb5231cde6ea1afbbf94d646a01b408", null ]
+    ] ],
     [ "createRapport", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1create_rapport.html", [
       [ "createRapport", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1create_rapport.html#a872cdd74402d7f7ec24519af739f3225", null ],
       [ "current_directory", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1create_rapport.html#a3ee2b328f3a35b21a3ffebaaa3d1f463", null ]
@@ -15,6 +32,10 @@ var namespacerapportsystem_backend_1_1_requests_1_1_p_o_s_t___r =
     [ "createUser", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1create_user.html", [
       [ "create_user", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1create_user.html#ada4b144ee215c13c644fcc36ee024371", null ],
       [ "current_directory", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1create_user.html#ad4f007410f4b99f7666357770129f208", null ]
+    ] ],
+    [ "deleteLastRapport", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1delete_last_rapport.html", [
+      [ "delete_last_row", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1delete_last_rapport.html#af809b06e14d7ab4b3a0bfa5a6559772e", null ],
+      [ "current_directory", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1delete_last_rapport.html#a9ae0edae7348da52b5290f589bf4c4dc", null ]
     ] ],
     [ "deleteUser", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1delete_user.html", [
       [ "delete_user_route", "namespacerapportsystem-backend_1_1_requests_1_1_p_o_s_t___r_1_1delete_user.html#a28df8c738a39c243e3d3e962585057bf", null ],

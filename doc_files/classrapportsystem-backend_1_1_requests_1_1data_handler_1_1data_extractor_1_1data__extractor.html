@@ -103,7 +103,7 @@ $(function(){initNavTree('classrapportsystem-backend_1_1_requests_1_1data_handle
 <div class="dynheader">
 Collaboration diagram for rapportsystem-backend.Requests.dataHandler.dataExtractor.data_extractor:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_extractor_1_1data__extractor__coll__graph.svg" width="248" height="203"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classrapportsystem-backend_1_1_requests_1_1data_handler_1_1data_extractor_1_1data__extractor__coll__graph.svg" width="248" height="224"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -118,6 +118,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac27955ba0e9718d6dc0553e4ba54d417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5920c87063006a15b11fb98245b70be4" id="r_a5920c87063006a15b11fb98245b70be4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5920c87063006a15b11fb98245b70be4">getDatabaseName</a> (self, email)</td></tr>
 <tr class="separator:a5920c87063006a15b11fb98245b70be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8e664c36782cfd16ebc09e2101d3821" id="r_ad8e664c36782cfd16ebc09e2101d3821"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8e664c36782cfd16ebc09e2101d3821">getAllSubUsers</a> (self)</td></tr>
+<tr class="separator:ad8e664c36782cfd16ebc09e2101d3821"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -125,14 +127,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:ae80ea9777ffc134db4587a2884b54d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">A class for extracting data from the database.
-
-This class provides methods to extract table descriptions and data
-from the database.
-
-Attributes:
-    None
-</pre> 
+<div class="textblock">
 <p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00009">9</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a87bba1968889b4cfb64f724c4db9ecd2" name="a87bba1968889b4cfb64f724c4db9ecd2"></a>
@@ -149,13 +144,8 @@ Attributes:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Initializes an instance of the data_extractor class.
 
-:param self: The data_extractor object.
-:type self: data_extractor
-:return: None
-</pre> 
-<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00019">19</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00010">10</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
 
 </div>
 </div>
@@ -186,14 +176,8 @@ Attributes:
   </tr>
 </table>
 </div><div class="memdoc">
-<pre class="fragment">Parses a date string into a datetime object.
 
-:param date_str: The date string to parse.
-:type date_str: str
-:return: A datetime object representing the parsed date, or None if parsing fails.
-:rtype: datetime or None
-</pre> 
-<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00147">147</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00115">115</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
 
 </div>
 </div>
@@ -215,14 +199,8 @@ Attributes:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Extracts data from all tables in the user's database.
 
-:param email: The email of the user.
-:type email: str
-:return: A dictionary containing table names and their respective data.
-:rtype: dict
-</pre> 
-<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00086">86</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00062">62</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
 
 </div>
 </div>
@@ -264,22 +242,8 @@ Attributes:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Extracts data from a specified table in the user's database.
 
-:param email: The email of the user.
-:type email: str
-:param table_name: The name of the table from which to extract data.
-:type table_name: str
-:param start_date: The start date for extracting data (optional).
-:type start_date: str or None
-:param stop_date: The stop date for extracting data (optional).
-:type stop_date: str or None
-:param num_rows: The number of rows to extract (optional).
-:type num_rows: int or None
-:return: A dictionary containing the extracted data.
-:rtype: dict
-</pre> 
-<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00161">161</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00121">121</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -306,14 +270,27 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Extracts the description of tables in the user's database.
 
-:param email: The email of the user.
-:type email: str
-:return: A dictionary containing the table names and their descriptions.
-:rtype: dict
-</pre> 
-<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00029">29</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00013">13</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
+
+</div>
+</div>
+<a id="ad8e664c36782cfd16ebc09e2101d3821" name="ad8e664c36782cfd16ebc09e2101d3821"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e664c36782cfd16ebc09e2101d3821">&#9670;&#160;</a></span>getAllSubUsers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rapportsystem-backend.Requests.dataHandler.dataExtractor.data_extractor.getAllSubUsers </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00205">205</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
 
 </div>
 </div>
@@ -335,14 +312,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Extracts the name of the user's database.
 
-:param email: The email of the user.
-:type email: str
-:return: The name of the user's database.
-:rtype: str
-</pre> 
-<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00233">233</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="data_extractor_8py_source.html#l00177">177</a> of file <a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -352,7 +323,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Requests/dataHandler/<a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a></li>
+<li>C:/rapportsystem-backend/Requests/dataHandler/<a class="el" href="data_extractor_8py_source.html">dataExtractor.py</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

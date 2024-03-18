@@ -358,6 +358,10 @@ class SQLQueries:
         query = f"DELETE FROM {table_name} ORDER BY id DESC LIMIT 1;"
         return query, None
 
-
+    @staticmethod
+    def get_all_sub_users(email):
+        query = "SELECT email, accountType FROM user_info WHERE creator_name = %s;"
+        params = (email,)
+        return query, params
 
 
