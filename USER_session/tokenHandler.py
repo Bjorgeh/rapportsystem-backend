@@ -1,4 +1,5 @@
 import uuid
+import datetime
 from flask_jwt_extended import create_access_token, get_jwt_identity, get_jwt
 from flask import request
 from SQLAdminConnections import SQL_AdminConnector as SQLC
@@ -9,9 +10,10 @@ class UserTokenHandler:
         pass
 
     # Generates a JWT for a given user
-    def login(self, user_id):
+    def login(self, user_id, expiry_minutes=60):
         additional_claims = {"user_id": user_id}
-        access_token = create_access_token(identity=user_id, additional_claims=additional_claims)
+        expiry = datetime.timedelta(minutes=expiry_minutes)
+        access_token = create_access_token(identity=user_id, additional_claims=additional_claims, expires_delta=expiry)
         jti = get_jwt()["jti"]  # Extracting the JTI from the token
         self.store_token(user_id, jti)  # Storing the token's JTI in the database
         return access_token
