@@ -67,7 +67,7 @@ def updatePassword(user_id, email, new_password1, new_password2):
     connection.connect()
     connection.execute_query(SQLQ.SQLQueries.use_users_database())
     connection.execute_query(SQLQ.SQLQueries.update_user_login_password(user_id, hashed_password))
-    connection.execute_query(SQLQ.SQLQueries.update_sql_user_password(email, hashed_password))
+    connection.execute_query(SQLQ.SQLQueries.update_sql_user_password(email, new_password1))
     connection.execute_query(SQLQ.SQLQueries.flush_privileges())
     connection.cnx.commit()
     connection.close()
