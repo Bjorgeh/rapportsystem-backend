@@ -278,7 +278,7 @@ class SQLQueries:
 
     @staticmethod
     def create_smelteRapport_table(table_name):
-        query = f"CREATE TABLE {table_name} (id INT NOT NULL AUTO_INCREMENT, furnace_number INT NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, kg_returns FLOAT NOT NULL, kg_scrap_metal FLOAT NOT NULL, total_weight_melt FLOAT GENERATED ALWAYS AS (kg_returns - kg_scrap_metal) VIRTUAL, kg_carbon FLOAT NOT NULL, kg_ore FLOAT NOT NULL, kg_fesi FLOAT NOT NULL, kg_fep FLOAT NOT NULL, kwh_pre_melt DOUBLE NOT NULL, kwh_post_melt DOUBLE NOT NULL, sum_kwh_used DOUBLE GENERATED ALWAYS AS (kwh_pre_melt + kwh_post_melt) VIRTUAL, PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);"
+        query = f"CREATE TABLE {table_name} (id INT NOT NULL AUTO_INCREMENT, furnace_number INT NOT NULL, date DATE DEFAULT CURRENT_DATE, time TIME DEFAULT CURRENT_TIME, kg_returns FLOAT NOT NULL, kg_scrap_metal FLOAT NOT NULL, total_weight_melt FLOAT GENERATED ALWAYS AS (kg_returns + kg_scrap_metal) VIRTUAL, kg_carbon FLOAT NOT NULL, kg_ore FLOAT NOT NULL, kg_fesi FLOAT NOT NULL, kg_fep FLOAT NOT NULL, kwh_pre_melt DOUBLE NOT NULL, kwh_post_melt DOUBLE NOT NULL, sum_kwh_used DOUBLE GENERATED ALWAYS AS (kwh_pre_melt - kwh_post_melt) VIRTUAL, PRIMARY KEY (id), UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);"
         return query, None
 
     @staticmethod
