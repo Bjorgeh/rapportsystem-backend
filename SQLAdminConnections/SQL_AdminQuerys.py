@@ -357,6 +357,11 @@ class SQLQueries:
     def delete_last_row_by_id(table_name):
         query = f"DELETE FROM {table_name} ORDER BY id DESC LIMIT 1;"
         return query, None
+    
+    @staticmethod
+    def get_last_row_by_id(table_name):
+        query = f"SELECT * FROM {table_name} ORDER BY id DESC LIMIT 1;"
+        return query, None
 
     @staticmethod
     def get_all_sub_users(email):

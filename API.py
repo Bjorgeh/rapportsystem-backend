@@ -23,6 +23,8 @@ from Requests.GET_R import test_leader as get_test_leader
 from Requests.GET_R import test_operator as get_test_operator
 from Requests.GET_R import tableDescription_users as get_users_table_description
 from Requests.GET_R import getSubUsers_admin as get_subUsers_admin
+from Requests.POST_R import extractLastData_users as extract_latest_data_from_database
+
 #Post-requests
 from Requests.POST_R import login as post_login
 from Requests.POST_R import createUser as post_createUser
@@ -183,6 +185,7 @@ get_test_leader.test_leader_route(leader_get)
 #POST
 post_deleteLastRapport.delete_last_row(leader_post)
 post_changeDataInRapport.change_data(leader_post)
+extract_latest_data_from_database.extract_last_data_from_database(leader_post)
 
 
 '''

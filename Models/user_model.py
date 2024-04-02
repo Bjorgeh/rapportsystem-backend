@@ -192,3 +192,14 @@ def update_table_data_model(api):
             ),
         },
     )
+
+# defines last report data model
+def get_last_row(api):
+    return api.model(
+        "Get last data",
+        {
+            "table_name": fields.String(
+                required=True, description="Name of the rapport where last data will be read. Get your rapportname from: /api/user/get/rapportInfo", example="BorreproveRapport"
+            )
+        }
+    )
