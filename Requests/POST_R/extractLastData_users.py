@@ -11,7 +11,7 @@ sys.path.append(os.path.join(current_directory))
 #Imports user model
 from Models import user_model as UM
 #imports requirements
-from Common.Requirements.leader_req import require_leader_account
+from Common.Requirements.leader_admin import require_leader_or_admin_account
 from Common.Requirements import valid_token as vt
 from flask_jwt_extended import jwt_required, get_jwt_identity
 #imports dataExtractor
@@ -32,7 +32,7 @@ def extract_last_data_from_database(ns):
         #requirement for leader account & requires valid jwt token
         @jwt_required()
         @vt.require_valid_token
-        @require_leader_account
+        @require_leader_or_admin_account
         
         def post(self):
             current_user = get_jwt_identity()
