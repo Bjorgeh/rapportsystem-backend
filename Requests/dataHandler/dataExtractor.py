@@ -235,3 +235,49 @@ class data_extractor:
             connection.cnx.close()
             connection.close()
             return result_dict
+        
+    def extractLastData(self, email, table_name):
+        connection = None  # Initialize connection variable to None
+        try:
+            dbName= email.replace("@", "_").replace(".", "_")
+            result_dict = {}
+
+            userDatabaseLogin = get_jwt_identity()
+
+            # Define connection variable first            
+            connection = SQLC.SQLConAdmin(None, userDatabaseLogin['email'], userDatabaseLogin['password'], userDatabaseLogin['db_name'])
+            connection.connect()
+            print("Connected to the database")
+
+            # Use the specified database
+            use_database_query = SQLQ.SQLQueries.use_database(self.getDatabaseName(email))
+            connection.execute_query(use_database_query)
+
+            query = SQLQ.SQLQueries.get_last_row_by_id(table_name)
+
+            # Get the data from the table
+            data_in_table = connection.execute_query(query)
+
+            # Get the table description
+            table_description = connection.execute_query(SQLQ.SQLQueries.getTableDescription(table_name))
+            table_description = {col[0]: str(col[1]) if isinstance(col[1], (datetime, date, time, timedelta, Decimal)) else col[1] for col in table_description}
+
+            # Convert datetime objects to strings in the data
+            data_in_table = [dict(zip(table_description.keys(), (str(value) if isinstance(value, (datetime, date, time, timedelta, Decimal)) else value for value in row))) for row in data_in_table]
+
+            # Add the data to the dictionary
+            result_dict[table_name] = {"Data": data_in_table}
+
+        except Exception as e:
+            # Log the exception for better error tracking
+            print(e)
+            return {"Error": f"Error when extracting data from the database for table: {table_name}"}
+
+        finally:
+            # Close the connection if it's not None
+            if connection:
+                print("Closing the connection")
+                connection.cnx.close()
+                connection.close()
+
+        return result_dict
