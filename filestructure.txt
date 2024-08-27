@@ -1,0 +1,213 @@
+│   .gitignore
+│   API.py
+│   api.py.current.drawio
+│   index.html
+│   README.md
+│   __init__.py
+│
+├───.vscode
+│       settings.json
+│
+├───authorization
+│   │   apiKeyAuth.py
+│   │   api_key.py
+│   │   login_validation.py
+│   │   login_validation.py.current.drawio
+│   │
+│   └───__pycache__
+│           api_key.cpython-312.pyc
+│           login_validation.cpython-312.pyc
+│
+├───Common
+│   ├───Requirements
+│   │   │   admin_req.py
+│   │   │   admin_req.py.current.drawio
+│   │   │   leader_admin.py
+│   │   │   leader_req.py
+│   │   │   operator_req.py
+│   │   │   valid_token.py
+│   │   │   valid_token.py.current.drawio
+│   │   │   __init__,py
+│   │   │
+│   │   └───__pycache__
+│   │           admin_req.cpython-312.pyc
+│   │           leader_req.cpython-312.pyc
+│   │           operator_req.cpython-312.pyc
+│   │           session_req.cpython-312.pyc
+│   │           valid_token.cpython-312.pyc
+│   │
+│   └───temp
+├───flask_session
+│       087a44b55bfc1c49d60f8b0c5fb3f9f4....
+│
+├───Models
+│   │   user_model.py
+│   │   user_model.py.current.drawio
+│   │
+│   └───__pycache__
+│           user_model.cpython-312.pyc
+│
+├───PW_hashHandler
+│   │   pw_manager.py
+│   │   pw_manager.py.current.drawio
+│   │
+│   └───__pycache__
+│           pw_manager.cpython-312.pyc
+│
+├───Requests
+│   │   __init__.py
+│   │
+│   ├───CreateRapport
+│   │   │   RapportMaker.py
+│   │   │   RapportMaker.py.current.drawio
+│   │   │   __init__.py
+│   │   │
+│   │   └───__pycache__
+│   │           RapportMaker.cpython-312.pyc
+│   │           __init__.cpython-312.pyc
+│   │
+│   ├───dataHandler
+│   │   │   dataChanger.py
+│   │   │   dataExtractor.py
+│   │   │   dataInsertor.py
+│   │   │   tableInfoExtractor.py
+│   │   │   __init__.py
+│   │   │
+│   │   └───__pycache__
+│   │           dataChanger.cpython-312.pyc
+│   │           dataExtractor.cpython-312.pyc
+│   │           dataInsertor.cpython-312.pyc
+│   │           tableInfoExtractor.cpython-312.pyc
+│   │           __init__.cpython-312.pyc
+│   │
+│   ├───GET_R
+│   │   │   extractData_admin.py
+│   │   │   getSubUsers_admin.py
+│   │   │   logout.py
+│   │   │   logout.py.current.drawio
+│   │   │   tableDescription_admin.py
+│   │   │   tableDescription_users.py
+│   │   │   test.py
+│   │   │   test.py.current.drawio
+│   │   │   test_admin.py
+│   │   │   test_admin.py.current.drawio
+│   │   │   test_leader.py
+│   │   │   test_operator.py
+│   │   │   userActivity.py
+│   │   │   userActivity.py.current.drawio
+│   │   │   userInfo.py
+│   │   │
+│   │   └───__pycache__
+│   │           extractData.cpython-312.pyc
+│   │           extractData_admin.cpython-312.pyc
+│   │           extractLastData_users.cpython-312.pyc
+│   │           getSubUsers_admin.cpython-312.pyc
+│   │           logout.cpython-312.pyc
+│   │           tableDescription_admin.cpython-312.pyc
+│   │           tableDescription_users.cpython-312.pyc
+│   │           test.cpython-312.pyc
+│   │           test_admin.cpython-312.pyc
+│   │           test_leader.cpython-312.pyc
+│   │           test_operator.cpython-312.pyc
+│   │           userActivity.cpython-312.pyc
+│   │           userInfo.cpython-312.pyc
+│   │
+│   ├───POST_R
+│   │   │   adminCreateSubLeader.py
+│   │   │   adminCreateSubOperator.py
+│   │   │   adminDeleteUser.py
+│   │   │   adminUpdateUsersPass.py
+│   │   │   changeDataInRapport.py
+│   │   │   createRapport.py
+│   │   │   createUser.py
+│   │   │   deleteLastRapport.py
+│   │   │   deleteUser.py
+│   │   │   extractLastData_users.py
+│   │   │   extractPreciseData.py
+│   │   │   insertData.py
+│   │   │   login.py
+│   │   │   updatePassword.py
+│   │   │   __init__.py
+│   │   │
+│   │   └───__pycache__
+│   │           adminCreateSubLeader.cpython-312.pyc
+│   │           adminCreateSubOperator.cpython-312.pyc
+│   │           adminCreateSubUser.cpython-312.pyc
+│   │           adminDeleteUser.cpython-312.pyc
+│   │           adminUpdateUsersPass.cpython-312.pyc
+│   │           changeDataInRapport.cpython-312.pyc
+│   │           createDisaRapport.cpython-312.pyc
+│   │           createRapport.cpython-312.pyc
+│   │           createUser.cpython-312.pyc
+│   │           deleteLastRapport.cpython-312.pyc
+│   │           deleteUser.cpython-312.pyc
+│   │           extractLastData_users.cpython-312.pyc
+│   │           extractPreciseData.cpython-312.pyc
+│   │           insertData.cpython-312.pyc
+│   │           insertData_admin.cpython-312.pyc
+│   │           login.cpython-312.pyc
+│   │           updatePassword.cpython-312.pyc
+│   │           __init__.cpython-312.pyc
+│   │
+│   └───__pycache__
+│           documentationRoute.cpython-312.pyc
+│           __init__.cpython-312.pyc
+│
+├───SQLAdminConnections
+│   │   SQL_AdminConnector.py
+│   │   SQL_AdminConnector.py.current.drawio
+│   │   SQL_AdminQuerys.py
+│   │   SQL_AdminQuerys.py.current.drawio
+│   │   SQL_CreateNewAdminUser.py
+│   │   SQL_CreateNewAdminUser.py.current.drawio
+│   │   SQL_CreateNewLeaderUser.py
+│   │   SQL_CreateNewLeaderUser.py.current.drawio
+│   │   SQL_CreateNewOperatorUser.py
+│   │   SQL_CreateNewOperatorUser.py.current.drawio
+│   │
+│   └───__pycache__
+│           SQL_AdminConnector.cpython-312.pyc
+│           SQL_AdminQuerys.cpython-312.pyc
+│           SQL_CreateNewAdminUser.cpython-312.pyc
+│           SQL_CreateNewLeaderUser.cpython-312.pyc
+│           SQL_CreateNewOperatorUser.cpython-312.pyc
+│
+├───SQLConnections
+│   │   s3cr3t.current.drawio
+│   │   secret.py
+│   │
+│   └───__pycache__
+│           secret.cpython-312.pyc
+│
+├───SQL_setup
+│       reporttables.sql
+│       Sql.setup.current.jpg
+│       Sql.setup.reports.jpg
+│       userdatabase.sql
+│
+├───USER_Functions
+│       Admin_functions.py
+│       Leader_functions.py
+│       Operator_functions.py
+│       __init__.py
+│
+├───USER_obj
+│   │   new_sub_user.py
+│   │   new_user.py
+│   │   new_user.py.current.drawio
+│   │
+│   └───__pycache__
+│           new_sub_user.cpython-312.pyc
+│           new_user.cpython-312.pyc
+│           users.cpython-312.pyc
+│
+├───USER_session
+│   │   tokenHandler.py
+│   │   tokenHandler.py.current.drawio
+│   │
+│   └───__pycache__
+│           sessionhandler.cpython-312.pyc
+│           tokenHandler.cpython-312.pyc
+│
+└───__pycache__
+        API.cpython-312.pyc
